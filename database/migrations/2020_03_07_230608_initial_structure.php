@@ -64,8 +64,10 @@ class InitialStructure extends Migration {
      */
     public function down() {
         Schema::dropIfExists('workshops');
+        Schema::dropIfExists('atividades');
+        Schema::dropIfExists('docentes');
         Schema::dropIfExists('workshops_atividades');
-        Schema::dropIfExists('atividade_dia_estg');
+        Schema::dropIfExists('docentes_atividade');
         Schema::dropIfExists('contactos');
     }
 }
