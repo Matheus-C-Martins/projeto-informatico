@@ -12,7 +12,7 @@ class InitialStructure extends Migration {
      */
     public function up() {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('tipo', ['professor', 'admin', 'aluno']);
+            $table->enum('tipo', ['a', 'd', 'e']);
             $table->string('fotografia')->nullable();
         });
 
@@ -45,10 +45,10 @@ class InitialStructure extends Migration {
 
         Schema::create('atividades', function (Blueprint $table) {
             $table->id();
-            $table->foreign('Escola')->references('id')->on('docentes');
+            $table->foreign('Escola')->references('id')->on('escolas');
             $table->string('Turma', 10);
             $table->string('Ano');
-            $table->string('Numero de Alunos');
+            $table->integer('Numero de Alunos');
             $table->date('Data');
             $table->time('Duracao');
             $table->foreign('Contacto')->references('id')->on('contactos');
