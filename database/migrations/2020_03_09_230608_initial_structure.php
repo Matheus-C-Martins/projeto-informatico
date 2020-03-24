@@ -115,7 +115,7 @@ class InitialStructure extends Migration {
             $table->foreign('Escola')->references('id')->on('escolas');
             $table->string('Ano');
             $table->string('Curso');
-            $table->date('Data');
+            $table->date('Data de Nascimento');
             $table->string('Contacto do Aluno');
             $table->string('Contacto do EE');
             $table->string('Regiao');

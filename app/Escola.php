@@ -13,6 +13,10 @@ class Escola extends Model {
         return $this->belongsTo('App\ContactosEscolas', 'Escola');
     }
 
+    public function participante() {
+        return $this->hasMany('App\Participante', 'Escola', 'id');
+    }
+
     protected $fillable = [
         'Nome', 'Localizacao',
     ];
