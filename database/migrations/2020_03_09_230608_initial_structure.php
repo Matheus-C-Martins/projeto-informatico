@@ -94,6 +94,60 @@ class InitialStructure extends Migration {
             $table->foreign('Docente')->references('id')->on('docentes');
             $table->text('Descricao Participacao')->nullable();
         });
+
+        /* TABELAS SOBRE A ACADEMIA DE VERAO */
+        Schema::create('atividades_a_verao', function (Blueprint $table) {
+            $table->id();
+            $table->string('Nome', 50);
+            $table->enum('Tipo de Atividade', ['workshop', 'aula']);
+            $table->text('Observacoes');
+        });
+
+        Schema::create('salas', function (Blueprint $table) {
+            $table->id();
+            $table->string('Nome', 15);
+        });
+
+        Schema::create('participantes', function (Blueprint $table) {
+            $table->id();
+            $table->string('Nome', 50);
+            $table->unsignedBigInteger('Escola');
+            $table->foreign('Escola')->references('id')->on('escolas');
+            $table->string('Ano');
+            $table->string('Curso');
+            $table->date('Data');
+            $table->string('Contacto do Aluno');
+            $table->string('Contacto do EE');
+            $table->string('Regiao');
+        });
+
+        Schema::create('academias_de_verao', function (Blueprint $table) {
+            $table->id();
+            $table->date('Data');
+            $table->unsignedBigInteger('Participante');
+            $table->foreign('Participante')->references('id')->on('participantes');
+        });
+
+        Schema::create('a_verao_docente', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('Atividade');
+            $table->foreign('Atividade')->references('id')->on('atividades_a_verao');
+            $table->unsignedBigInteger('Docente');
+            $table->foreign('Docente')->references('id')->on('docentes');
+            $table->unsignedBigInteger('Sala');
+            $table->foreign('Sala')->references('id')->on('salas');
+            $table->dateTime('Data', 0);
+        });
+
+        Schema::create('a_verao_participante', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('Atividade');
+            $table->foreign('Atividade')->references('id')->on('atividades_a_verao');
+            $table->unsignedBigInteger('Participante');
+            $table->foreign('Participante')->references('id')->on('participantes');
+            $table->dateTime('Data', 0);
+        });
+        /* ---------------------------------- */
     }
 
     /**
@@ -106,6 +160,14 @@ class InitialStructure extends Migration {
         Schema::dropIfExists('workshops_atividades');
         Schema::dropIfExists('docentes_atividade');
         Schema::dropIfExists('contactos_escolas');
+        /* TABELAS SOBRE A ACADEMIA DE VERAO */
+        Schema::dropIfExists('a_verao_participante');
+        Schema::dropIfExists('a_verao_docente');
+        Schema::dropIfExists('academias_de_verao');
+        Schema::dropIfExists('salas');
+        Schema::dropIfExists('participantes');
+        Schema::dropIfExists('atividades_a_verao');
+        /* ---------------------------------- */
         Schema::dropIfExists('atividades');
         Schema::dropIfExists('contactos');
         Schema::dropIfExists('workshops');
