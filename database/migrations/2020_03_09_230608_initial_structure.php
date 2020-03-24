@@ -12,7 +12,7 @@ class InitialStructure extends Migration {
      */
     public function up() {
         Schema::table('users', function (Blueprint $table) {
-            $table->enum('tipo', ['a', 'd', 'e']);
+            $table->enum('tipo', ['a', 'g']);
             $table->string('fotografia')->nullable();
         });
 

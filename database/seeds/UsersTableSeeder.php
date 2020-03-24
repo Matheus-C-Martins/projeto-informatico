@@ -5,8 +5,7 @@ use Illuminate\Database\Seeder;
 class UsersTableSeeder extends Seeder {
     private $photoPath = 'public/fotos';
     private $admins = 2;
-    private $docentes = 2;
-    private $estudantes = 5;
+    private $gestores = 2;
     private $files = [];
     static public $allUsers = [];
 
@@ -27,11 +26,8 @@ class UsersTableSeeder extends Seeder {
         	case 'a':
         		$fullname = 'admin' . $userByNumber;
         		break;
-        	case 'd':
-        		$fullname = 'docente' . $userByNumber;
-        		break;
-        	case 'e':
-        		$fullname = 'estudante' . $userByNumber;
+        	case 'g':
+        		$fullname = 'gestor' . $userByNumber;
         		break;
         }
         $email = $fullname . '@mail.pt';
@@ -103,17 +99,11 @@ class UsersTableSeeder extends Seeder {
             $this->command->info("Created User 'Administrator' - $i / " . $this->admins);
         }        
 
-        for ($i=1; $i<= $this->docentes; $i++) {
-        	$userRow = $this->newFakerUser($faker, 'd', $i);
+        for ($i=1; $i<= $this->gestores; $i++) {
+        	$userRow = $this->newFakerUser($faker, 'g', $i);
         	$this->insertUser($userRow);
-            $this->command->info("Created User 'Docente' - $i / " . $this->docentes);
+            $this->command->info("Created User 'Gestor' - $i / " . $this->gestores);
         }        
-
-        for ($i=1; $i<= $this->estudantes; $i++) {
-            $userRow = $this->newFakerUser($faker, 'e', $i);
-        	$this->insertUser($userRow);
-            $this->command->info("Created User 'Estudante' - $i / " . $this->estudantes);
-        }
         $this->updateFotos();
     }
 }
