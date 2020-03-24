@@ -102,15 +102,15 @@ class InitialStructure extends Migration {
      * @return void
      */
     public function down() {
-        Schema::dropIfExists('workshops');
-        Schema::dropIfExists('docentes');
-        Schema::dropIfExists('escolas');
-        Schema::dropIfExists('atividades');
-        Schema::dropIfExists('contactos_escolas');
         Schema::dropIfExists('contactos_efetuados');
         Schema::dropIfExists('workshops_atividades');
         Schema::dropIfExists('docentes_atividade');
+        Schema::dropIfExists('contactos_escolas');
+        Schema::dropIfExists('atividades');
         Schema::dropIfExists('contactos');
+        Schema::dropIfExists('workshops');
+        Schema::dropIfExists('docentes');
+        Schema::dropIfExists('escolas');
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['tipo', 'fotografia']);
         });
