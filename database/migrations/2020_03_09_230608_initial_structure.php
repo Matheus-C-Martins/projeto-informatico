@@ -83,6 +83,7 @@ class InitialStructure extends Migration {
             $table->foreign('Atividade')->references('id')->on('atividades');
             $table->unsignedBigInteger('Workshop');
             $table->foreign('Workshop')->references('id')->on('workshops');
+            $table->dateTime('Data', 0);
             $table->text('Descricao')->nullable();
         });
 
@@ -118,6 +119,7 @@ class InitialStructure extends Migration {
             $table->date('Data de Nascimento');
             $table->string('Contacto do Aluno');
             $table->string('Contacto do EE');
+            $table->string('Encarregado de Educacao');
             $table->string('Regiao');
         });
 

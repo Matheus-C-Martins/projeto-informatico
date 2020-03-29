@@ -19,6 +19,6 @@ class Participante extends Model {
 
     protected $fillable = [
         'Nome', 'Escola', 'Ano', 'Curso', 'Data de Nascimento',
-        'Contacto do Aluno', 'Contacto do EE', 'Regiao',
+        'Contacto do Aluno', 'Contacto do EE', 'Encarregado de Educacao', 'Regiao',
     ];
 }

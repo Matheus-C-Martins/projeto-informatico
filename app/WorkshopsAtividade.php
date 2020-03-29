@@ -9,11 +9,11 @@ class WorkshopsAtividade extends Model {
         return $this->belongsTo('App\Atividade', 'id', 'Atividade');
     }
 
-    public function docente() {
+    public function workshop() {
         return $this->belongsTo('App\Workshop', 'id', 'Workshop');
     }
 
     protected $fillable = [
-        'Atividade', 'Workshop', 'Descricao',
+        'Atividade', 'Workshop', 'Data', 'Descricao',
     ];
 }
