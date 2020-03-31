@@ -1,8 +1,3 @@
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -10,6 +5,9 @@ window.Vue = require('vue');
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
 import Welcome from './components/welcome/index';
+import Backoffice from './components/backoffice';
+import Home from './components/home';
+import Dashboard from './components/dashboard';
 import UploadImage from 'vue-upload-image';
 import VueApexCharts from 'vue-apexcharts';
 import Toasted from 'vue-toasted';
@@ -22,6 +20,8 @@ const vuetify =  new Vuetify(opts);
 
 /* Components */
 Vue.component('Welcome', Welcome);
+Vue.component('backoffice', Backoffice);
+Vue.component('dashboard', Dashboard);
 Vue.component('upload-image', UploadImage);
 Vue.component('apexchart', VueApexCharts);
 
@@ -30,18 +30,40 @@ Vue.use(VueRouter);
 
 const routes = [
     {path:'/', component:Welcome},
+    {path:'/backoffice', redirect: '/backoffice/home', component:Backoffice,
+        beforeEnter: (to, from, next) => {
+            if(localStorage.getItem("user-token") != null){
+                next(next)
+            }else{
+                next(false)
+            }
+        },
+        children:[
+            {
+                path: 'home',
+                components: {
+                    backoffice: Home
+                }
+            },
+            {
+                path: 'dashboard',
+                components: {
+                    backoffice: Dashboard
+                }
+            },
+        ]
+    },
 ]
 
 const router = new VueRouter({
     routes,
-    mode: 'history',
 });
 
 /* Notifications */
 
 Vue.use(Toasted, {
-    position: "bottom-right",
-    duration : 3000
+        position: "top-right",
+        duration : 3000
     },
     {
         action : {

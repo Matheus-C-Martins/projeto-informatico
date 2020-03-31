@@ -9,9 +9,7 @@ define('CLIENT_ID', '2');
 define('CLIENT_SECRET',env('PASSPORT_SECRET'));
 
 class LoginControllerAPI extends Controller {
-
     public function login(Request $request) {
-
         $http = new \GuzzleHttp\Client;
         $response = $http->post(YOUR_SERVER_URL.'/oauth/token', [
             'form_params' => [
@@ -30,7 +28,7 @@ class LoginControllerAPI extends Controller {
         if ($errorCode=='200') {
             return json_decode((string) $response->getBody(), true);
         } else {
-            return response()->json('User credentials invalid', 202);
+            return response()->json('Credênciais de Utilizador Inválidas', 202);
         }
     }
 

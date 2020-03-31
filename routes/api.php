@@ -18,5 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('users/photo/{email}', 'UserControllerAPI@getPhotoByEmail'); //->middleware('auth:api')->middleware('isUser')
+Route::get('users/{email}', 'UserControllerAPI@checkEmailExists');
+Route::delete('users/{id}', 'UserControllerAPI@remove')->name('removeUser'); //->middleware('auth:api')->middleware('isAdmin')
+Route::post('users', 'UserControllerAPI@store')->name('storeUser'); //->middleware('auth:api')->middleware('isAdmin')
+Route::put('users/update/{id_user}', 'UserControllerAPI@updateProfile')->name('updateProfile'); //->middleware('auth:api')->middleware('isAuthUser')
+
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::post('logout','LoginControllerAPI@logout')->name('logout')->middleware('auth:api');
