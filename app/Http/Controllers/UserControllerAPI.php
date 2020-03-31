@@ -30,15 +30,16 @@ class UserControllerAPI extends Controller {
         if(!$user){
             return response()->json("Não foi possível encontrar um utilizador válido",202);
         }
-        return $user->photo;
+        return $user->fotografia;
     }
 
     public function store(Request $request) {
-        $valid = validator($request->only('name', 'email', 'password','password_confirmation','photo','type'), [
-            'name'=> 'required|string|regex:"^[A-Za-z ]+$"',
+        $valid = validator($request->only('nome', 'email', 'tipo', 'password', 'password_confirmation', 'fotografia'), [
+            'nome'=> 'required|string|regex:"^[A-Za-z ]+$"',
             'email' => 'required|string|email|max:255|unique:users',
+            'tipo' => ['required', 'regex:/^[a]$|^[g]$/'],
             'password' => 'required|string|min:3|confirmed',
-            'photo' => 'nullable',
+            'fotografia' => 'nullable',
         ]);
 
         if ($valid->fails()) {
@@ -46,15 +47,15 @@ class UserControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $user = User::where("email",$request->email)->first();
+        $user = User::where("email", $request->email)->first();
         if($user){
             return response()->json("Email já está a ser usado",202);
         }
 
-        $data = request()->only('name', 'email', 'password');
+        $data = request()->only('nome', 'email', 'tipo', 'password');
 
-        if($request->photo) {
-            $exploded = explode(',', $request->photo);
+        if($request->fotografia) {
+            $exploded = explode(',', $request->fotografia);
             $decoded = base64_decode($exploded[1]);
             if(Str::contains($exploded[0], 'jpeg')){
                 $extension = 'jpg';
@@ -68,21 +69,18 @@ class UserControllerAPI extends Controller {
             //saves the image to public/storage/fotos
             $path = public_path().'/storage/fotos/'.$fileName;
             file_put_contents($path, $decoded); //we pass the path and the decoded image
-            $data['photo'] = $fileName;
+            $data['fotografia'] = $fileName;
         } else {
-            $data['photo'] = null;
+            $data['fotografia'] = null;
         }
-
-        $data['type'] = $request["type"];
-
+        
         $user = User::create([
-            'name' => $data['name'],
+            'nome' => $data['nome'],
             'email' => $data['email'],
+            'tipo' => $data['tipo'],
             'password' => bcrypt($data['password']),
-            'type' => $data['type'],
-            'photo' => $data['photo'],
-        ]);
-
+            'fotografia' => $data['fotografia'],
+        ]);        
         return response()->json("Foi criado um novo utilizador.", 200);
     }
 
@@ -105,8 +103,8 @@ class UserControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        if($request->photo) {
-            $exploded = explode(',', $request->photo);
+        if($request->fotografia) {
+            $exploded = explode(',', $request->fotografia);
             $decoded = base64_decode($exploded[1]);
 
             if(Str::contains($exploded[0], 'jpeg')){
@@ -129,7 +127,7 @@ class UserControllerAPI extends Controller {
         }
 
         if($fileName != null) {
-            $userModel["photo"] = $fileName;
+            $userModel["fotografia"] = $fileName;
         }
         $userModel->save();
 

@@ -32,13 +32,18 @@ class UsersTableSeeder extends Seeder {
         }
         $email = $fullname . '@mail.pt';
 
+        $createdAt = $faker->dateTimeBetween('-10 years', '-3 months');
+        $updatedAt = $faker->dateTimeBetween($createdAt, '-1 months');
+
         return [
             'nome' => $fullname,
             'email' =>  $email,
-            'password' => bcrypt('123'),
-            'remember_token' => $faker->asciify('**********'),
             'tipo' => $tipo,
+            'password' => bcrypt('123'),
             'fotografia' => null,
+            'remember_token' => $faker->asciify('**********'),
+            'created_at' => $createdAt,
+            'updated_at' => $updatedAt,
         ];
     }
 

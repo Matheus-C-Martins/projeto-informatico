@@ -70,7 +70,7 @@ export default {
             {
               id: 0,
               title: "Dashboard",
-              text: "Veja como está o estado da app e das atividades",
+              text: "Veja como estão a decorrer as atividades",
               img: "/storage/dash.png",
               link: "/backoffice/dashboard/"
             },
@@ -87,7 +87,7 @@ export default {
             {
               id: 0,
               title: "Dashboard",
-              text: "Check current status of the app",
+              text: "Veja como está o estado da app e das atividades",
               img: "/storage/dash.png",
               link: "/backoffice/dashboard/"
             },

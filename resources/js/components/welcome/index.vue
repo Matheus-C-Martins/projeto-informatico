@@ -141,6 +141,12 @@ h3, h6 {
   background: #000000;
 }
 
+.btn-primary {
+  background: #ffffff;
+  border: #ffffff;
+  color: #000000;
+}
+
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary:active,

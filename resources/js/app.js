@@ -7,7 +7,7 @@ import VueRouter from 'vue-router';
 import Welcome from './components/welcome/index';
 import Backoffice from './components/backoffice';
 import Home from './components/home';
-import Dashboard from './components/dashboard';
+import Dashboard from './components/dashboard/index';
 import UploadImage from 'vue-upload-image';
 import VueApexCharts from 'vue-apexcharts';
 import Toasted from 'vue-toasted';

@@ -23,6 +23,7 @@
         </v-list-item>
         <v-list-item>
           <v-icon>mdi-logout</v-icon>
+          <span>&nbsp;</span>
           <button class="btn btn-primary" @click.stop.prevent="logout" @click.stop="mini = !mini" v-if="!mini"> Logout </button>
         </v-list-item>
       </v-list>
@@ -37,7 +38,7 @@
             </v-list-item-icon>
             <span>&nbsp;</span>
             <v-list-item-content>
-                <v-list-item-title v-text="item.title"></v-list-item-title>
+              <v-list-item-title v-text="item.title"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list-item-group>
