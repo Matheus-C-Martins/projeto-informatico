@@ -90,11 +90,11 @@ class UserControllerAPI extends Controller {
 
         if($request->current_password && !Hash::check($request["current_password"], $user->password)) {
             $msg = "Passworld atual está errada";
-            return response()->json($msg, 206);
+            return response()->json($msg, 202);
         }
 
-        $valid = validator($request->only('name', 'current_password', 'new_password', 'new_password_confirmation'), [
-            'name'=> 'required|string|regex:"^[a-zA-ZÀ-ž\s]+$"',
+        $valid = validator($request->only('nome', 'current_password', 'new_password', 'new_password_confirmation'), [
+            'nome'=> 'required|string|regex:"^[a-zA-ZÀ-ž\s]+$"',
             'new_password' => 'nullable|string|min:3|confirmed'
         ]);
 
@@ -121,7 +121,7 @@ class UserControllerAPI extends Controller {
             $fileName = null;
         }
 
-        $userModel["name"] = $request["name"];
+        $userModel["nome"] = $request["nome"];
         if($request->new_password) {
             $userModel["password"] = bcrypt($request["new_password"]);
         }
@@ -135,12 +135,6 @@ class UserControllerAPI extends Controller {
     }
 
     public function remove($id){
-        /**
-        * MUST IMPLEMMENT MIDDLEWARE, ONLY ACCESSIBLE BY ADMINISTRATORS [se nao der é so por mais um if, mas dá]
-        * Confirmar também se posso fazer Auth::user ou tenho de passar quando chamo a rota no $request
-        * Pode faltar alguma confirmação
-        */
-
         if($id == Auth::user()->id){
             return response()->json("Não pode romover a si mesmo",202);
         }

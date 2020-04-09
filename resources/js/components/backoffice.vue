@@ -74,13 +74,13 @@ export default {
               img: "/storage/dash.png",
               link: "/backoffice/dashboard/"
             },
-            /*{
+            {
               id: 1,
-              title: "My account",
-              text: "Change account settings",
+              title: "Perfil",
+              text: "Veja as suas informações",
               img: "/storage/acc.png",
-              link: "/backoffice/profile/"
-            },*/
+              link: "/backoffice/perfil/"
+            },
           ];
         }else if (this.user.tipo=="a"){
           this.items_backoffice= [
@@ -91,14 +91,14 @@ export default {
               img: "/storage/dash.png",
               link: "/backoffice/dashboard/"
             },
-            /*{
-              id: 1,
-              title: "My account",
-              text: "Change account settings",
-              img: "/storage/acc.png",
-              link: "/backoffice/profile/"
-            },
             {
+              id: 1,
+              title: "Perfil",
+              text: "Veja as suas informações",
+              img: "/storage/acc.png",
+              link: "/backoffice/perfil/"
+            },
+            /*{
               id: 2,
               title: "Platform Users",
               text: "Check all the platform users",
@@ -118,7 +118,7 @@ export default {
       })
       .catch(response => {
         console.log("->"+response)
-        Vue.toasted.error( 'Something went wrong... ');
+        Vue.toasted.error('Algo correu mal... ');
       })
       .finally(() => this.showLinks = 1);
     },

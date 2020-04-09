@@ -1,14 +1,6 @@
 <template>
   <v-content>
-    <v-navigation-drawer
-      app
-      v-model="drawer"
-      :mini-variant.sync="mini"
-      permanent
-      floating
-      dark
-      color="#000000"
-    >
+    <v-navigation-drawer app v-model="drawer" :mini-variant.sync="mini" permanent floating dark color="#000000">
       <v-list dense nav class="py-0">
         <v-list-item :class="mini && 'px-0'">
           <v-list-item-avatar>
@@ -77,7 +69,7 @@ export default {
     };
   },
   mounted(){
-    if(this.user.tipo == 'a'){
+    if(this.user.tipo == 'a') {
       this.items.push(
         {
           id:2,
@@ -101,7 +93,7 @@ export default {
   },
   computed: {
     getUserPhoto: function() {
-      if(this.user.fotografia == null){
+      if(this.user.fotografia == null) {
         return '/storage/noUserPhoto.png';
       }
         return `/storage/fotos/${this.user.fotografia}`;

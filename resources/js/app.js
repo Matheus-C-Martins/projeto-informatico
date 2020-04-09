@@ -8,6 +8,7 @@ import Welcome from './components/welcome/index';
 import Backoffice from './components/backoffice';
 import Home from './components/home';
 import Dashboard from './components/dashboard/index';
+import Perfil from './components/perfil/index';
 import UploadImage from 'vue-upload-image';
 import VueApexCharts from 'vue-apexcharts';
 import Toasted from 'vue-toasted';
@@ -22,6 +23,7 @@ const vuetify =  new Vuetify(opts);
 Vue.component('Welcome', Welcome);
 Vue.component('backoffice', Backoffice);
 Vue.component('dashboard', Dashboard);
+Vue.component('perfil', Perfil);
 Vue.component('upload-image', UploadImage);
 Vue.component('apexchart', VueApexCharts);
 
@@ -49,6 +51,12 @@ const routes = [
                 path: 'dashboard',
                 components: {
                     backoffice: Dashboard
+                }
+            },
+            {
+                path: 'perfil',
+                components: {
+                    backoffice: Perfil
                 }
             },
         ]

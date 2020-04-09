@@ -135,9 +135,9 @@ h3, h6 {
 
 <style>
 .btn-secondary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.open > .dropdown-toggle.btn-primary {
+.btn-secondary:focus,
+.btn-secondary:active,
+.open > .dropdown-toggle.btn-secondary {
   background: #000000;
 }
 
