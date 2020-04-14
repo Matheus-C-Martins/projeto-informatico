@@ -18,7 +18,6 @@ Vue.use(Vuetify);
 const opts = {};
 const vuetify =  new Vuetify(opts);
 
-
 /* Components */
 Vue.component('Welcome', Welcome);
 Vue.component('backoffice', Backoffice);
@@ -95,8 +94,8 @@ const app = new Vue({
         UploadImage
     },
     created() {
-        /** Quando damos refresh à página (nova instancia do Vue), vamos ter que ver se já existe
-         *  o user-token no localStorage, para mantermos o Header de Auth do Bearer token */
+        /* Quando damos refresh à página (nova instancia do Vue), vamos ter que ver se já existe
+           o user-token no localStorage, para mantermos o Header de Auth do Bearer token */
         if(localStorage.getItem("user-token") != null){
             axios.defaults.headers.common.Authorization ="Bearer " + localStorage.getItem("user-token")
         }

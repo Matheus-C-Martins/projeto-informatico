@@ -34,7 +34,7 @@
           </v-row>
 
           <v-row>
-            <v-col>
+            <v-col class="d-flex flex-row-reverse">
               <v-dialog v-model="dialog" max-width="700px">
                 <template class="container" v-slot:activator="{ on }">
                   <button v-on="on" @click.stop.prevent="showUpdateProfile" class="btn btn-primary"> Editar Perfil </button>
@@ -67,7 +67,7 @@ export default {
         current_password: null,
         new_password: "",
         new_password_confirmation: "",
-        photo: ""
+        fotografia: ""
       }
     };
   },
@@ -96,7 +96,7 @@ export default {
         current_password: null,
         new_password: "",
         new_password_confirmation: "",
-        photo: ""
+        fotografia: ""
       };
     },
   },

@@ -70,14 +70,49 @@ export default {
   },
   mounted(){
     if(this.user.tipo == 'a') {
-      this.items.push(
+      this.items.push (
         {
           id:2,
+          title: "Atividades",
+          icon: "mdi-chart-areaspline",
+          component: "atividades",
+          link: "/backoffice/atividades/"
+        },
+        {
+          id:3,
+          title: "Academia de Verão",
+          icon: "mdi-chart-areaspline",
+          component: "academia",
+          link: "/backoffice/academia/"
+        },
+        {
+          id:4,
+          title: "Docentes",
+          icon: "mdi-chart-areaspline",
+          component: "docentes",
+          link: "/backoffice/docentes/"
+        },
+        {
+          id:5,
+          title: "Contactos",
+          icon: "mdi-chart-areaspline",
+          component: "contactos",
+          link: "/backoffice/contactos/"
+        },
+        {
+          id:6,
+          title: "Escolas",
+          icon: "mdi-chart-areaspline",
+          component: "escolas",
+          link: "/backoffice/escolas/"
+        },
+        {
+          id:7,
           title: "Estatísticas",
           icon: "mdi-chart-areaspline",
-          component: "statistics",
-          link: "/backoffice/statistics/"
-        }
+          component: "estatisticas",
+          link: "/backoffice/estatísticas/"
+        },
       )
     }
   },
@@ -87,7 +122,7 @@ export default {
     },
     linkTo(item){
       if(item.link!=this.$route){
-        this.$emit("linkTo",item.link,item.id);
+        this.$emit("linkTo", item.link, item.id);
       }
     },
   },

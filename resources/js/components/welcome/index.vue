@@ -134,16 +134,9 @@ h3, h6 {
 </style>
 
 <style>
-.btn-secondary:hover,
-.btn-secondary:focus,
-.btn-secondary:active,
-.open > .dropdown-toggle.btn-secondary {
-  background: #000000;
-}
-
 .btn-primary {
-  background: #ffffff;
-  border: #ffffff;
+  background-color: #ffffff;
+  border-color: #ffffff;
   color: #000000;
 }
 
@@ -151,6 +144,36 @@ h3, h6 {
 .btn-primary:focus,
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
-  background: #6c757d;
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:not(:disabled):not(.disabled).active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:not(:disabled):not(.disabled):active:focus,
+.btn-primary:not(:disabled):not(.disabled).active:focus,
+.show > .btn-primary.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active,
+.open > .dropdown-toggle.btn-secondary {
+  background-color: #000000;
+}
+
+.btn-secondary:not(:disabled):not(.disabled):active,
+.btn-secondary:not(:disabled):not(.disabled).active,
+.show > .btn-secondary.dropdown-toggle {
+  background-color: #000000;
+  border-color: #000000;
 }
 </style>

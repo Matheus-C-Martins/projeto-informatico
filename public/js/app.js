@@ -2003,7 +2003,7 @@ __webpack_require__.r(__webpack_exports__);
 
         _this.$router.push("/");
       })["catch"](function (response) {
-        Vue.toasted.error('Something went wrong... ');
+        Vue.toasted.error('Algo correu mal... ');
       });
     },
     getAuthUser: function getAuthUser() {
@@ -2039,22 +2039,7 @@ __webpack_require__.r(__webpack_exports__);
             text: "Veja as suas informações",
             img: "/storage/acc.png",
             link: "/backoffice/perfil/"
-          }
-          /*{
-            id: 2,
-            title: "Platform Users",
-            text: "Check all the platform users",
-            img: "/storage/acc.png",
-            link: "/backoffice/users/"
-          },
-          {
-            id: 3,
-            title: "Platform Statistics",
-            text: "Analyse platform statistics",
-            img: "/storage/stats.png",
-            link: "/backoffice/statistics/"
-          }*/
-          ];
+          }];
         }
 
         _this2.componentKey += 1;
@@ -2559,7 +2544,7 @@ __webpack_require__.r(__webpack_exports__);
         current_password: null,
         new_password: "",
         new_password_confirmation: "",
-        photo: ""
+        fotografia: ""
       }
     };
   },
@@ -2592,7 +2577,7 @@ __webpack_require__.r(__webpack_exports__);
         current_password: null,
         new_password: "",
         new_password_confirmation: "",
-        photo: ""
+        fotografia: ""
       };
     }
   },
@@ -2634,6 +2619,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+//
 //
 //
 //
@@ -2897,10 +2883,40 @@ __webpack_require__.r(__webpack_exports__);
     if (this.user.tipo == 'a') {
       this.items.push({
         id: 2,
+        title: "Atividades",
+        icon: "mdi-chart-areaspline",
+        component: "atividades",
+        link: "/backoffice/atividades/"
+      }, {
+        id: 3,
+        title: "Academia de Verão",
+        icon: "mdi-chart-areaspline",
+        component: "academia",
+        link: "/backoffice/academia/"
+      }, {
+        id: 4,
+        title: "Docentes",
+        icon: "mdi-chart-areaspline",
+        component: "docentes",
+        link: "/backoffice/docentes/"
+      }, {
+        id: 5,
+        title: "Contactos",
+        icon: "mdi-chart-areaspline",
+        component: "contactos",
+        link: "/backoffice/contactos/"
+      }, {
+        id: 6,
+        title: "Escolas",
+        icon: "mdi-chart-areaspline",
+        component: "escolas",
+        link: "/backoffice/escolas/"
+      }, {
+        id: 7,
         title: "Estatísticas",
         icon: "mdi-chart-areaspline",
-        component: "statistics",
-        link: "/backoffice/statistics/"
+        component: "estatisticas",
+        link: "/backoffice/estatísticas/"
       });
     }
   },
@@ -7665,7 +7681,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.btn-secondary:hover,\n.btn-secondary:focus,\n.btn-secondary:active,\n.open > .dropdown-toggle.btn-secondary {\n  background: #000000;\n}\n.btn-primary {\n  background: #ffffff;\n  border: #ffffff;\n  color: #000000;\n}\n.btn-primary:hover,\n.btn-primary:focus,\n.btn-primary:active,\n.open > .dropdown-toggle.btn-primary {\n  background: #6c757d;\n}\n", ""]);
+exports.push([module.i, "\n.btn-primary {\n  background-color: #ffffff;\n  border-color: #ffffff;\n  color: #000000;\n}\n.btn-primary:hover,\n.btn-primary:focus,\n.btn-primary:active,\n.open > .dropdown-toggle.btn-primary {\n  background-color: #6c757d;\n  border-color: #6c757d;\n}\n.btn-primary:not(:disabled):not(.disabled):active,\n.btn-primary:not(:disabled):not(.disabled).active,\n.show > .btn-primary.dropdown-toggle {\n  background-color: #6c757d;\n  border-color: #6c757d;\n}\n.btn-primary:focus,\n.btn-primary.focus,\n.btn-primary:not(:disabled):not(.disabled):active:focus,\n.btn-primary:not(:disabled):not(.disabled).active:focus,\n.show > .btn-primary.dropdown-toggle:focus {\n  box-shadow: 0 0 0 0.2rem rgba(130, 138, 145, 0.5);\n}\n.btn-secondary:hover,\n.btn-secondary:focus,\n.btn-secondary:active,\n.open > .dropdown-toggle.btn-secondary {\n  background-color: #000000;\n}\n.btn-secondary:not(:disabled):not(.disabled):active,\n.btn-secondary:not(:disabled):not(.disabled).active,\n.show > .btn-secondary.dropdown-toggle {\n  background-color: #000000;\n  border-color: #000000;\n}\n", ""]);
 
 // exports
 
@@ -40832,6 +40848,7 @@ var render = function() {
                     [
                       _c(
                         "v-col",
+                        { staticClass: "d-flex flex-row-reverse" },
                         [
                           _c(
                             "v-dialog",
@@ -41147,7 +41164,7 @@ var render = function() {
           _c(
             "button",
             {
-              staticClass: "btn btn-light",
+              staticClass: "btn btn-primary",
               on: {
                 click: function($event) {
                   $event.stopPropagation()
@@ -41158,6 +41175,8 @@ var render = function() {
             },
             [_vm._v(" Cancel ")]
           ),
+          _vm._v(" "),
+          _c("span", [_vm._v(" ")]),
           _vm._v(" "),
           _c(
             "button",
@@ -100413,8 +100432,8 @@ var app = new Vue({
     UploadImage: vue_upload_image__WEBPACK_IMPORTED_MODULE_7__["default"]
   },
   created: function created() {
-    /** Quando damos refresh à página (nova instancia do Vue), vamos ter que ver se já existe
-     *  o user-token no localStorage, para mantermos o Header de Auth do Bearer token */
+    /* Quando damos refresh à página (nova instancia do Vue), vamos ter que ver se já existe
+       o user-token no localStorage, para mantermos o Header de Auth do Bearer token */
     if (localStorage.getItem("user-token") != null) {
       axios.defaults.headers.common.Authorization = "Bearer " + localStorage.getItem("user-token");
     }

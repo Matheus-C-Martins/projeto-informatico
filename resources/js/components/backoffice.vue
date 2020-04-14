@@ -59,14 +59,14 @@ export default {
           this.$router.push("/");
       })
       .catch(response => {
-        Vue.toasted.error('Something went wrong... ');
+        Vue.toasted.error('Algo correu mal... ');
       });
     },
     getAuthUser: function() {
       axios.get("/api/user").then(response => {
         this.user = response.data;
-        if(this.user.tipo=="g"){
-          this.items_backoffice= [
+        if(this.user.tipo == "g"){
+          this.items_backoffice = [
             {
               id: 0,
               title: "Dashboard",
@@ -82,8 +82,8 @@ export default {
               link: "/backoffice/perfil/"
             },
           ];
-        }else if (this.user.tipo=="a"){
-          this.items_backoffice= [
+        }else if (this.user.tipo == "a"){
+          this.items_backoffice = [
             {
               id: 0,
               title: "Dashboard",
@@ -98,20 +98,6 @@ export default {
               img: "/storage/acc.png",
               link: "/backoffice/perfil/"
             },
-            /*{
-              id: 2,
-              title: "Platform Users",
-              text: "Check all the platform users",
-              img: "/storage/acc.png",
-              link: "/backoffice/users/"
-            },
-            {
-              id: 3,
-              title: "Platform Statistics",
-              text: "Analyse platform statistics",
-              img: "/storage/stats.png",
-              link: "/backoffice/statistics/"
-            }*/
           ];
         }
         this.componentKey += 1; 
