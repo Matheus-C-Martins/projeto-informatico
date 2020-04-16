@@ -35,7 +35,29 @@ export default {
       currentPath: "",
       showLinks:0,
       /* backoffice FAST LINKS ITEMS */
-      items_backoffice: [],
+      items_backoffice: [
+        {
+          id: 0,
+          title: "Dashboard",
+          text: "Veja como estão a decorrer as atividades",
+          img: "/storage/dash.png",
+          link: "/backoffice/dashboard/"
+        },
+        {
+          id: 1,
+          title: "Perfil",
+          text: "Veja as suas informações",
+          img: "/storage/acc.png",
+          link: "/backoffice/perfil/"
+        },
+        {
+          id: 2,
+          title: "Contactos",
+          text: "Veja os contactos",
+          img: "/storage/contactos.png",
+          link: "/backoffice/contactos/"
+        },
+      ],
       /* SIDE BAR ITEMS */
       item_sidebar: null,
       transparent: "rgba(255, 255, 255, 0)"
@@ -65,41 +87,6 @@ export default {
     getAuthUser: function() {
       axios.get("/api/user").then(response => {
         this.user = response.data;
-        if(this.user.tipo == "g"){
-          this.items_backoffice = [
-            {
-              id: 0,
-              title: "Dashboard",
-              text: "Veja como estão a decorrer as atividades",
-              img: "/storage/dash.png",
-              link: "/backoffice/dashboard/"
-            },
-            {
-              id: 1,
-              title: "Perfil",
-              text: "Veja as suas informações",
-              img: "/storage/acc.png",
-              link: "/backoffice/perfil/"
-            },
-          ];
-        }else if (this.user.tipo == "a"){
-          this.items_backoffice = [
-            {
-              id: 0,
-              title: "Dashboard",
-              text: "Veja como está o estado da app e das atividades",
-              img: "/storage/dash.png",
-              link: "/backoffice/dashboard/"
-            },
-            {
-              id: 1,
-              title: "Perfil",
-              text: "Veja as suas informações",
-              img: "/storage/acc.png",
-              link: "/backoffice/perfil/"
-            },
-          ];
-        }
         this.componentKey += 1; 
       })
       .catch(response => {

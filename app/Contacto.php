@@ -14,6 +14,6 @@ class Contacto extends Model {
     }
 
     protected $fillable = [
-        'Nome', 'Telefone', 'E-mail', 'Sexo',
+        'Nome', 'Telefone', 'Email', 'Sexo',
     ];
 }

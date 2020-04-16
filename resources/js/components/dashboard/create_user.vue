@@ -137,37 +137,37 @@ export default {
     nomeErrors() {
       const errors = [];
       if (!this.$v.newUser.nome.$dirty) return errors;
-      !this.$v.newUser.nome.alphaDiacritic && errors.push("Name must contain letters and spaces only");
-      !this.$v.newUser.nome.maxLength && errors.push("Name must be at most 255 characters long.");
-      !this.$v.newUser.nome.required && errors.push("Name is required.");
+      !this.$v.newUser.nome.alphaDiacritic && errors.push("O nome só pode conter espaços ou letras");
+      !this.$v.newUser.nome.maxLength && errors.push("O nome só pode ter no máximo 255 carateres");
+      !this.$v.newUser.nome.required && errors.push("O nome é obrigatório");
       return errors;
     },
     emailErrors () {
       const errors = []
       if (!this.$v.newUser.email.$dirty) return errors
-      !(this.email == 0) && errors.push("Email already exists");
-      !this.$v.newUser.email.email && errors.push('Must be valid e-mail')
-      !this.$v.newUser.email.required && errors.push('E-mail is required')
+      !(this.email == 0) && errors.push("O email já está a ser utilizado");
+      !this.$v.newUser.email.email && errors.push('O email tem de estar num formato válido')
+      !this.$v.newUser.email.required && errors.push('O email é obrigatório')
       return errors
     },
     userTypeErrors() {
       const errors = [];
       if (!this.$v.newUser.tipo.$dirty) return errors;
-      !this.$v.newUser.tipo.required && errors.push("Transfer type is required");
+      !this.$v.newUser.tipo.required && errors.push("O tipo de utilizador é obrigatório");
       return errors;
     },
     passwordErrors () {
       const errors = []
       if (!this.$v.newUser.password.$dirty) return errors
-      !this.$v.newUser.password.minLength && errors.push('Password must have a minimum of 3 characters')
-      !this.$v.newUser.password.required && errors.push('Password is required')
+      !this.$v.newUser.password.minLength && errors.push('A password tem de ter no mínimo 3 carateres')
+      !this.$v.newUser.password.required && errors.push('A password é obrigatória')
       return errors
     },
     passwordConfirmationErrors () {
       const errors = []
       if (!this.$v.newUser.password_confirmation.$dirty) return errors
-      !this.$v.newUser.password_confirmation.sameAsPassword && errors.push('Password Confirmation and Password must be the same')
-      !this.$v.newUser.password_confirmation.required && errors.push('Password Confirmation is required')
+      !this.$v.newUser.password_confirmation.sameAsPassword && errors.push('A confirmação de password e a nova password têm de ser iguais')
+      !this.$v.newUser.password_confirmation.required && errors.push('A confirmação de password é obrigatória')
       return errors
     },
   },
@@ -199,7 +199,7 @@ export default {
         fr.readAsDataURL(files[0])
         fr.addEventListener('load', () => {
           this.newUser.fotografia = fr.result
-          this.imageFile = files[0] // this is an image file that can be sent to server...
+          this.imageFile = files[0]
         })
       } else {
         this.imageName = '';

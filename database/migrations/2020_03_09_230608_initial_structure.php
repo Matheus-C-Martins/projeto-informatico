@@ -26,7 +26,7 @@ class InitialStructure extends Migration {
             $table->string('Nome');
             $table->string('Telefone Interno', 9);
             $table->string('Telemovel', 9);
-            $table->string('E-mail', 50);
+            $table->string('Email', 50);
         });
 
         Schema::create('escolas', function (Blueprint $table) {
@@ -39,7 +39,7 @@ class InitialStructure extends Migration {
             $table->id();
             $table->string('Nome');
             $table->string('Telefone', 9)->nullable();
-            $table->string('E-mail', 50)->nullable();
+            $table->string('Email', 50)->nullable();
             $table->enum('Sexo', ['masculino', 'feminino', 'outro']);
         });
 
@@ -62,7 +62,7 @@ class InitialStructure extends Migration {
             $table->id();
             $table->unsignedBigInteger('Contacto');
             $table->foreign('Contacto')->references('id')->on('contactos');
-            $table->enum('Tipo', ['Telefone', 'E-mail']);
+            $table->enum('Tipo', ['Telefone', 'Email']);
             $table->unsignedBigInteger('Escola');
             $table->foreign('Escola')->references('id')->on('escolas');
             $table->text('Descricao')->nullable();
@@ -74,7 +74,7 @@ class InitialStructure extends Migration {
             $table->unsignedBigInteger('Contacto');
             $table->foreign('Contacto')->references('id')->on('contactos_escolas');
             $table->text('Descricao')->nullable();
-            $table->enum('Tipo', ['Telefone', 'E-mail']);
+            $table->enum('Tipo', ['Telefone', 'Email']);
         });
 
         Schema::create('workshops_atividades', function (Blueprint $table) {

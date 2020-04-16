@@ -1,13 +1,15 @@
 <template>
   <v-app id="inspire">
-    <v-container fluid class="pa-0">
-      <v-dialog v-if="user.tipo == 'a'" v-model="dialog" max-width="700px">
-        <template class="container" v-slot:activator="{ on }">
-          <button v-on="on" @click="createUserKey+=1" class="btn btn-secondary block"> Criar Novo Utilizador </button>
-        </template>
-        <createUser :newUser="newUser" :key="createUserKey" @create="createUser" @close="close"></createUser>
-      </v-dialog>
-    </v-container>
+    <v-card outlined>
+      <v-container fluid class="pa-0">
+        <v-dialog v-if="user.tipo == 'a'" v-model="dialog" max-width="700px">
+          <template class="container" v-slot:activator="{ on }">
+            <button v-on="on" @click="createUserKey+=1" class="btn btn-secondary block"> Criar Novo Utilizador </button>
+          </template>
+          <createUser :newUser="newUser" :key="createUserKey" @create="createUser" @close="close"></createUser>
+        </v-dialog>
+      </v-container>
+    </v-card>
   </v-app>
 </template>
 

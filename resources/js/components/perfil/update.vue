@@ -127,7 +127,7 @@ export default {
         fr.readAsDataURL(files[0]);
         fr.addEventListener("load", () => {
           this.updatedUser.fotografia = fr.result;
-          this.imageFile = files[0]; // this is an image file that can be sent to server...
+          this.imageFile = files[0];
         });
       } else {
         this.imageName = "";
@@ -140,28 +140,28 @@ export default {
     nomeErrors() {
       const errors = [];
       if (!this.$v.updatedUser.nome.$dirty) return errors;
-      !this.$v.updatedUser.nome.maxLength && errors.push("nome must be at most 255 characters long");
-      !this.$v.updatedUser.nome.alphaDiacritic && errors.push("nome must contain letters and spaces only");
-      !this.$v.updatedUser.nome.required && errors.push("nome is required");
+      !this.$v.updatedUser.nome.maxLength && errors.push("O nome só pode ter no máximo 255 carateres");
+      !this.$v.updatedUser.nome.alphaDiacritic && errors.push("O nome só pode conter espaços ou letras");
+      !this.$v.updatedUser.nome.required && errors.push("O nome é obrigatório");
       return errors;
     },
     currentPasswordErrors() {
       const errors = [];
       if (!this.$v.updatedUser.current_password.$dirty) return errors;
-      !this.$v.updatedUser.current_password.minLength && errors.push("Current Password must have a minimum of 3 characters");
-      !this.$v.updatedUser.current_password.required && errors.push("Current Password is required");
+      !this.$v.updatedUser.current_password.minLength && errors.push("A password atual tem de ter no mínimo 3 carateres");
+      !this.$v.updatedUser.current_password.required && errors.push("A password atual é obrigatória");
       return errors;
     },
     newPasswordErrors() {
       const errors = [];
       if (!this.$v.updatedUser.new_password.$dirty) return errors;
-      !this.$v.updatedUser.new_password.minLength &&  errors.push("New Password must have a minimum of 3 characters");
+      !this.$v.updatedUser.new_password.minLength &&  errors.push("A nova password tem de ter no mínimo 3 carateres");
       return errors;
     },
     newPasswordConfirmationErrors() {
       const errors = [];
       if (!this.$v.updatedUser.new_password_confirmation.$dirty) return errors;
-      !this.$v.updatedUser.new_password_confirmation.sameAsPassword && errors.push("New Password Confirmation and New Password must match");
+      !this.$v.updatedUser.new_password_confirmation.sameAsPassword && errors.push("A confirmação de password e a nova password têm de ser iguais");
       return errors;
     }
   }

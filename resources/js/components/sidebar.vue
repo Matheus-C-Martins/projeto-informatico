@@ -65,44 +65,38 @@ export default {
           component: "perfil",
           link: "/backoffice/perfil/"
         },
-      ],
-    };
-  },
-  mounted(){
-    if(this.user.tipo == 'a') {
-      this.items.push (
         {
           id:2,
           title: "Atividades",
-          icon: "mdi-chart-areaspline",
+          icon: "mdi-book-open-page-variant",
           component: "atividades",
           link: "/backoffice/atividades/"
         },
         {
           id:3,
           title: "Academia de Verão",
-          icon: "mdi-chart-areaspline",
+          icon: "mdi-chair-school",
           component: "academia",
           link: "/backoffice/academia/"
         },
         {
           id:4,
           title: "Docentes",
-          icon: "mdi-chart-areaspline",
+          icon: "mdi-account-tie",
           component: "docentes",
           link: "/backoffice/docentes/"
         },
         {
           id:5,
           title: "Contactos",
-          icon: "mdi-chart-areaspline",
+          icon: "mdi-phone",
           component: "contactos",
           link: "/backoffice/contactos/"
         },
         {
           id:6,
           title: "Escolas",
-          icon: "mdi-chart-areaspline",
+          icon: "mdi-school",
           component: "escolas",
           link: "/backoffice/escolas/"
         },
@@ -113,8 +107,8 @@ export default {
           component: "estatisticas",
           link: "/backoffice/estatísticas/"
         },
-      )
-    }
+      ],
+    };
   },
   methods: {
     logout() {

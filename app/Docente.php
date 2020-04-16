@@ -14,6 +14,6 @@ class Docente extends Model {
     }
 
     protected $fillable = [
-        'Nome', 'Telefone Interno', 'Telemovel', 'E-mail',
+        'Nome', 'Telefone Interno', 'Telemovel', 'Email',
     ];
 }
