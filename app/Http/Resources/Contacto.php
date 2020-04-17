@@ -9,7 +9,7 @@ class Contacto extends JsonResource {
     use Searchable;
     public function toArray($request) {
         $t_complete = '-----';
-        switch($this->Sexo) {
+        switch($this->sexo) {
             case 'masculino':
                 $t_complete = 'Masculino';
                 break;
@@ -22,9 +22,9 @@ class Contacto extends JsonResource {
         }
         return [
             'id' => $this->id,
-            'nome' => $this->Nome,
-            'email' => ($this->Email)?$this->Email:'-----',
-            'telefone' => ($this->Telefone)?$this->Telefone:'-----',
+            'nome' => $this->nome,
+            'email' => ($this->email)?$this->email:'-----',
+            'telefone' => ($this->telefone)?$this->telefone:'-----',
             'sexo' => $t_complete,
         ];
     }

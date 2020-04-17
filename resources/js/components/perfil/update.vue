@@ -66,9 +66,9 @@
     </v-card-text>
     <v-card-actions style="padding-top: 0px">
       <v-spacer></v-spacer>
-      <button class="btn btn-primary" @click.stop.prevent="cancelProfile"> Cancel </button>
+      <button class="btn btn-primary" @click.stop.prevent="cancelProfile"> Cancelar </button>
       <span>&nbsp;</span>
-      <button class="btn btn-secondary" @click.stop.prevent="updateProfile"> Update </button>
+      <button class="btn btn-secondary" @click.stop.prevent="updateProfile"> Editar </button>
     </v-card-actions>
   </v-card>
 </template>

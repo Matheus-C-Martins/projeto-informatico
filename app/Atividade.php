@@ -6,23 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Atividade extends Model {
     public function escola() {
-        return $this->belongsTo('App\Escola', 'id', 'Escola');
+        return $this->belongsTo('App\Escola', 'id', 'escola');
     }
 
     public function contacto() {
-        return $this->belongsTo('App\Contacto', 'id', 'Contacto');
+        return $this->belongsTo('App\Contacto', 'id', 'contacto');
     }
 
     public function workshops_atividade() {
-        return $this->hasMany('App\WorkshopsAtividade', 'Atividade');
+        return $this->hasMany('App\WorkshopsAtividade', 'atividade');
     }
 
     public function docentes_atividade() {
-        return $this->hasMany('App\DocentesAtividade', 'Atividade');
+        return $this->hasMany('App\DocentesAtividade', 'atividade');
     }
 
     protected $fillable = [
-        'Escola', 'Turma', 'Ano', 'Numero de Alunos', 'Data',
-        'Duracao', 'Contacto', 'Descricao', 'Tipo de Atividade',
+        'escola', 'turma', 'ano', 'numero_de_alunos', 'data',
+        'duracao', 'contacto', 'descricao', 'tipo_de_atividade',
     ];
 }

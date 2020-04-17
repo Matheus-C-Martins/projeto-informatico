@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Participante extends Model {
     public function a_verao_participante() {
-        return $this->belongsTo('App\A_VeraoParticipante', 'Participante');
+        return $this->hasMany('App\A_VeraoParticipante', 'participante');
     }
 
     public function escola() {
-        return $this->belongsTo('App\Escola', 'id', 'Escola');
+        return $this->belongsTo('App\Escola', 'id', 'escola');
     }
 
     public function academia_verao() {
-        return $this->belongsTo('App\AcademiaVerao', 'Participante');
+        return $this->belongsTo('App\AcademiaVerao', 'id', 'academia_de_verao');
     }
 
     protected $fillable = [
-        'Nome', 'Escola', 'Ano', 'Curso', 'Data de Nascimento',
-        'Contacto do Aluno', 'Contacto do EE', 'Encarregado de Educacao', 'Regiao',
+        'nome', 'escola', 'ano', 'curso', 'data_de_nascimento', 'contacto_do_aluno',
+        'contacto_do_ee', 'encarregado_de_educacao', 'regiao', 'academia_de_verao',
     ];
 }

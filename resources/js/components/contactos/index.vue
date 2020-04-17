@@ -20,7 +20,7 @@
       </template>
     </v-data-table>
     <v-dialog v-model="dialogEdit" max-width="700px">
-        <edit-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></edit-contacto>
+        <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
     </v-dialog>
   </v-container>
 </template>
@@ -105,7 +105,9 @@ export default {
           Vue.toasted.error(response.data)
         }
       })
-      .catch(err => Vue.toasted.error("Algo correu mal..."))
+      .catch(response => {
+        Vue.toasted.error("Algo correu mal...");
+      });
       this.close()
     },
     getContactos() {
@@ -115,7 +117,6 @@ export default {
         this.totalContactos = response.data.meta.total;
       })
       .finally(() => this.loading = false);
-      console.log(this.contactos[1])
     },
   },
   created(){

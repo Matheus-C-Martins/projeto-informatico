@@ -20,7 +20,7 @@
               v-model="imageName"
               @click="pickPhoto"
               readonly
-              prepend-icon="mdi-camera"
+              append-icon="mdi-camera"
               clearable
               outlined
               dense>
@@ -96,8 +96,9 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="blue darken-1" text @click="close"> Cancel </v-btn>
-      <v-btn color="blue darken-1" text @click="create"> Create </v-btn>
+      <button class="btn btn-primary" @click.stop.prevent="close"> Cancelar </button>
+      <span>&nbsp;</span>
+      <button class="btn btn-secondary block" @click.stop.prevent="create"> Criar </button>
     </v-card-actions>
   </v-card>
 </template>

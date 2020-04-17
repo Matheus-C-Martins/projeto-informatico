@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Workshop extends Model {
     public function workshops_atividade() {
-        return $this->belongsTo('App\WorkshopsAtividade', 'Workshop');
+        return $this->belongsTo('App\WorkshopsAtividade', 'workshop');
     }
 
     protected $fillable = [
-        'Nome do Workshop',
+        'nome',
     ];
 }

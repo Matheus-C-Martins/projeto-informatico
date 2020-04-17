@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class ContactosEscolas extends Model {
     public function contacto() {
-        return $this->hasMany('App\Contacto', 'id', 'Contacto');
+        return $this->hasMany('App\Contacto', 'id', 'contacto');
     }
 
     public function escola() {
-        return $this->hasMany('App\Escola', 'id', 'Escola');
+        return $this->hasMany('App\Escola', 'id', 'escola');
     }
 
     public function contactos_efetuados() {
-        return $this->hasMany('App\ContactosEfetuados', 'Contacto');
+        return $this->hasMany('App\ContactosEfetuados', 'contacto');
     }
 
     protected $fillable = [
-        'Contacto', 'Tipo', 'Escola', 'Descricao',
+        'contacto', 'tipo', 'escola', 'descricao',
     ];
 }

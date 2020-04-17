@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class AcademiaVerao extends Model {
     public function participante() {
-        return $this->belongsTo('App\Participante', 'id', 'Participante');
+        return $this->hasMany('App\Participante', 'academia_de_verao', 'id');
+    }
+
+    public function atividade_verao() {
+        return $this->hasMany('App\AtividadeVerao', 'academia_de_verao', 'id');
     }
 
     protected $fillable = [
-        'Data', 'Participante',
+        'data', 'participante',
     ];
 }

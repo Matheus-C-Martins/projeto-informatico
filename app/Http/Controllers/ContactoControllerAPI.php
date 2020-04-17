@@ -23,7 +23,7 @@ class ContactoControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $data = $request->only('Nome', 'Telefone', 'Email', 'Sexo');
+        $data = $request->only('nome', 'telefone', 'email', 'sexo');
         $contacto = Contacto::create($data);
         $msg = "Contacto criado com sucesso";
         $data = array($msg, $contacto);
@@ -32,11 +32,12 @@ class ContactoControllerAPI extends Controller {
 
     public function update(Request $request, $id) {
         $contacto = Contacto::find($id);
+        $contacto->timestamps = false;
 
-        $contacto["Telefone"] = $request["telefone"];
-        $contacto["Email"] = $request["email"];
+        $contacto["telefone"] = $request["telefone"];
+        $contacto["email"] = $request["email"];
         $contacto->save();
-
+        
         $msg = "Contacto atualizado com sucesso";
         return response()->json($msg, 200);
     }

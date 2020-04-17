@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class DocentesAtividade extends Model {
     public function atividade() {
-        return $this->belongsTo('App\Atividade', 'id', 'Atividade');
+        return $this->belongsTo('App\Atividade', 'id', 'atividade');
     }
 
     public function docente() {
-        return $this->belongsTo('App\Docente', 'id', 'Docente');
+        return $this->belongsTo('App\Docente', 'id', 'docente');
     }
 
     protected $fillable = [
-        'Atividade', 'Docente', 'Descricao Participacao',
+        'atividade', 'docente', 'descricao_participacao',
     ];
 }
