@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class AtividadeVerao extends Model {
+    public $timestamps = FALSE;
+
     public function a_verao_participante() {
         return $this->hasMany('App\A_VeraoParticipante', 'atividade');
     }

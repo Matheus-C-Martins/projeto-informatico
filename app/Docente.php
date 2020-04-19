@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Docente extends Model {
+    public $timestamps = FALSE;
+
     public function docentes_atividade() {
         return $this->hasMany('App\DocentesAtividade', 'docente');
     }

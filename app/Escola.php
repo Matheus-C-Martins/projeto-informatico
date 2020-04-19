@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class Escola extends Model {
+    public $timestamps = FALSE;
+
     public function atividade() {
         return $this->hasMany('App\Atividade', 'escola', 'id');
     }

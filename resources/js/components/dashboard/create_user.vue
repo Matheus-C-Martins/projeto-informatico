@@ -145,7 +145,7 @@ export default {
     },
     emailErrors () {
       const errors = []
-      if (!this.$v.newUser.email.$dirty) return errors
+      if (!this.$v.newUser.email.$dirty) return errors;
       !(this.email == 0) && errors.push("O email já está a ser utilizado");
       !this.$v.newUser.email.email && errors.push('O email tem de estar num formato válido')
       !this.$v.newUser.email.required && errors.push('O email é obrigatório')

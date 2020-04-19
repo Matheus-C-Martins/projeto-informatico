@@ -1,5 +1,16 @@
 <template>
   <v-container fluid>
+    <v-card outlined>
+      <v-container fluid class="pa-0">
+        <v-dialog v-model="dialogCriar" max-width="700px">
+          <template class="container" v-slot:activator="{ on }">
+            <button v-on="on" @click="criarKey+=1" class="btn btn-secondary block"> Criar Contacto </button>
+          </template>
+          <criar-contacto @create="create" @close="close" :key="criarKey" :contacto="contacto"></criar-contacto>
+        </v-dialog>
+      </v-container>
+    </v-card>
+    <br>
     <v-data-table
       :headers="headers"
       :items="contactos"
@@ -9,19 +20,17 @@
       item-key="id"
       :options.sync="options"
       :server-items-length="totalContactos"
-      :footer-props="{
-        itemsPerPageOptions: [5, 10, 20, 50]
-      }"
+      :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
       class="elevation-1"
       no-data-text="Ainda não existem contactos">
-
       <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
       </template>
     </v-data-table>
-    <v-dialog v-model="dialogEdit" max-width="700px">
-        <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
+    <v-dialog v-model="dialogEditar" max-width="700px">
+      <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
     </v-dialog>
+    </v-row>
   </v-container>
 </template>
 
@@ -39,8 +48,10 @@ export default {
   data() {
     return {
       index: true,
-      dialogEdit: false,
+      dialogEditar: false,
+      dialogCriar: false,
       editarKey: 0,
+      criarKey: 0,
       search: '',
       loading: true,
       totalContactos: 0,
@@ -70,9 +81,6 @@ export default {
       this.getContactos();
       this.contacto={};
     },
-    showEditarContacto: function() {
-      this.editarKey += 1;
-    },
     create(contacto) {
       axios.post("api/contactos", contacto).then(response => {
         if(response.status!=200){
@@ -90,10 +98,11 @@ export default {
       this.editedIndex = this.contactos.indexOf(item)
       this.contacto = Object.assign({}, item)
       this.editarKey+=1
-      this.dialogEdit = true
+      this.dialogEditar = true
     },
     close () {
-      this.dialogEdit = false;
+      this.dialogEditar = false;
+      this.dialogCriar = false;
       this.initialize();
     },
     save(contacto) {
@@ -123,7 +132,10 @@ export default {
     this.$emit("linkTo", "/backoffice/contactos", 1);
   },
   watch: {
-    dialogEdit (val) {
+    dialogEditar (val) {
+      val || this.close()
+    },
+    dialogCriar (val) {
       val || this.close()
     },
     user: function(newVal, oldVal) {

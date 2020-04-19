@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 class WorkshopsAtividade extends Model {
+    public $timestamps = FALSE;
+
     public function atividade() {
         return $this->belongsTo('App\Atividade', 'id', 'atividade');
     }
