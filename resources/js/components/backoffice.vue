@@ -57,6 +57,13 @@ export default {
           img: "/storage/contactos.png",
           link: "/backoffice/contactos/"
         },
+        {
+          id: 3,
+          title: "Docentes",
+          text: "Veja os docentes",
+          img: "/storage/docentes.png",
+          link: "/backoffice/docentes/"
+        },
       ],
       /* SIDE BAR ITEMS */
       item_sidebar: null,

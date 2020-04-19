@@ -23,21 +23,23 @@
       :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
       class="elevation-1"
       no-data-text="Ainda não existem contactos">
-      <template v-slot:item.action="{ item }">
+      <template v-slot:item.editar="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
+      </template>
+      <template v-slot:item.remover="{ item }">
+        <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
       </template>
     </v-data-table>
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
     </v-dialog>
-    </v-row>
   </v-container>
 </template>
 
 <script>
 import EditarContacto from "./editar";
 import CriarContacto from "./criar";
-import { mdiPencil } from '@mdi/js';
+import { mdiPencil, mdiDelete } from '@mdi/js';
 
 export default {
   props: ["user"],
@@ -57,18 +59,18 @@ export default {
       totalContactos: 0,
       options: {},
       headers: [
-        { text: 'ID', value: 'id', align: 'center', sortable: false, filterable: true},
         { text: 'Nome', value: 'nome', align: 'center', sortable: false, filterable: true},
         { text: 'Telefone',  value: 'telefone', align: 'center', sortable: false, filterable:true},
         { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true},
         { text: 'Sexo', value: 'sexo', align: 'center', sortable: false, filterable: true},
-        { text: 'Editar', value: 'action', align: 'center', sortable: false },
+        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
+        { text: 'Remover', value: 'remover', align: 'center', sortable: false },
       ],
       contactos: [],
       editedIndex: -1,
       editedItem: {},
       contacto: {},
-      icons: { mdiPencil },
+      icons: { mdiPencil, mdiDelete },
     };
   },
   computed: {
@@ -99,6 +101,14 @@ export default {
       this.contacto = Object.assign({}, item)
       this.editarKey+=1
       this.dialogEditar = true
+    },
+    deleteItem (item) {
+      confirm(`Tem a certeza que pertende eliminar o contacto de: ${item.nome}?`) &&
+      axios.delete(`/api/contactos/${item.id}`, {})
+        .then(() => {
+          this.loading = true
+          this.initialize()
+        })
     },
     close () {
       this.dialogEditar = false;

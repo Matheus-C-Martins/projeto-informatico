@@ -7,13 +7,14 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\Docente as DocenteResource;
 
 class DocenteControllerAPI extends Controller {
     public function store(Request $request) {
-        $valid = validator($request->only('nome', 'telefone_interno', 'telefone', 'email'), [
+        $valid = validator($request->only('nome', 'telefone_interno', 'telemovel', 'email'), [
             'nome'=> 'required|string|max:255',
             'telefone_interno' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
-            'telefone' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
+            'telemovel' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
             'email' => 'required|string|email|max:255',
         ]);
 
@@ -21,7 +22,7 @@ class DocenteControllerAPI extends Controller {
             $jsonError=response()->json($valid->errors()->all(), 400);
             return response()->json($jsonError);
         }
-        $data = $request->only('nome', 'telefone_interno', 'telefone', 'email');
+        $data = $request->only('nome', 'telefone_interno', 'telemovel', 'email');
 
         $docente = Docente::create($data);
         $msg = "Docente criado com sucesso";
@@ -30,10 +31,9 @@ class DocenteControllerAPI extends Controller {
     }
 
     public function update(Request $request, $id) {
-        $valid = validator($request->only('nome', 'telefone_interno', 'telefone', 'email'), [
-            'nome'=> 'required|string|max:255',
+        $valid = validator($request->only('nome', 'telefone_interno', 'telemovel', 'email'), [
             'telefone_interno' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
-            'telefone' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
+            'telemovel' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
             'email' => 'required|string|email|max:255',
         ]);
 
@@ -44,7 +44,7 @@ class DocenteControllerAPI extends Controller {
 
         $docente = Docente::find($id);
         $docente["telefone_interno"] = $request["telefone_interno"];
-        $docente["telefone"] = $request["telefone"];
+        $docente["telemovel"] = $request["telemovel"];
         $docente["email"] = $request["email"];
         $docente->save();
         
@@ -62,6 +62,6 @@ class DocenteControllerAPI extends Controller {
     public function getDocentes() {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
         $docentes = Docente::paginate($per_page);
-        return $docentes;
+        return DocenteResource::collection($docentes);
     }
 }
