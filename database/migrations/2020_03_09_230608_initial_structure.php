@@ -163,7 +163,7 @@ class InitialStructure extends Migration {
             $table->string('ECTS');
             $table->string('vagas');
             $table->string('contato');
-            $table->string('objetivos');
+            $table->string('objetivos', 1000);
         });
 
         /* ---------------------------------- */
