@@ -151,6 +151,21 @@ class InitialStructure extends Migration {
             $table->foreign('participante')->references('id')->on('participantes');
             $table->dateTime('data', 0);
         });
+
+        /* ---------------------------------- */
+
+        Schema::create('cursos', function (Blueprint $table) {
+            $table->id();
+            $table->string('abreviatura');
+            $table->string('nome');
+            $table->enum('tipo', ['Curso Técnico Superior Profissional', 'Licenciatura', 'Mestrado']);
+            $table->integer('semestres');
+            $table->string('ECTS');
+            $table->string('vagas');
+            $table->string('contato');
+            $table->string('objetivos');
+        });
+
         /* ---------------------------------- */
     }
 
@@ -180,5 +195,7 @@ class InitialStructure extends Migration {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['tipo', 'fotografia']);
         });
+        /* ---------------------------------- */
+        Schema::dropIfExists('cusrsos');
     }
 }
