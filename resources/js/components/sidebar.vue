@@ -75,7 +75,7 @@ export default {
         {
           id:3,
           title: "Academia de Verão",
-          icon: "mdi-chair-school",
+          icon: "mdi-home-floor-a",
           component: "academia",
           link: "/backoffice/academia/"
         },

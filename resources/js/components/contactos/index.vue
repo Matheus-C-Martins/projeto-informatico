@@ -16,7 +16,7 @@
       :items="contactos"
       :items-per-page="10"
       :loading="loading"
-      loading-text="Loading... Please wait"
+      loading-text="A carregar contactos... Por favor aguarde"
       item-key="id"
       :options.sync="options"
       :server-items-length="totalContactos"
@@ -134,6 +134,10 @@ export default {
       axios.get(`api/contactos?page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
         this.contactos = response.data.data;
         this.totalContactos = response.data.meta.total;
+      })
+      .catch(response => {
+        this.contactos = [];
+        this.contacto = {};
       })
       .finally(() => this.loading = false);
     },

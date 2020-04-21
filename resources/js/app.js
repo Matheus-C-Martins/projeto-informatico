@@ -11,6 +11,7 @@ import Dashboard from './components/dashboard/index';
 import Perfil from './components/perfil/index';
 import Contactos from './components/contactos/index';
 import Docentes from './components/docentes/index';
+import Escolas from './components/escolas/index';
 import UploadImage from 'vue-upload-image';
 import VueApexCharts from 'vue-apexcharts';
 import Toasted from 'vue-toasted';
@@ -27,6 +28,7 @@ Vue.component('dashboard', Dashboard);
 Vue.component('perfil', Perfil);
 Vue.component('contactos', Contactos);
 Vue.component('docentes', Docentes);
+Vue.component('escolas', Escolas);
 Vue.component('upload-image', UploadImage);
 Vue.component('apexchart', VueApexCharts);
 
@@ -72,6 +74,12 @@ const routes = [
                 path: 'docentes',
                 components: {
                     backoffice: Docentes
+                }
+            },
+            {
+                path: 'escolas',
+                components: {
+                    backoffice: Escolas
                 }
             },
         ]

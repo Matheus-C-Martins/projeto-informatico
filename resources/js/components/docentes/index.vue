@@ -16,7 +16,7 @@
       :items="docentes"
       :items-per-page="10"
       :loading="loading"
-      loading-text="Loading... Please wait"
+      loading-text="A carregar docentes... Por favor aguarde"
       item-key="id"
       :options.sync="options"
       :server-items-length="totalDocentes"
@@ -134,6 +134,10 @@ export default {
       axios.get(`api/docentes?page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
         this.docentes = response.data.data;
         this.totalDocentes = response.data.meta.total;
+      })
+      .catch(response => {
+        this.docentes = [];
+        this.docente = {};
       })
       .finally(() => this.loading = false);
     },

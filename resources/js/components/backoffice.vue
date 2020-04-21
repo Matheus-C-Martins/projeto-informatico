@@ -18,7 +18,7 @@
       </v-content>
     </v-app>
     <v-app v-else id="inspire">
-      <v-container style="widht:100%; height:100%; text-align:center" fluid>Loading...</v-container>
+      <v-container style="widht:100%; height:100%; text-align:center" fluid>A carregar...</v-container>
     </v-app>
   </span>
 </template>
@@ -63,6 +63,13 @@ export default {
           text: "Veja os docentes",
           img: "/storage/docentes.png",
           link: "/backoffice/docentes/"
+        },
+        {
+          id: 4,
+          title: "Escolas",
+          text: "Veja as escolas",
+          img: "/storage/escolas.png",
+          link: "/backoffice/escolas/"
         },
       ],
       /* SIDE BAR ITEMS */
