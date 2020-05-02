@@ -41,3 +41,5 @@ Route::delete('escolas/{id}', 'EscolaControllerAPI@remove')->name('removeEscola'
 
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::post('logout','LoginControllerAPI@logout')->name('logout')->middleware('auth:api');
+
+Route::post('importSalas', 'ImportControllerAPI@importSalas')->name('importSalas')->middleware('auth:api');

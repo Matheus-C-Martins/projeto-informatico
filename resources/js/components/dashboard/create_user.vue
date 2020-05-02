@@ -21,7 +21,6 @@
               @click="pickPhoto"
               readonly
               append-icon="mdi-camera"
-              clearable
               outlined
               dense>
             </v-text-field>
