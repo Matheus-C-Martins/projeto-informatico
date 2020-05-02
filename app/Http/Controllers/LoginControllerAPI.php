@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-define('YOUR_SERVER_URL', env('APP_URL'));
+define('YOUR_SERVER_URL', env('http://projeto/'));
 define('CLIENT_ID', '2');
-define('CLIENT_SECRET',env('PASSPORT_SECRET'));
+define('CLIENT_SECRET',env('D5USzaAUDhp0WGc8cQIANElMItAod2LYINIGLvYu'));
 
 class LoginControllerAPI extends Controller {
     public function login(Request $request) {
