@@ -206,6 +206,7 @@ class InitialStructure extends Migration {
             $table->string('resposta8');
             $table->string('resposta9');
             $table->string('resposta10');
+            $table->unsignedBigInteger('inquerito_id');
             $table->foreign('inquerito_id')->references('id')->on('inqueritos');
         });
 
@@ -241,6 +242,6 @@ class InitialStructure extends Migration {
         /* ---------------------------------- */
         Schema::dropIfExists('cursos');
         Schema::dropIfExists('inqueritos');
-        Schema::dropIfExists('respostas_inqueritos');
+        Schema::dropIfExists('respostas_inqueritosS');
     }
 }
