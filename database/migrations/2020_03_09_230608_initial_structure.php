@@ -243,6 +243,6 @@ class InitialStructure extends Migration {
         /* ---------------------------------- */
         Schema::dropIfExists('cursos');
         Schema::dropIfExists('inqueritos');
-        Schema::dropIfExists('respostas_inqueritosS');
+        Schema::dropIfExists('respostas_inqueritos');
     }
 }
