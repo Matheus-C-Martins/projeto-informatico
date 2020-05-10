@@ -167,6 +167,50 @@ class InitialStructure extends Migration {
             $table->string('objetivos', 1000);
         });
 
+        Schema::create('inqueritos', function (Blueprint $table){
+            $table->id();
+            $table->dateTime('data', 0);
+            $table->integer('codigo_acesso');
+            $table->enum('estado_codigo', ['Ativo', 'Inativo']);
+            $table->enum('tipo1', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta1');
+            $table->enum('tipo2', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta2');
+            $table->enum('tipo3', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta3');
+            $table->enum('tipo4', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta4');
+            $table->enum('tipo5', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta5');
+            $table->enum('tipo6', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta6');
+            $table->enum('tipo7', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta7');
+            $table->enum('tipo8', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta8');
+            $table->enum('tipo9', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta9');
+            $table->enum('tipo10', ['Escolha única', 'Resposta Aberta']);
+            $table->string('pergunta10');
+        });
+
+        Schema::create('respostas_inqueritos', function (Blueprint $table){
+            $table->id();
+            $table->dateTime('data', 0);
+            $table->string('resposta1');
+            $table->string('resposta2');
+            $table->string('resposta3');
+            $table->string('resposta4');
+            $table->string('resposta5');
+            $table->string('resposta6');
+            $table->string('resposta7');
+            $table->string('resposta8');
+            $table->string('resposta9');
+            $table->string('resposta10');
+            $table->unsignedBigInteger('inquerito_id');
+            $table->foreign('inquerito_id')->references('id')->on('inqueritos');
+        });
+
         /* ---------------------------------- */
     }
 
@@ -198,5 +242,7 @@ class InitialStructure extends Migration {
         });
         /* ---------------------------------- */
         Schema::dropIfExists('cursos');
+        Schema::dropIfExists('inqueritos');
+        Schema::dropIfExists('respostas_inqueritosS');
     }
 }
