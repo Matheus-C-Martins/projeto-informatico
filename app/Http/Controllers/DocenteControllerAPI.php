@@ -12,7 +12,7 @@ use App\Http\Resources\Docente as DocenteResource;
 class DocenteControllerAPI extends Controller {
     public function store(Request $request) {
         $valid = validator($request->only('nome', 'telefone_interno', 'telemovel', 'email'), [
-            'nome'=> 'required|string|max:255',
+            'nome' => 'required|string|max:255',
             'telefone_interno' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
             'telemovel' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
             'email' => 'required|string|email|max:255',

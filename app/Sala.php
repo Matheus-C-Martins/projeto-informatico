@@ -12,6 +12,6 @@ class Sala extends Model {
     }
 
     protected $fillable = [
-        'nome',
+        'edificio', 'nome',
     ];
 }

@@ -113,6 +113,7 @@ class InitialStructure extends Migration {
 
         Schema::create('salas', function (Blueprint $table) {
             $table->id();
+            $table->enum('edificio', ['A', 'B', 'C', 'D', 'E', 'Biblioteca']);
             $table->string('nome', 15);
         });
 
@@ -196,6 +197,6 @@ class InitialStructure extends Migration {
             $table->dropColumn(['tipo', 'fotografia']);
         });
         /* ---------------------------------- */
-        Schema::dropIfExists('cusrsos');
+        Schema::dropIfExists('cursos');
     }
 }

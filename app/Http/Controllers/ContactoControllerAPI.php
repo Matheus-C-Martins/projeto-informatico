@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Contacto;
+use App\ContactosEscolas;
+use App\ContactosEfetuados;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Contacto as ContactoResource;
+use App\Http\Resources\ContactosEscolas as ContactosEscolasResource;
+use App\Http\Resources\ContactosEfetuados as ContactosEfetuadosResource;
 
 class ContactoControllerAPI extends Controller {
     public function store(Request $request) {
@@ -73,5 +77,17 @@ class ContactoControllerAPI extends Controller {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
         $contactos = Contacto::paginate($per_page);
         return ContactoResource::collection($contactos);
+    }
+    
+    public function getContactosEscolas($id) {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $contactos = ContactosEscolas::where('contacto', $id)->paginate($per_page);
+        return ContactosEscolasResource::collection($contactos);
+    }
+
+    public function getContactosEfetuados($id) {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $contactos = ContactosEfetuados::where('contacto', $id)->paginate($per_page);
+        return ContactosEfetuadosResource::collection($contactos);
     }
 }
