@@ -46,6 +46,32 @@ class ContactoControllerAPI extends Controller {
         return response()->json($data, 200);
     }
 
+    public function associarEscola(Request $request) {
+        $valid = validator($request->only('contacto', 'tipo', 'escola', 'descricao'), [
+            'contacto'=> 'required|integer',
+            'tipo' => ['required', 'regex:/^[Telefone]{8}$|^[Email]{5}$/'],
+            'escola' => 'required|integer',
+            'descricao' => 'nullable',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+        $data = $request->only('contacto', 'tipo', 'escola');
+
+        if(!$request->only('descricao')){
+            $data['descricao'] = null;
+        } else {
+            $data['descricao'] = $request->descricao;
+        }
+
+        $contactoEscola = ContactosEscolas::create($data);
+        $msg = "Escola associada com sucesso";
+        $data = array($msg, $contactoEscola);
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, $id) {
         $valid = validator($request->only('telefone', 'email'), [
             'telefone' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],

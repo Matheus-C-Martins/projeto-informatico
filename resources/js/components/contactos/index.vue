@@ -27,11 +27,17 @@
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
       </template>
       <template v-slot:item.remover="{ item }">
-        <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
+        <v-icon small class="mr-2" @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
+      </template>
+      <template v-slot:item.escolas="{ item }">
+        <v-icon small class="mr-2" @click="escolas(item)">{{ icons.mdiSchool }}</v-icon>
       </template>
     </v-data-table>
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
+    </v-dialog>
+    <v-dialog v-model="dialogEscolas" max-width="900px">
+      <contacto-escolas @close="close" :key="escolasKey" :contacto="contacto"></contacto-escolas>
     </v-dialog>
   </v-container>
 </template>
@@ -39,21 +45,25 @@
 <script>
 import EditarContacto from "./editar";
 import CriarContacto from "./criar";
-import { mdiPencil, mdiDelete } from '@mdi/js';
+import ContactoEscolas from "./escolas";
+import { mdiPencil, mdiDelete, mdiSchool } from '@mdi/js';
 
 export default {
   props: ["user"],
   components: {
     "editar-contacto": EditarContacto,
     "criar-contacto": CriarContacto,
+    "contacto-escolas": ContactoEscolas,
   },
   data() {
     return {
       index: true,
       dialogEditar: false,
       dialogCriar: false,
+      dialogEscolas: false,
       editarKey: 0,
       criarKey: 0,
+      escolasKey: 0,
       search: '',
       loading: true,
       totalContactos: 0,
@@ -65,12 +75,13 @@ export default {
         { text: 'Sexo', value: 'sexo', align: 'center', sortable: false, filterable: true},
         { text: 'Editar', value: 'editar', align: 'center', sortable: false },
         { text: 'Remover', value: 'remover', align: 'center', sortable: false },
+        { text: 'Escolas', value: 'escolas', align: 'center', sortable: false },
       ],
       contactos: [],
       editedIndex: -1,
       editedItem: {},
       contacto: {},
-      icons: { mdiPencil, mdiDelete },
+      icons: { mdiPencil, mdiDelete, mdiSchool },
     };
   },
   computed: {
@@ -97,22 +108,29 @@ export default {
       });
     },
     edit(item) {
-      this.editedIndex = this.contactos.indexOf(item)
-      this.contacto = Object.assign({}, item)
-      this.editarKey+=1
-      this.dialogEditar = true
+      this.editedIndex = this.contactos.indexOf(item);
+      this.contacto = Object.assign({}, item);
+      this.editarKey+=1;
+      this.dialogEditar = true;
+    },
+    escolas(item) {
+      this.editedIndex = this.contactos.indexOf(item);
+      this.contacto = Object.assign({}, item);
+      this.escolasKey+=1;
+      this.dialogEscolas = true;
     },
     deleteItem (item) {
       confirm(`Tem a certeza que pertende eliminar o contacto de: ${item.nome}?`) &&
       axios.delete(`/api/contactos/${item.id}`, {})
         .then(() => {
-          this.loading = true
-          this.initialize()
+          this.loading = true;
+          this.initialize();
         })
     },
     close () {
       this.dialogEditar = false;
       this.dialogCriar = false;
+      this.dialogEscolas = false;
       this.initialize();
     },
     save(contacto) {

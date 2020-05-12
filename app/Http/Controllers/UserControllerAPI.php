@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-define('YOUR_SERVER_URL', env('APP_URL'));
-define('CLIENT_ID', '2');
-define('CLIENT_SECRET',env('PASSPORT_SECRET'));
-
 class UserControllerAPI extends Controller {
     public function checkEmailExists(Request $request) {
         $user = User::where("email", $request->email)->first();
