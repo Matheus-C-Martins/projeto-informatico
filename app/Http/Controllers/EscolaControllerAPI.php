@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Escola;
+use App\ContactosEscolas;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB; 
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Escola as EscolaResource;
+use App\Http\Resources\EscolasContactos as EscolasContactosResource;
 
 class EscolaControllerAPI extends Controller {
     public function store(Request $request) {
@@ -59,5 +61,11 @@ class EscolaControllerAPI extends Controller {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
         $escolas = Escola::paginate($per_page);
         return EscolaResource::collection($escolas);
+    }
+
+    public function getEscolasContactos($id) {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $contactos = ContactosEscolas::where('escola', $id)->paginate($per_page);
+        return EscolasContactosResource::collection($contactos);
     }
 }

@@ -15,7 +15,7 @@
       :items="escolas"
       :items-per-page="10"
       :loading="loading"
-      loading-text="A carregar escoals associadas... Por favor aguarde"
+      loading-text="A carregar escolas associadas... Por favor aguarde"
       item-key="id"
       :options.sync="options"
       :server-items-length="totalEscolas"

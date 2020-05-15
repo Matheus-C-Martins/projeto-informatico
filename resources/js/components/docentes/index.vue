@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
-    <v-card outlined>
-      <v-container fluid class="pa-0">
+    <v-card flat tile>
+      <v-card-title> Docentes
+        <v-spacer></v-spacer>
         <v-dialog v-model="dialogCriar" max-width="700px">
           <template class="container" v-slot:activator="{ on }">
             <button v-on="on" @click="criarKey+=1" class="btn btn-secondary block"> Criar Docente </button>
           </template>
           <criar-docente @create="create" @close="close" :key="criarKey" :docente="docente"></criar-docente>
         </v-dialog>
-      </v-container>
+      </v-card-title>
     </v-card>
-    <br>
     <v-data-table
       :headers="headers"
       :items="docentes"

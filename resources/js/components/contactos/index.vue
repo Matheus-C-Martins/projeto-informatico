@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
-    <v-card outlined>
-      <v-container fluid class="pa-0">
+    <v-card flat tile>
+      <v-card-title> Contactos
+      <v-spacer></v-spacer>
         <v-dialog v-model="dialogCriar" max-width="700px">
           <template class="container" v-slot:activator="{ on }">
             <button v-on="on" @click="criarKey+=1" class="btn btn-secondary block"> Criar Contacto </button>
           </template>
           <criar-contacto @create="create" @close="close" :key="criarKey" :contacto="contacto"></criar-contacto>
         </v-dialog>
-      </v-container>
+      </v-card-title>
     </v-card>
-    <br>
     <v-data-table
       :headers="headers"
       :items="contactos"
@@ -168,6 +168,9 @@ export default {
       val || this.close()
     },
     dialogCriar (val) {
+      val || this.close()
+    },
+    dialogEscolas (val) {
       val || this.close()
     },
     user: function(newVal, oldVal) {

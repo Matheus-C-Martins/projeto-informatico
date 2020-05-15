@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-card dark color="#000000">
+    <v-card tile dark color="#000000">
       <v-form align="center">
         <v-container style="margin-top:30px">
           <v-row align="center">
@@ -11,7 +11,7 @@
             </v-col>
 
             <v-col>
-              <v-card shaped color="#6c757d" class="mx-auto pa-6">
+              <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Nome: </h6> {{user.nome}}
               </v-card>
             </v-col>
@@ -19,7 +19,7 @@
 
           <v-row>
             <v-col>
-              <v-card shaped color="#6c757d" class="mx-auto pa-6">
+              <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Tipo: </h6>
                 <div v-if="user.tipo == 'g'"> Gestor </div>
                 <div v-if="user.tipo == 'a'"> Administrator </div>
@@ -27,7 +27,7 @@
             </v-col>
 
             <v-col>
-              <v-card shaped color="#6c757d" class="mx-auto pa-6">
+              <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Email: </h6> {{user.email}}
               </v-card>
             </v-col>

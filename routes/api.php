@@ -38,6 +38,7 @@ Route::put('docentes/{docente_id}/update', 'DocenteControllerAPI@update')->name(
 Route::delete('docentes/{id}', 'DocenteControllerAPI@remove')->name('removeDocente')->middleware('auth:api'); //->middleware('isAdmin')
 
 Route::get('escolas', 'EscolaControllerAPI@getEscolas')->middleware('auth:api'); //->middleware('isAdmin')
+Route::get('escolas/{id}', 'EscolaControllerAPI@getEscolasContactos');//->middleware('auth:api'); //->middleware('isAdmin')
 Route::post('escolas', 'EscolaControllerAPI@store')->name('storeEscola')->middleware('auth:api'); //->middleware('isAdmin')
 Route::put('escolas/{escola_id}/update', 'EscolaControllerAPI@update')->name('updateEscola')->middleware('auth:api'); //->middleware('isAdmin')
 Route::delete('escolas/{id}', 'EscolaControllerAPI@remove')->name('removeEscola')->middleware('auth:api'); //->middleware('isAdmin')

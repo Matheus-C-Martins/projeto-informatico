@@ -125,9 +125,9 @@ export default {
       if(this.user.fotografia == null) {
         return '/storage/noUserPhoto.png';
       }
-        return `/storage/fotos/${this.user.fotografia}`;
-      },
+      return `/storage/fotos/${this.user.fotografia}`;
     },
+  },
   watch: {
     $route(to, from) {
       this.currentPath = to.path;

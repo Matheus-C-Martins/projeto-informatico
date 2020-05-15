@@ -1,16 +1,16 @@
 <template>
   <v-container fluid>
-    <v-card outlined>
-      <v-container fluid class="pa-0">
+    <v-card flat tile>
+      <v-card-title> Escolas
+        <v-spacer></v-spacer>
         <v-dialog v-model="dialogCriar" max-width="700px">
           <template class="container" v-slot:activator="{ on }">
             <button v-on="on" @click="criarKey+=1" class="btn btn-secondary block"> Criar Escola </button>
           </template>
           <criar-escola @create="create" @close="close" :key="criarKey" :escola="escola"></criar-escola>
         </v-dialog>
-      </v-container>
+     </v-card-title>
     </v-card>
-    <br>
     <v-data-table
       :headers="headers"
       :items="escolas"
@@ -29,9 +29,15 @@
       <template v-slot:item.remover="{ item }">
         <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
       </template>
+      <template v-slot:item.contactos="{ item }">
+        <v-icon small class="mr-2" @click="contactos(item)">{{ icons.mdiPhone }}</v-icon>
+      </template>
     </v-data-table>
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-escola @save="save" @close="close" :key="editarKey" :escola="escola"></editar-escola>
+    </v-dialog>
+    <v-dialog v-model="dialogContactos" max-width="1100px">
+      <escolas-contacto @close="close" :key="contactosKey" :escola="escola"></escolas-contacto>
     </v-dialog>
   </v-container>
 </template>
@@ -39,21 +45,25 @@
 <script>
 import EditarEscola from "./editar";
 import CriarEscola from "./criar";
-import { mdiPencil, mdiDelete } from '@mdi/js';
+import EscolasContacto from "./contactos";
+import { mdiPencil, mdiDelete, mdiPhone } from '@mdi/js';
 
 export default {
   props: ["user"],
   components: {
     "editar-escola": EditarEscola,
     "criar-escola": CriarEscola,
+    "escolas-contacto": EscolasContacto,
   },
   data() {
     return {
       index: true,
       dialogEditar: false,
       dialogCriar: false,
+      dialogContactos: false,
       editarKey: 0,
       criarKey: 0,
+      contactosKey: 0,
       search: '',
       loading: true,
       totalEscolas: 0,
@@ -63,12 +73,13 @@ export default {
         { text: 'Localização',  value: 'localizacao', align: 'center', sortable: false, filterable:true},
         { text: 'Editar', value: 'editar', align: 'center', sortable: false },
         { text: 'Remover', value: 'remover', align: 'center', sortable: false },
+        { text: 'Contactos', value: 'contactos', align: 'center', sortable: false },
       ],
       escolas: [],
       editedIndex: -1,
       editedItem: {},
       escola: {},
-      icons: { mdiPencil, mdiDelete },
+      icons: { mdiPencil, mdiDelete, mdiPhone },
     };
   },
   computed: {
@@ -94,6 +105,12 @@ export default {
         Vue.toasted.error("Algo correu mal...");
       });
     },
+    contactos(item) {
+      this.editedIndex = this.escolas.indexOf(item);
+      this.escola = Object.assign({}, item);
+      this.contactosKey+=1;
+      this.dialogContactos = true;
+    },
     edit(item) {
       this.editedIndex = this.escolas.indexOf(item)
       this.escola = Object.assign({}, item)
@@ -111,6 +128,7 @@ export default {
     close () {
       this.dialogEditar = false;
       this.dialogCriar = false;
+      this.dialogContactos = false;
       this.initialize();
     },
     save(escola) {
@@ -148,6 +166,9 @@ export default {
       val || this.close()
     },
     dialogCriar (val) {
+      val || this.close()
+    },
+    dialogContactos (val) {
       val || this.close()
     },
     user: function(newVal, oldVal) {
