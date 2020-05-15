@@ -22,7 +22,7 @@
               <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Tipo: </h6>
                 <div v-if="user.tipo == 'g'"> Gestor </div>
-                <div v-if="user.tipo == 'a'"> Administrator </div>
+                <div v-if="user.tipo == 'a'"> Administrador </div>
               </v-card>
             </v-col>
 

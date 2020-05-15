@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="pa-0">
-    <v-card outlined>
+    <v-card tile flat>
       <v-card-title> Bem-vindo ao DEI@Tour </v-card-title>
     </v-card>
     <v-container class="pa-4 text-center">
