@@ -72,6 +72,33 @@ class ContactoControllerAPI extends Controller {
         return response()->json($data, 200);
     }
 
+    public function marcarEfetuado(Request $request, $contacto) {
+        $valid = validator($request->only('tipo','descricao'), [
+            'tipo' => ['required', 'regex:/^[Telefone]{8}$|^[Email]{5}$/'],
+            'descricao' => 'nullable',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+        $data = $request->only('contacto', 'tipo');
+
+        if(!$request->only('descricao')){
+            $data['descricao'] = null;
+        } else {
+            $data['descricao'] = $request->descricao;
+        }
+
+        $data['contacto'] = $contacto;
+        $data['data'] = Carbon::now()->toDateTimeString();
+
+        $contactosEfetuado = ContactosEfetuados::create($data);
+        $msg = "Contacto marcado como efetuado com sucesso";
+        $data = array($msg, $contactosEfetuado);
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, $id) {
         $valid = validator($request->only('telefone', 'email'), [
             'telefone' => ['required','string','max:9','min:9','regex:/^[0-9]*$/'],
@@ -90,6 +117,55 @@ class ContactoControllerAPI extends Controller {
         
         $msg = "Contacto atualizado com sucesso";
         return response()->json($msg, 200);
+    }
+
+    public function updateAssociado(Request $request, $id) {
+        $valid = validator($request->only('contacto', 'tipo', 'escola', 'descricao'), [
+            'contacto'=> 'required|integer',
+            'tipo' => ['required', 'regex:/^[Telefone]{8}$|^[Email]{5}$/'],
+            'escola' => 'required|integer',
+            'descricao' => 'nullable',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $contactoEscola = ContactosEscolas::find($id);
+        $contactoEscola["contacto"] = $request["contacto"];
+        $contactoEscola["tipo"] = $request["tipo"];
+        $contactoEscola["escola"] = $request["escola"];
+        $contactoEscola["descricao"] = $request["descricao"];
+        $contactoEscola->save();
+        
+        $msg = "Contacto Associado atualizado com sucesso";
+        return response()->json($msg, 200);
+    }
+
+    public function updateEfetuado(Request $request, $contacto, $id) {
+        $valid = validator($request->only('tipo','descricao'), [
+            'tipo' => ['required', 'regex:/^[Telefone]{8}$|^[Email]{5}$/'],
+            'descricao' => 'nullable',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $contactosEfetuado = ContactosEfetuados::find($id);
+        $date = Carbon::now()->toDateTimeString();
+
+        $contactosEfetuado["contacto"] = $contacto;
+        $contactosEfetuado["tipo"] = $request["tipo"];
+        $contactosEfetuado["data"] = $date;
+        $contactosEfetuado["descricao"] = $request["descricao"];
+        $contactosEfetuado->save();
+
+        $msg = "Contacto efetuado atualizado com sucesso";
+        $data = array($msg, $contactosEfetuado);
+        return response()->json($data, 200);
     }
 
     public function remove($id){

@@ -36,7 +36,7 @@
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
     </v-dialog>
-    <v-dialog v-model="dialogEscolas" max-width="900px">
+    <v-dialog v-model="dialogEscolas" max-width="1000px">
       <contacto-escolas @close="close" :key="escolasKey" :contacto="contacto"></contacto-escolas>
     </v-dialog>
   </v-container>
