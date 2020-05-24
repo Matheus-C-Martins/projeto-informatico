@@ -32,8 +32,10 @@ Route::post('contactos/escolas', 'ContactoControllerAPI@associarEscola')->middle
 Route::post('contactos/escolas/{id}', 'ContactoControllerAPI@marcarEfetuado')->middleware('auth:api'); //->middleware('isAdmin')
 Route::put('contactos/{contacto_id}/update', 'ContactoControllerAPI@update')->name('updateContacto')->middleware('auth:api'); //->middleware('isAdmin')
 Route::put('contactos/escolas/{associado_id}/update', 'ContactoControllerAPI@updateAssociado')->name('updateContactoAssociado')->middleware('auth:api'); //->middleware('isAdmin')
-Route::put('contactos/escolas/{associado_id}/{efetuado_id}/update', 'ContactoControllerAPI@updateEfetuado')->name('updateContactoEfetuado');//->middleware('auth:api'); //->middleware('isAdmin')
+Route::put('contactos/escolas/{associado_id}/{efetuado_id}/update', 'ContactoControllerAPI@updateEfetuado')->name('updateContactoEfetuado')->middleware('auth:api'); //->middleware('isAdmin')
 Route::delete('contactos/{id}', 'ContactoControllerAPI@remove')->name('removeContacto')->middleware('auth:api'); //->middleware('isAdmin')
+Route::delete('contactos/escolas/{associado_id}/{efetuado_id}', 'ContactoControllerAPI@removeEfetuado')->name('removerContactoEfetuado')->middleware('auth:api'); //->middleware('isAdmin')
+Route::delete('contactos/escolas/{associado_id}', 'ContactoControllerAPI@removeAssociado')->name('removerContactoAssociado')->middleware('auth:api'); //->middleware('isAdmin')
 
 Route::get('docentes', 'DocenteControllerAPI@getDocentes')->middleware('auth:api'); //->middleware('isAdmin')
 Route::post('docentes', 'DocenteControllerAPI@store')->name('storeDocente')->middleware('auth:api'); //->middleware('isAdmin')
@@ -41,7 +43,7 @@ Route::put('docentes/{docente_id}/update', 'DocenteControllerAPI@update')->name(
 Route::delete('docentes/{id}', 'DocenteControllerAPI@remove')->name('removeDocente')->middleware('auth:api'); //->middleware('isAdmin')
 
 Route::get('escolas', 'EscolaControllerAPI@getEscolas')->middleware('auth:api'); //->middleware('isAdmin')
-Route::get('escolas/{id}', 'EscolaControllerAPI@getEscolasContactos');//->middleware('auth:api'); //->middleware('isAdmin')
+Route::get('escolas/{id}', 'EscolaControllerAPI@getEscolasContactos')->middleware('auth:api'); //->middleware('isAdmin')
 Route::post('escolas', 'EscolaControllerAPI@store')->name('storeEscola')->middleware('auth:api'); //->middleware('isAdmin')
 Route::put('escolas/{escola_id}/update', 'EscolaControllerAPI@update')->name('updateEscola')->middleware('auth:api'); //->middleware('isAdmin')
 Route::delete('escolas/{id}', 'EscolaControllerAPI@remove')->name('removeEscola')->middleware('auth:api'); //->middleware('isAdmin')

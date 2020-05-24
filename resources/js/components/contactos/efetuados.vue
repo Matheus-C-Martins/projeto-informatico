@@ -25,6 +25,9 @@
           <template v-slot:item.editar="{ item }">
             <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
           </template>
+          <template v-slot:item.desmarcar="{ item }">
+            <v-icon small class="mr-2" @click="desmarcar(item)"> {{ icons.mdiDelete }} </v-icon>
+          </template>
         </v-data-table>
         <v-dialog v-model="dialogEditar" max-width="700px">
           <editar-efetuado @editar="save" @close="closeMarcar" :key="editarKey" :contacto="efetuado"></editar-efetuado>
@@ -40,7 +43,7 @@
 <script>
 import MarcarEfetuado from "./marcarEfetuado";
 import EditarEfetuado from "./editarEfetuado";
-import { mdiPencil } from '@mdi/js';
+import { mdiPencil, mdiDelete } from '@mdi/js';
 
 export default {
   props: ["escola"],
@@ -59,6 +62,7 @@ export default {
         { text: 'Tipo',  value: 'tipo', align: 'center', sortable: false, filterable:true},
         { text: 'Descrição', value: 'descricao', align: 'center', sortable: false, filterable: true},
         { text: 'Editar',  value: 'editar', align: 'center', sortable: false},
+        { text: 'Desmarcar', value: 'desmarcar', align: 'center', sortable: false },
       ],
       efetuados: [],
       efetuado: {},
@@ -66,7 +70,7 @@ export default {
       dialogEditar: false,
       marcarKey: 0,
       editarKey: 0,
-      icons: { mdiPencil },
+      icons: { mdiPencil, mdiDelete },
     };
   },
   methods: {
@@ -117,6 +121,14 @@ export default {
       .catch(response => {
         Vue.toasted.error("Algo correu mal...");
       });
+    },
+    desmarcar (item) {
+      confirm(`Tem a certeza que pertende desmarcar este contacto?`) &&
+      axios.delete(`api/contactos/escolas/${this.escola.id}/${item.id}`, {})
+        .then(() => {
+          this.loading = true;
+          this.initialize();
+        })
     },
     closeMarcar() {
       this.dialogMarcar = false;

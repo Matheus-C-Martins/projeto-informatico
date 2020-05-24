@@ -28,6 +28,9 @@
         <template v-slot:item.editar="{ item }">
           <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
         </template>
+        <template v-slot:item.desassociar="{ item }">
+          <v-icon small class="mr-2" @click="desassociar(item)"> {{ icons.mdiDelete }} </v-icon>
+        </template>
       </v-data-table>
       <v-dialog v-model="dialogEfetuados" max-width="700px">
         <contactos-efetuados @close="closeEfetuados" :key="efetuadosKey" :escola="escola"></contactos-efetuados>
@@ -47,7 +50,7 @@
 import ContactosEfetuados from "./efetuados";
 import AssociarEscola from "./associarEscola";
 import EditarAssociado from "./editarAssociado";
-import { mdiPencil } from '@mdi/js';
+import { mdiPencil, mdiDelete } from '@mdi/js';
 
 export default {
   props: ["contacto"],
@@ -73,11 +76,12 @@ export default {
         { text: 'Tipo de Contacto',  value: 'tipo', align: 'center', sortable: false, filterable:true},
         { text: 'Descrição', value: 'descricao', align: 'center', sortable: false, filterable: true},
         { text: 'Editar', value: 'editar', align: 'center', sortable: false, filterable: true},
+        { text: 'Desassociar', value: 'desassociar', align: 'center', sortable: false },
         { text: '', value: 'efetuados', align: 'right', sortable: false}
       ],
       escolas: [],
       escola: {},
-      icons: { mdiPencil },
+      icons: { mdiPencil, mdiDelete },
     };
   },
   methods: {
@@ -122,6 +126,14 @@ export default {
       .catch(response => {
         Vue.toasted.error("Algo correu mal...");
       });
+    },
+    desassociar(item) {
+      confirm(`Tem a certeza que pertende desassociar a escola: ${item.escola}?`) &&
+      axios.delete(`/api/contactos/escolas/${item.id}`, {})
+        .then(() => {
+          this.loading = true;
+          this.initialize();
+        })
     },
     editar(item) {
       this.editedIndex = this.escolas.indexOf(item);

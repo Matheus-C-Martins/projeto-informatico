@@ -110,7 +110,7 @@ class ContactoControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $contacto = Contacto::find($id);
+        $contacto = Contacto::findOrFail($id);
         $contacto["telefone"] = $request["telefone"];
         $contacto["email"] = $request["email"];
         $contacto->save();
@@ -132,7 +132,7 @@ class ContactoControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $contactoEscola = ContactosEscolas::find($id);
+        $contactoEscola = ContactosEscolas::findOrFail($id);
         $contactoEscola["contacto"] = $request["contacto"];
         $contactoEscola["tipo"] = $request["tipo"];
         $contactoEscola["escola"] = $request["escola"];
@@ -154,7 +154,7 @@ class ContactoControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $contactosEfetuado = ContactosEfetuados::find($id);
+        $contactosEfetuado = ContactosEfetuados::findOrFail($id);
         $date = Carbon::now()->toDateTimeString();
 
         $contactosEfetuado["contacto"] = $contacto;
@@ -169,9 +169,26 @@ class ContactoControllerAPI extends Controller {
     }
 
     public function remove($id){
-        $contacto = Contacto::find($id);
+        $contacto = Contacto::findOrFail($id);
         $contacto->delete();
         $msg = 'Contacto removido com sucesso';
+        return response()->json($msg, 200);
+    }
+
+    public function removeAssociado($id){
+        $contactosEfetuados = ContactosEfetuados::where('contacto', $id);
+        $contactosEfetuados->delete();
+        $contactoEscola = ContactosEscolas::findOrFail($id);
+        $contactoEscola->delete();
+        $msg = 'Contacto desassociado com sucesso';
+        return response()->json($msg, 200);
+    }
+
+    public function removeEfetuado($aux, $id){
+        $contactoEscola = ContactosEscolas::findOrFail($aux);        
+        $contactoEfetuado = ContactosEfetuados::findOrFail($id);
+        $contactoEfetuado->delete();
+        $msg = 'Contacto desmarcado com sucesso';
         return response()->json($msg, 200);
     }
 
