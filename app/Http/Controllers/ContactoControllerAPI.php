@@ -193,8 +193,23 @@ class ContactoControllerAPI extends Controller {
     }
 
     public function getContactos() {
+        $arrayWhere = [];
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $contactos = Contacto::paginate($per_page);
+
+        if(!empty(request('nome'))){
+            array_push($arrayWhere, ['nome', 'LIKE' , '%'.request('nome').'%']);
+        }
+        if(!empty(request('telefone'))){
+            array_push($arrayWhere, ['telefone', 'LIKE' , '%'.request('telefone').'%']);
+        }
+        if(!empty(request('email'))){
+            array_push($arrayWhere, ['email', 'LIKE' , '%'.request('email').'%']);
+        }
+        if(!empty(request('sexo'))){
+            array_push($arrayWhere, ['sexo', request('sexo')]);
+        }
+
+        $contactos = Contacto::where($arrayWhere)->paginate($per_page);
         return ContactoResource::collection($contactos);
     }
     

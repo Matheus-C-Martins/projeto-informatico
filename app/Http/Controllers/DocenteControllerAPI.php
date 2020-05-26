@@ -60,8 +60,23 @@ class DocenteControllerAPI extends Controller {
     }
 
     public function getDocentes() {
+        $arrayWhere = [];
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $docentes = Docente::paginate($per_page);
+
+        if(!empty(request('nome'))){
+            array_push($arrayWhere, ['nome', 'LIKE' , '%'.request('nome').'%']);
+        }
+        if(!empty(request('telefone'))){
+            array_push($arrayWhere, ['telefone_interno', 'LIKE' , '%'.request('telefone').'%']);
+        }
+        if(!empty(request('email'))){
+            array_push($arrayWhere, ['email', 'LIKE' , '%'.request('email').'%']);
+        }
+        if(!empty(request('telemovel'))){
+            array_push($arrayWhere, ['telemovel', 'LIKE' , '%'.request('telemovel').'%']);
+        }
+
+        $docentes = Docente::where($arrayWhere)->paginate($per_page);
         return DocenteResource::collection($docentes);
     }
 }

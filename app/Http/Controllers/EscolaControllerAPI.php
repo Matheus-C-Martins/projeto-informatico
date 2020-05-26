@@ -58,8 +58,17 @@ class EscolaControllerAPI extends Controller {
     }
 
     public function getEscolas() {
+        $arrayWhere = [];
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $escolas = Escola::paginate($per_page);
+
+        if(!empty(request('nome'))){
+            array_push($arrayWhere, ['nome', 'LIKE' , '%'.request('nome').'%']);
+        }
+        if(!empty(request('localizacao'))){
+            array_push($arrayWhere, ['localizacao', 'LIKE' , '%'.request('localizacao').'%']);
+        }
+
+        $escolas = Escola::where($arrayWhere)->paginate($per_page);
         return EscolaResource::collection($escolas);
     }
 

@@ -9,6 +9,7 @@
         <associar-escola @associar="associar" @close="closeEfetuados" :key="associarKey" :contacto="contacto"></associar-escola>
       </v-dialog>
     </v-card-title>
+
     <v-card-text style="padding-bottom: 0px;">
       <v-data-table
         :headers="headers"
