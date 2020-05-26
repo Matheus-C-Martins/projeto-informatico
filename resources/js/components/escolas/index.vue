@@ -11,6 +11,31 @@
         </v-dialog>
      </v-card-title>
     </v-card>
+
+    <v-divider style="margin-top: 0px"></v-divider>
+      <v-card-subtitle class='display-6 font-weight-black pa-0'> Procurar </v-card-subtitle>
+      <v-form>
+        <v-row dense>
+          <v-col cols="12" sm="4">
+            <v-text-field label="Nome"
+              v-model="nome"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="4">
+            <v-text-field label="Localização"
+              v-model="localizacao"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-form>
+    <v-divider></v-divider>
+
     <v-data-table
       :headers="headers"
       :items="escolas"
@@ -64,7 +89,8 @@ export default {
       editarKey: 0,
       criarKey: 0,
       contactosKey: 0,
-      search: '',
+      nome: '',
+      localizacao: '',
       loading: true,
       totalEscolas: 0,
       options: {},
@@ -147,7 +173,7 @@ export default {
     },
     getEscolas() {
       this.loading = true;
-      axios.get(`api/escolas?page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
+      axios.get(`api/escolas?nome=${this.nome}&localizacao=${this.localizacao}&page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
         this.escolas = response.data.data;
         this.totalEscolas = response.data.meta.total;
       })
@@ -173,7 +199,13 @@ export default {
     },
     user: function(newVal, oldVal) {
       newVal;
-    }
+    },
+    nome() {
+      this.getEscolas();
+    },
+    localizacao() {
+      this.getEscolas();
+    },
   },
   mounted(){
     this.initialize();

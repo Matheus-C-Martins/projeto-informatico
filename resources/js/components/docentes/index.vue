@@ -11,6 +11,47 @@
         </v-dialog>
       </v-card-title>
     </v-card>
+
+    <v-divider style="margin-top: 0px"></v-divider>
+      <v-card-subtitle class='display-6 font-weight-black pa-0'> Procurar </v-card-subtitle>
+      <v-form>
+        <v-row dense>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Nome"
+              v-model="nome"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Telefone Interno"
+              v-model="telefone"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Email"
+              v-model="email"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Telemóvel"
+              v-model="telemovel"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+        </v-row>
+      </v-form>
+    <v-divider></v-divider>
+
     <v-data-table
       :headers="headers"
       :items="docentes"
@@ -54,7 +95,10 @@ export default {
       dialogCriar: false,
       editarKey: 0,
       criarKey: 0,
-      search: '',
+      nome: '',
+      telefone: '',
+      email: '',
+      telemovel: '',
       loading: true,
       totalDocentes: 0,
       options: {},
@@ -131,7 +175,7 @@ export default {
     },
     getDocentes() {
       this.loading = true;
-      axios.get(`api/docentes?page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
+      axios.get(`api/docentes?nome=${this.nome}&telefone=${this.telefone}&email=${this.email}&telemovel=${this.telemovel}&page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
         this.docentes = response.data.data;
         this.totalDocentes = response.data.meta.total;
       })
@@ -154,7 +198,19 @@ export default {
     },
     user: function(newVal, oldVal) {
       newVal;
-    }
+    },
+    nome() {
+      this.getDocentes();
+    },
+    telefone() {
+      this.getDocentes();
+    },
+    email() {
+      this.getDocentes();
+    },
+    telemovel() {
+      this.getDocentes();
+    },
   },
   mounted(){
     this.initialize();

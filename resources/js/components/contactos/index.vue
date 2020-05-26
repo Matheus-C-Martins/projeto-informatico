@@ -11,6 +11,49 @@
         </v-dialog>
       </v-card-title>
     </v-card>
+
+    <v-divider style="margin-top: 0px"></v-divider>
+      <v-card-subtitle class='display-6 font-weight-black pa-0'> Procurar </v-card-subtitle>
+      <v-form>
+        <v-row dense>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Nome"
+              v-model="nome"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Telefone"
+              v-model="telefone"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-text-field label="Email"
+              v-model="email"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-select label="Sexo"
+              v-model="sexo"
+              :items="sexos"
+              item-value="sexo"
+              hide-details
+              outlined
+              dense
+            ></v-select>
+          </v-col>
+        </v-row>
+      </v-form>
+    <v-divider></v-divider>
+    
     <v-data-table
       :headers="headers"
       :items="contactos"
@@ -64,7 +107,15 @@ export default {
       editarKey: 0,
       criarKey: 0,
       escolasKey: 0,
-      search: '',
+      nome: '',
+      telefone: '',
+      email: '',
+      sexo: '',
+      sexos: [
+        { sexo: "masculino", text: "Masculino" },
+        { sexo: "feminino", text: "Feminino" },
+        { sexo: "outro", text: "Outro" },
+      ],
       loading: true,
       totalContactos: 0,
       options: {},
@@ -149,7 +200,7 @@ export default {
     },
     getContactos() {
       this.loading = true;
-      axios.get(`api/contactos?page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
+      axios.get(`api/contactos?nome=${this.nome}&telefone=${this.telefone}&email=${this.email}&sexo=${this.sexo}&page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
         this.contactos = response.data.data;
         this.totalContactos = response.data.meta.total;
       })
@@ -175,7 +226,19 @@ export default {
     },
     user: function(newVal, oldVal) {
       newVal;
-    }
+    },
+    nome() {
+      this.getContactos();
+    },
+    telefone() {
+      this.getContactos();
+    },
+    email() {
+      this.getContactos();
+    },
+    sexo() {
+      this.getContactos();
+    },
   },
   mounted(){
     this.initialize();
