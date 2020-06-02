@@ -12,7 +12,7 @@ class CursosControllerAPI extends Controller
         return Curso::all();
     }
 
-    public function storage() {
+    public function storage(Request $request) {
         $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos'), [
             'abreviatura'=> 'required|string',
             'nome' => 'required|string',
@@ -42,7 +42,7 @@ class CursosControllerAPI extends Controller
             $count = DB::table('cursos')->count();
             $id = $count + 1;
             //generates the photo file name
-            $fileName=$id . "_".time().".".$extension;
+            $fileName=$data['abreviatura'].".".$extension;
             //saves the image to public/storage/fotos
             $path = public_path().'/storage/logoCursos/'.$fileName;
             file_put_contents($path, $decoded); //we pass the path and the decoded image
