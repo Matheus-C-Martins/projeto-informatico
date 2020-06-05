@@ -48,6 +48,11 @@ Route::post('escolas', 'EscolaControllerAPI@store')->name('storeEscola')->middle
 Route::put('escolas/{escola_id}/update', 'EscolaControllerAPI@update')->name('updateEscola')->middleware('auth:api');
 Route::delete('escolas/{id}', 'EscolaControllerAPI@remove')->name('removeEscola')->middleware('auth:api');
 
+Route::get('atividades', 'AtividadeControllerAPI@getAtividades')->middleware('auth:api');
+Route::post('atividades', 'AtividadeControllerAPI@store')->name('storeAtividade')->middleware('auth:api');
+Route::put('atividades/{atividade_id}/update', 'AtividadeControllerAPI@update')->name('updateAtividade')->middleware('auth:api');
+Route::delete('atividades/{id}', 'AtividadeControllerAPI@remove')->name('removeAtividade')->middleware('auth:api');
+
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::post('logout','LoginControllerAPI@logout')->name('logout')->middleware('auth:api');
 
@@ -55,3 +60,4 @@ Route::post('importSalas', 'ImportControllerAPI@importSalas')->middleware('auth:
 Route::post('importEscolas', 'ImportControllerAPI@importEscolas')->middleware('auth:api');
 Route::post('importDocentes', 'ImportControllerAPI@importDocentes')->middleware('auth:api');
 Route::post('importContactos', 'ImportControllerAPI@importContactos')->middleware('auth:api');
+Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops');//->middleware('auth:api');

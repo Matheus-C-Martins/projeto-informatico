@@ -18,14 +18,14 @@
             ></v-select>
           </v-col>
           <v-col>
-            <v-text-field label="Descrição"
+            <v-textarea label="Descrição"
               clearable
               outlined
               v-model="contacto.descricao"
               dense
               hide-details
               @keypress.enter.stop.prevent="editar"
-            ></v-text-field>
+            ></v-textarea>
           </v-col>
         </v-row>
       </v-form>

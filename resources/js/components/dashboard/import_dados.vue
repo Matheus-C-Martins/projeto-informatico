@@ -54,7 +54,8 @@ export default {
         { modelo: "1", text: "Salas" },
         { modelo: "2", text: "Docentes" },
         { modelo: "3", text: "Contactos" },
-        { modelo: "4", text: "Escolas" }
+        { modelo: "4", text: "Escolas" },
+        { modelo: "5", text: "Workshops" }
       ]
     };
   },
@@ -116,6 +117,20 @@ export default {
         case "4":
           this.modelo = 0;
           axios.post("api/importEscolas", formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
+            if(response.status!=200) {
+              Vue.toasted.error(response.data);
+              return;
+            }
+            Vue.toasted.show(response.data);
+            this.close();
+          })
+          .catch(response => {
+            Vue.toasted.error('Algo correu mal...');
+          });
+          break;
+        case "5":
+          this.modelo = 0;
+          axios.post("api/importWorkshops", formData, {headers: {'Content-Type': 'multipart/form-data'}}).then(response => {
             if(response.status!=200) {
               Vue.toasted.error(response.data);
               return;

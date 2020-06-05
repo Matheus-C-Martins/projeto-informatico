@@ -124,11 +124,14 @@ export default {
     },
     desmarcar (item) {
       confirm(`Tem a certeza que pertende desmarcar este contacto?`) &&
-      axios.delete(`api/contactos/escolas/${this.escola.id}/${item.id}`, {})
-        .then(() => {
-          this.loading = true;
-          this.initialize();
-        })
+      axios.delete(`api/contactos/escolas/${this.escola.id}/${item.id}`, {}).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data);
+          return;
+        }
+        this.loading = true;
+        this.initialize();
+      })
     },
     closeMarcar() {
       this.dialogMarcar = false;

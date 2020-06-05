@@ -130,11 +130,14 @@ export default {
     },
     desassociar(item) {
       confirm(`Tem a certeza que pertende desassociar a escola: ${item.escola}?`) &&
-      axios.delete(`/api/contactos/escolas/${item.id}`, {})
-        .then(() => {
-          this.loading = true;
-          this.initialize();
-        })
+      axios.delete(`/api/contactos/escolas/${item.id}`, {}).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data);
+          return;
+        }
+        this.loading = true;
+        this.initialize();
+      })
     },
     editar(item) {
       this.editedIndex = this.escolas.indexOf(item);

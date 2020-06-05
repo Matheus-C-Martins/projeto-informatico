@@ -108,11 +108,6 @@ export default {
       icons: { mdiPencil, mdiDelete, mdiPhone },
     };
   },
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'Nova Escola' : 'Editar Escola';
-    },
-  },
   methods: {
     initialize(){
       this.getEscolas();
@@ -145,11 +140,14 @@ export default {
     },
     deleteItem (item) {
       confirm(`Tem a certeza que pertende eliminar a escola "${item.nome}"?`) &&
-      axios.delete(`/api/escolas/${item.id}`, {})
-        .then(() => {
-          this.loading = true
-          this.initialize()
-        })
+      axios.delete(`/api/escolas/${item.id}`, {}).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data);
+          return;
+        }
+        this.loading = true
+        this.initialize()
+      })
     },
     close () {
       this.dialogEditar = false;

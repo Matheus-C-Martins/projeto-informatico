@@ -7,6 +7,7 @@ use App\Imports\SalasImport;
 use App\Imports\EscolasImport;
 use App\Imports\DocentesImport;
 use App\Imports\ContactosImport;
+use App\Imports\WorkshopsImport;
 use App\Http\Requests\CsvImportRequest;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -65,6 +66,20 @@ class ImportControllerAPI extends Controller {
                 return response()->json($failure->errors()[0].$failure->values()['email'].", ou com o telefone: ".$failure->values()['telefone'], 202);
             }
         } catch (Throwable $th){ 
+            return response()->json('Não foi inserido um ficheiro .csv ou o ficheiro não está no formato correto', 202);
+        }
+    }
+
+    public function importWorkshops(CsvImportRequest $request) {
+        try {
+            Excel::import(new WorkshopsImport, request()->file('csv_file'), null, \Maatwebsite\Excel\Excel::CSV);
+            return response()->json('Workshops importados com sucesso', 200);
+        } catch (ValidationException $e) {
+            $failures = $e->failures();            
+            foreach ($failures as $failure) {
+                return response()->json($failure->errors()[0].$failure->values()['nome'], 202);
+            }
+        } catch (Throwable $th){
             return response()->json('Não foi inserido um ficheiro .csv ou o ficheiro não está no formato correto', 202);
         }
     }

@@ -34,14 +34,14 @@
         </v-row>
         <v-row dense>
           <v-col>
-            <v-text-field label="Descrição"
+            <v-textarea label="Descrição"
               clearable
               outlined
               v-model="escola.descricao"
               dense
               hide-details
               @keypress.enter.stop.prevent="editar"
-            ></v-text-field>
+            ></v-textarea>
           </v-col>
         </v-row>
       </v-form>

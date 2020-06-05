@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contacto;
 use App\ContactosEscolas;
 use App\ContactosEfetuados;
+use App\Atividade;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -51,7 +52,7 @@ class ContactoControllerAPI extends Controller {
             'contacto'=> 'required|integer',
             'tipo' => ['required', 'regex:/^[Telefone]{8}$|^[Email]{5}$/'],
             'escola' => 'required|integer',
-            'descricao' => 'nullable',
+            'descricao' => 'nullable|string',
         ]);
 
         if ($valid->fails()) {
@@ -168,23 +169,39 @@ class ContactoControllerAPI extends Controller {
         return response()->json($data, 200);
     }
 
-    public function remove($id){
+    public function remove($id) {
         $contacto = Contacto::findOrFail($id);
+
+        $contactosEscola =  ContactosEscolas::where('contacto', $contacto->id)->get()->toArray();
+        if(sizeof($contactosEscola) > 0) {
+            $msg = "Não foi possível remover o contacto, pois tem escolas associadas";
+            return response()->json($msg, 202);
+        }
+     
+        $atividades = Atividade::where('contacto', $contacto->id)->get()->toArray();
+        if(sizeof($atividades) > 0) {
+            $msg = "Não foi possível remover o contacto, pois tem atividades associadas";
+            return response()->json($msg, 202);
+        }
+
         $contacto->delete();
         $msg = 'Contacto removido com sucesso';
         return response()->json($msg, 200);
     }
 
-    public function removeAssociado($id){
-        $contactosEfetuados = ContactosEfetuados::where('contacto', $id);
-        $contactosEfetuados->delete();
+    public function removeAssociado($id) {
         $contactoEscola = ContactosEscolas::findOrFail($id);
+        $contactosEfetuados = ContactosEfetuados::where('contacto', $contactoEscola->id)->get()->toArray();
+        if(sizeof($contactosEfetuados) > 0) {
+            $msg = "Não foi possível desassoiciar, pois já foram efetuados contactos";
+            return response()->json($msg, 202);
+        }
         $contactoEscola->delete();
         $msg = 'Contacto desassociado com sucesso';
         return response()->json($msg, 200);
     }
 
-    public function removeEfetuado($aux, $id){
+    public function removeEfetuado($aux, $id) {
         $contactoEscola = ContactosEscolas::findOrFail($aux);        
         $contactoEfetuado = ContactosEfetuados::findOrFail($id);
         $contactoEfetuado->delete();

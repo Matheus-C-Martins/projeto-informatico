@@ -135,11 +135,6 @@ export default {
       icons: { mdiPencil, mdiDelete, mdiSchool },
     };
   },
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'Novo Contacto' : 'Editar Contacto';
-    },
-  },
   methods: {
     initialize(){
       this.getContactos();
@@ -172,11 +167,14 @@ export default {
     },
     deleteItem (item) {
       confirm(`Tem a certeza que pertende eliminar o contacto de: ${item.nome}?`) &&
-      axios.delete(`/api/contactos/${item.id}`, {})
-        .then(() => {
-          this.loading = true;
-          this.initialize();
-        })
+      axios.delete(`/api/contactos/${item.id}`, {}).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data);
+          return;
+        }
+        this.loading = true;
+        this.initialize();
+      })
     },
     close () {
       this.dialogEditar = false;

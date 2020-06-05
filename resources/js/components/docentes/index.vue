@@ -117,11 +117,6 @@ export default {
       icons: { mdiPencil, mdiDelete },
     };
   },
-  computed: {
-    formTitle () {
-      return this.editedIndex === -1 ? 'Novo Docente' : 'Editar Docente';
-    },
-  },
   methods: {
     initialize(){
       this.getDocentes();
@@ -148,11 +143,14 @@ export default {
     },
     deleteItem (item) {
       confirm(`Tem a certeza que pertende eliminar o docente "${item.nome}"?`) &&
-      axios.delete(`/api/docentes/${item.id}`, {})
-        .then(() => {
-          this.loading = true
-          this.initialize()
-        })
+      axios.delete(`/api/docentes/${item.id}`, {}).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data);
+          return;
+        }
+        this.loading = true
+        this.initialize()
+      })
     },
     close () {
       this.dialogEditar = false;
