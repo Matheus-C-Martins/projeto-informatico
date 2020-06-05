@@ -155,16 +155,23 @@ class InitialStructure extends Migration {
 
         /* ---------------------------------- */
 
+        Schema::create('tipo_curso', function (Blueprint $table) {
+            $table->id();
+            $table->string('nome');
+        });
+
         Schema::create('cursos', function (Blueprint $table) {
             $table->id();
             $table->string('abreviatura');
             $table->string('nome');
-            $table->enum('tipo', ['Curso Técnico Superior Profissional', 'Licenciatura', 'Mestrado']);
+            $table->unsignedBigInteger('tipo');
             $table->integer('semestres');
-            $table->string('ECTS');
-            $table->string('vagas');
+            $table->integer('ECTS');
+            $table->integer('vagas');
             $table->string('contato');
             $table->string('objetivos', 1000);
+            $table->string('fotografia')->nullable();
+            $table->foreign('tipo')->references('id')->on('tipo_curso');
         });
 
         Schema::create('inqueritos', function (Blueprint $table){
@@ -242,6 +249,7 @@ class InitialStructure extends Migration {
         });
         /* ---------------------------------- */
         Schema::dropIfExists('cursos');
+        Schema::dropIfExists('tipo_curso');
         Schema::dropIfExists('inqueritos');
         Schema::dropIfExists('respostas_inqueritos');
     }

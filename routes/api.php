@@ -60,4 +60,12 @@ Route::post('importSalas', 'ImportControllerAPI@importSalas')->middleware('auth:
 Route::post('importEscolas', 'ImportControllerAPI@importEscolas')->middleware('auth:api');
 Route::post('importDocentes', 'ImportControllerAPI@importDocentes')->middleware('auth:api');
 Route::post('importContactos', 'ImportControllerAPI@importContactos')->middleware('auth:api');
-Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops');//->middleware('auth:api');
+Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops')->middleware('auth:api');
+
+/*
+|--------------------------------------------------------------------------
+| API Mobile Routes
+|--------------------------------------------------------------------------|
+*/
+
+Route::get('cursos', 'CursosControllerAPI@getCursos');
