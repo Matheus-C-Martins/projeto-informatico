@@ -136,6 +136,7 @@ export default {
           Vue.toasted.error(response.data);
         return;
       }
+        Vue.toasted.show(response.data);
         this.loading = true;
         this.initialize();
       })

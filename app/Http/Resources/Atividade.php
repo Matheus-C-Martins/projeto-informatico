@@ -14,7 +14,7 @@ class Atividade extends JsonResource {
         $escola = Escola::find($this->escola);
 
         $t = strtotime($this->data);
-        $data = date("Y/m/d", $t);
+        $data = date("Y-m-d", $t);
         $hora = date("H:i:s", $t);
 
         $t_complete = '-----';

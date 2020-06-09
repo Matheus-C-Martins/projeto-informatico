@@ -69,7 +69,7 @@
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-atividade @save="save" @close="close" :key="editarKey" :atividade="atividade"></editar-atividade>
     </v-dialog>
-    <v-dialog v-model="dialogWorkshop" max-width="700px">
+    <v-dialog v-model="dialogWorkshop" max-width="900px">
       <workshop @close="close" :key="workshopKey" :atividade="atividade"></workshop>
     </v-dialog>
   </v-container>
@@ -161,6 +161,7 @@ export default {
           Vue.toasted.error(response.data);
           return;
         }
+        Vue.toasted.show(response.data);
         this.loading = true;
         this.initialize();
       })

@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Atividade;
+use App\WorkshopsAtividade;
+use App\Workshop;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Atividade as AtividadeResource;
+use App\Http\Resources\AtividadesWorkshop as AtividadesWorkshopResource;
+use App\Http\Resources\Workshop as WorkshopResource;
 
 class AtividadeControllerAPI extends Controller {
     public function store(Request $request) {
@@ -44,6 +48,33 @@ class AtividadeControllerAPI extends Controller {
         return response()->json($data, 200);
     }
 
+    public function associar(Request $request, $id) {
+        $atividade = Atividade::findOrFail($id);
+        $valid = validator($request->only('workshop', 'data', 'descricao'), [
+            'workshop'=> 'required|integer',
+            'data' => 'required|date_format:Y-m-d H:i:s',
+            'descricao' => 'nullable|string',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $data = $request->only('workshop', 'data');
+        $data['atividade'] = $id;
+        if(!$request->only('descricao')) {
+            $data['descricao'] = null;
+        } else {
+            $data['descricao'] = $request->descricao;
+        }
+
+        $workshop = WorkshopsAtividade::create($data);
+        $msg = "Workshop associado com sucesso";
+        $data = array($msg, $workshop);
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, $id) {
         $valid = validator($request->only('contacto', 'escola', 'numero_de_alunos', 'descricao'), [
             'contacto'=> 'required|integer',
@@ -68,6 +99,30 @@ class AtividadeControllerAPI extends Controller {
         return response()->json($msg, 200);
     }
 
+    public function updateWorkshop(Request $request, $aux, $id) {
+        $atividade = Atividade::findOrFail($aux);
+        $valid = validator($request->only('workshop', 'data', 'descricao'), [
+            'workshop'=> 'required|integer',
+            'data' => 'required|date_format:Y-m-d H:i:s',
+            'descricao' => 'nullable|string',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $workshop = WorkshopsAtividade::findOrFail($id);
+        $workshop["atividade"] = $aux;
+        $workshop["workshop"] = $request["workshop"];
+        $workshop["data"] = $request["data"];
+        $workshop["descricao"] = $request["descricao"];
+        $workshop->save();
+        
+        $msg = "Workshop atualizado com sucesso";
+        return response()->json($msg, 200);
+    }
+
     public function remove($id){
         $atividade = Atividade::findOrFail($id);
         $atividade->delete();
@@ -75,9 +130,28 @@ class AtividadeControllerAPI extends Controller {
         return response()->json($msg, 200);
     }
 
+    public function desassociarWorkshop($aux, $id) {
+        $atividade = Atividade::findOrFail($aux);
+        $workshop = WorkshopsAtividade::findOrFail($id);
+        $workshop->delete();
+        $msg = 'Workshop desassociado com sucesso';
+        return response()->json($msg, 200);
+    }
+
     public function getAtividades() {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
         $atividades = Atividade::paginate($per_page);
         return AtividadeResource::collection($atividades);
+    }
+
+    public function getAtividadesWorkshops($id) {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $workshops = WorkshopsAtividade::where('atividade', $id)->paginate($per_page);
+        return AtividadesWorkshopResource::collection($workshops);
+    }
+
+    public function getWorkshops() {
+        $workshops = Workshop::all();
+        return WorkshopResource::collection($workshops);
     }
 }

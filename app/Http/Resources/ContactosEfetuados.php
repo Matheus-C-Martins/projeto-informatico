@@ -9,7 +9,7 @@ class ContactosEfetuados extends JsonResource {
     use Searchable;
     public function toArray($request) {
         $t = strtotime($this->data);
-        $data = date("Y/m/d",$t);
+        $data = date("Y-m-d",$t);
         
         return [    
             'id' => $this->id,
