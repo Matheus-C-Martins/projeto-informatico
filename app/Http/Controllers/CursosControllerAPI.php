@@ -12,6 +12,10 @@ class CursosControllerAPI extends Controller
         return Curso::all();
     }
 
+    public function getFotoCurso(Request $request, $nome) {
+        return response()->download(public_path().'/storage/logoCursos/'.$nome, 'Imagem curso');
+    }
+
     public function storage(Request $request) {
         $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos'), [
             'abreviatura'=> 'required|string',

@@ -70,3 +70,4 @@ Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops')->middlewar
 */
 
 Route::get('cursos', 'CursosControllerAPI@getCursos');
+Route::put('cursos/{nome}', 'CursosControllerAPI@getFotoCurso');
