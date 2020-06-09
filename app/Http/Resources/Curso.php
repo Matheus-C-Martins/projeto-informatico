@@ -24,6 +24,7 @@ class Curso extends JsonResource
             'vagas' => $this->vagas,
             'contato' => $this->contato,
             'objetivos' => $this->objetivos,
+            'fotografia' => $this->fotografia,
         ];
     }
 }
