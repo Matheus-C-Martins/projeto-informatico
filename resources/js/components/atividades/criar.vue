@@ -220,7 +220,7 @@ export default {
       tipo_de_atividade: [
         { tipo: "diaESTG", text: "Dia ESTG" },
         { tipo: "workshop", text: "Workshop" },
-        { tipo: "outro", text: "Outro" },
+        { tipo: "seminario", text: "Seminário" },
       ],
       ano: [
         { escolar: "12ºano", text: "12ºano" },

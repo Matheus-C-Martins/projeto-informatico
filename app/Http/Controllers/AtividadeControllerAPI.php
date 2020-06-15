@@ -25,7 +25,7 @@ class AtividadeControllerAPI extends Controller {
             'data' => 'required|date_format:Y-m-d H:i:s',
             'duracao' => 'required|date_format:H:i:s',
             'descricao' => 'nullable|string',
-            'tipo_de_atividade' => ['required', 'regex:/^[diaESTG]{7}$|^[workshop]{8}$/'],
+            'tipo_de_atividade' => ['required', 'regex:/^[diaESTG]{7}$|^[workshop]{8}$|^[seminario]{9}$/'],
         ]);
 
         if ($valid->fails()) {
@@ -139,8 +139,29 @@ class AtividadeControllerAPI extends Controller {
     }
 
     public function getAtividades() {
+        $arrayWhere = [];
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $atividades = Atividade::paginate($per_page);
+
+        if(!empty(request('escola'))){
+            array_push($arrayWhere, ['escola', request('escola')]);
+        }
+        if(!empty(request('turma'))){
+            array_push($arrayWhere, ['turma', 'LIKE' , '%'.request('turma').'%']);
+        }
+        if(!empty(request('ano'))){
+            array_push($arrayWhere, ['ano', 'LIKE' , '%'.request('ano').'%']);
+        }
+        if(!empty(request('tipo_atividade'))){
+            array_push($arrayWhere, ['tipo_de_atividade', request('tipo_atividade')]);
+        }
+        if(!empty(request('dataInicio'))){
+            array_push($arrayWhere, ['data', '>=', request('dataInicio')]);
+        }
+        if(!empty(request('dataFim'))){
+            array_push($arrayWhere, ['data', '<=', request('dataFim')]);
+        }
+
+        $atividades = Atividade::where($arrayWhere)->paginate($per_page);
         return AtividadeResource::collection($atividades);
     }
 
