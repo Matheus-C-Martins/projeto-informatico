@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-card flat>
+  <v-container fluid>
+    <v-card flat tile>
       <v-card-title> Dashboard
         <v-spacer></v-spacer>
         <v-dialog v-if="user.tipo == 'a'" v-model="dialog" max-width="700px">
@@ -10,6 +10,7 @@
           <createUser :newUser="newUser" :key="createUserKey" @create="createUser" @close="close"></createUser>
         </v-dialog>
       </v-card-title>
+      <v-divider style="margin-top: 0px"></v-divider>
       <v-card-text style="padding-bottom: 0px">
         <v-row dense align="center" justify="space-around">
           <div v-for="(box) in boxes" :key="box.id">
@@ -43,7 +44,7 @@
       </v-card>
       </v-card-actions>
     </v-card>
-  </v-app>
+  </v-container>
 </template>
 
 <script>

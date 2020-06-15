@@ -1,5 +1,10 @@
 <template>
   <v-container fluid>
+    <v-card flat tile>
+      <v-card-title> Perfil </v-card-title>
+    </v-card>
+    <v-divider style="margin-top: 0px"></v-divider>
+
     <v-card tile dark color="#000000">
       <v-form align="center">
         <v-container style="margin-top:30px">
@@ -9,14 +14,12 @@
                 <v-img v-if="user!=undefined" :src="getUserPhoto"></v-img>
               </v-avatar>
             </v-col>
-
             <v-col>
               <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Nome: </h6> {{user.nome}}
               </v-card>
             </v-col>
           </v-row>
-
           <v-row>
             <v-col>
               <v-card color="#6c757d" class="mx-auto pa-6">
@@ -25,14 +28,12 @@
                 <div v-if="user.tipo == 'a'"> Administrador </div>
               </v-card>
             </v-col>
-
             <v-col>
               <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Email: </h6> {{user.email}}
               </v-card>
             </v-col>
           </v-row>
-
           <v-row>
             <v-col class="d-flex flex-row-reverse">
               <v-dialog v-model="dialog" max-width="700px">

@@ -52,20 +52,27 @@ export default {
         },
         {
           id: 2,
+          title: "Atividades",
+          text: "Veja as atividades",
+          img: "/storage/atividades.png",
+          link: "/backoffice/atividades/"
+        },
+        {
+          id: 3,
           title: "Contactos",
           text: "Veja os contactos",
           img: "/storage/contactos.png",
           link: "/backoffice/contactos/"
         },
         {
-          id: 3,
+          id: 4,
           title: "Docentes",
           text: "Veja os docentes",
           img: "/storage/docentes.png",
           link: "/backoffice/docentes/"
         },
         {
-          id: 4,
+          id: 5,
           title: "Escolas",
           text: "Veja as escolas",
           img: "/storage/escolas.png",
