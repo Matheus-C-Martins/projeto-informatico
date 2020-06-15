@@ -175,4 +175,14 @@ class AtividadeControllerAPI extends Controller {
         $workshops = Workshop::all();
         return WorkshopResource::collection($workshops);
     }
+
+    public function getAtividadesAno() {
+        $arrayWhere = [];
+        $today = Carbon::now()->format('Y-m-d H:i:s');
+        $end = Carbon::now()->format('Y')."-12-31 23:59:59";
+        
+        array_push($arrayWhere, ['data', '>=', $today]);
+        array_push($arrayWhere, ['data', '<=', $end]);
+        return Atividade::where($arrayWhere)->count();
+    }
 }

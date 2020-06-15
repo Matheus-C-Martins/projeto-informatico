@@ -20,7 +20,7 @@
               <v-card-text style="color:black" class="caixa-texto">
                 <p style="margin-bottom: 0px;"> {{box.middle.text}} </p>
                 <v-divider light></v-divider>
-                <p v-if="box.middle.atividadesRestantes==1 && atividadesRestantes!==undefined" class='display-1 font-weight-black'>{{atividadesRestantes}}</p>
+                <p v-if="box.middle.atividadesRestantes >= 0 && atividadesRestantes!==undefined" class='display-1 font-weight-black'>{{atividadesRestantes}}</p>
                 <p v-else class='display-1 font-weight-black'>{{box.middle.template}}</p>
               </v-card-text>
               <v-card-actions style="background-color: #000000" class="justify-center">
@@ -80,12 +80,12 @@ export default {
         this.$emit("linkTo", routePoint, routeId);
       }
     },
-    close: function(){
+    close() {
       this.dialog = false;
       this.dialogImport = false;
       this.newUser = {};
     },
-    createUser(user){
+    createUser(user) {
       axios.post("api/users", user).then(response => {
         if(response.status!=200){
           Vue.toasted.error('Algo correu mal... ' + response.data);
@@ -104,12 +104,22 @@ export default {
       }
       this.userFoto = `/storage/fotos/${this.user.fotografia}`;
     },
+    getAtividadesRestantes() {
+      axios.get(`api/atividadesAno`).then(response => {
+        this.atividadesRestantes = response.data;
+      })
+      .catch(response => {
+        this.atividadesRestantes = 0;
+        Vue.toasted.error('Não foi possível encontrar as atividades restantes');
+      })
+    }
   },
   mounted(){
     this.loading = 1;
   },
   created(){
     this.getUserPhoto();
+    this.getAtividadesRestantes();
     this.boxes = [{
         id:0,
         class: 'head center',
@@ -126,23 +136,23 @@ export default {
           linkTo: "/backoffice/perfil/",
           routeId: 1,
         }
-      }, /*{
+      }, {
         id:1,
         class: 'head center',
         middle: {
           text: `Atividades por realizar neste ano:`,
-          atividadesRestantes: 1,
+          atividadesRestantes: `${this.atividadesRestantes}`,
         },
         img: {
           on: 1,
-          url: "/storage/logo.png"
+          url: "/storage/Logo_DEI.png"
         },
         action: {
           text: "Veja as atividades",
           linkTo: "/backoffice/atividades/",
           routeId: 0,
         }
-      },*/
+      },
     ];
   
     this.$emit("linkTo", "/backoffice/dashboard", 0);
