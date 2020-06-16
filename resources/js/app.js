@@ -13,6 +13,7 @@ import Contactos from './components/contactos/index';
 import Docentes from './components/docentes/index';
 import Escolas from './components/escolas/index';
 import Atividades from './components/atividades/index';
+import Cursos from './components/cursos/index';
 import UploadImage from 'vue-upload-image';
 import VueApexCharts from 'vue-apexcharts';
 import Toasted from 'vue-toasted';
@@ -31,6 +32,7 @@ Vue.component('contactos', Contactos);
 Vue.component('docentes', Docentes);
 Vue.component('escolas', Escolas);
 Vue.component('atividades', Atividades);
+Vue.component('cursos', Cursos);
 Vue.component('upload-image', UploadImage);
 Vue.component('apexchart', VueApexCharts);
 
@@ -88,6 +90,12 @@ const routes = [
                 path: 'atividades',
                 components: {
                     backoffice: Atividades
+                }
+            },
+            {
+                path: 'cursos',
+                components: {
+                    backoffice: Cursos
                 }
             },
         ]

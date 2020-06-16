@@ -63,6 +63,12 @@ Route::post('importDocentes', 'ImportControllerAPI@importDocentes')->middleware(
 Route::post('importContactos', 'ImportControllerAPI@importContactos')->middleware('auth:api');
 Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops')->middleware('auth:api');
 
+Route::get('cursosWeb', 'CursosControllerAPI@getCursosWeb')->middleware('auth:api');
+Route::get('tipoCursos', 'CursosControllerAPI@getTipoCursos')->middleware('auth:api');
+Route::post('cursos', 'CursosControllerAPI@store')->name('storeCurso')->middleware('auth:api');
+Route::put('cursos/{curso_id}/update', 'CursosControllerAPI@update')->name('updateCurso')->middleware('auth:api');
+Route::delete('cursos/{curso_id}', 'CursosControllerAPI@remove')->name('removeCurso')->middleware('auth:api');
+
 /*
 |--------------------------------------------------------------------------
 | API Mobile Routes
@@ -70,4 +76,5 @@ Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops')->middlewar
 */
 
 Route::get('cursos', 'CursosControllerAPI@getCursos');
-Route::put('cursos/{nome}', 'CursosControllerAPI@getFotoCurso');
+Route::get('cursos/{nome}', 'CursosControllerAPI@getFotoCurso');
+
