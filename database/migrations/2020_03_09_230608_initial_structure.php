@@ -55,7 +55,7 @@ class InitialStructure extends Migration {
             $table->unsignedBigInteger('contacto');
             $table->foreign('contacto')->references('id')->on('contactos');
             $table->text('descricao');
-            $table->enum('tipo_de_atividade', ['diaESTG', 'workshop']);
+            $table->enum('tipo_de_atividade', ['diaESTG', 'workshop', 'seminario']);
         });
 
         Schema::create('contactos_escolas', function (Blueprint $table) { // Contacto que nós recebemos
@@ -155,7 +155,7 @@ class InitialStructure extends Migration {
 
         /* ---------------------------------- */
 
-        Schema::create('tipo_curso', function (Blueprint $table) {
+        Schema::create('tipo_cursos', function (Blueprint $table) {
             $table->id();
             $table->string('nome');
         });
@@ -171,7 +171,7 @@ class InitialStructure extends Migration {
             $table->string('contato');
             $table->string('objetivos', 1000);
             $table->string('fotografia')->nullable();
-            $table->foreign('tipo')->references('id')->on('tipo_curso');
+            $table->foreign('tipo')->references('id')->on('tipo_cursos');
         });
 
         Schema::create('inqueritos', function (Blueprint $table){
@@ -249,7 +249,7 @@ class InitialStructure extends Migration {
         });
         /* ---------------------------------- */
         Schema::dropIfExists('cursos');
-        Schema::dropIfExists('tipo_curso');
+        Schema::dropIfExists('tipo_cursos');
         Schema::dropIfExists('inqueritos');
         Schema::dropIfExists('respostas_inqueritos');
     }

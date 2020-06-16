@@ -14,6 +14,72 @@
 
     <v-divider style="margin-top: 0px"></v-divider>
       <v-card-subtitle class='display-6 font-weight-black pa-0'> Procurar </v-card-subtitle>
+      <v-form>
+        <v-row dense>
+          <v-col cols="12" sm="3">
+            <v-select label="Escola"
+              :items="escolas"
+              item-value="id"
+              item-text="nome"
+              v-model="escola"
+              hide-details
+              outlined
+              dense
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <v-text-field label="Turma"
+              v-model="turma"
+              hide-details
+              outlined
+              dense
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <v-select label="Ano"
+              v-model="ano"
+              :items="anos"
+              item-value="escolar"
+              hide-details
+              outlined
+              dense
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <v-select label="Tipo de Atividade"
+              v-model="tipo_atividade"
+              :items="tipos"
+              item-value="tipo"
+              hide-details
+              outlined
+              dense
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="3">
+            <v-menu
+              ref="menuData"
+              v-model="menuData"
+              :close-on-content-click="false"
+              :return-value.sync="data"
+              transition="scale-transition"
+              offset-y
+              min-width="290px">
+              <template v-slot:activator="{ on }">
+                <v-text-field label="Data da Atividade"
+                  v-model="data"
+                  outlined
+                  dense
+                  readonly
+                  v-on="on"
+                  hide-details
+                ></v-text-field>
+              </template>
+              <v-date-picker v-model="data" no-title type="month" @click:month="$refs.menuData.save(data)">
+              </v-date-picker>
+            </v-menu>
+          </v-col>
+        </v-row>
+      </v-form>
     <v-divider></v-divider>
     
     <v-data-table
@@ -97,6 +163,25 @@ export default {
       editarKey: 0,
       criarKey: 0,
       workshopKey: 0,
+      escolas: [],
+      escola: {},
+      turma: '',
+      ano: '',
+      anos: [
+        { escolar: "12ºano", text: "12ºano" },
+        { escolar: "11ºano", text: "11ºano" },
+        { escolar: "10ºano", text: "10ºano" },
+      ],
+      tipo_atividade: '',
+      tipos: [
+        { tipo: "diaESTG", text: "Dia ESTG" },
+        { tipo: "workshop", text: "Workshop" },
+        { tipo: "seminario", text: "Seminário" },
+      ],
+      dataInicio: '',
+      dataFim:'',
+      data:'',
+      menuData: false,
       loading: true,
       totalAtividades: 0,
       options: {},
@@ -122,10 +207,12 @@ export default {
       editedItem: {},
       atividade: {},
       icons: { mdiPencil, mdiDelete },
+      trinta:['04', '06', '09', '11'],
     };
   },
   methods: {
-    initialize(){
+    initialize() {
+      this.getEscolas();
       this.getAtividades();
       this.atividade={};
     },
@@ -188,7 +275,7 @@ export default {
     },
     getAtividades() {
       this.loading = true;
-      axios.get(`api/atividades?page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
+      axios.get(`api/atividades?escola=${(Object.keys(this.escola).length === 0 && this.escola.constructor === Object ? '' : this.escola)}&turma=${this.turma}&ano=${this.ano}&tipo_atividade=${this.tipo_atividade}&dataInicio=${this.dataInicio}&dataFim=${this.dataFim}&page=${this.options.page}&per_page=${this.options.itemsPerPage}`).then(response => {
         this.atividades = response.data.data;
         this.totalAtividades = response.data.meta.total;
       })
@@ -197,6 +284,14 @@ export default {
         this.atividade = {};
       })
       .finally(() => this.loading = false);
+    },
+    getEscolas() {
+      axios.get(`api/escolas`).then(response => {
+        this.escolas = response.data.data;
+      })
+      .catch(response => {
+        this.escolas = [];
+      })
     },
   },
   created(){
@@ -221,6 +316,31 @@ export default {
       }
       [];
     },
+    escola() {
+      this.getAtividades();
+    },
+    turma() {
+      this.getAtividades();
+    },
+    ano() {
+      this.getAtividades();
+    },
+    tipo_atividade() {
+      this.getAtividades();
+    },
+    data() {
+      if (this.data !== ''){
+        this.dataInicio = this.data+"-01";
+        if (this.trinta.includes(this.data.substr(5, 7))) {
+          this.dataFim = this.data+"-30";
+        } else if(this.data.substr(5, 7) === '02') {
+          this.dataFim = this.data+"-29";
+        } else {
+          this.dataFim = this.data+"-31";
+        }
+      }
+      this.getAtividades();
+    }
   },
   mounted(){
     this.initialize();

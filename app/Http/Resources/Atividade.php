@@ -25,6 +25,9 @@ class Atividade extends JsonResource {
             case 'workshop':
                 $t_complete = 'Workshop';
                 break;
+            case 'seminario':
+                $t_complete = 'Seminário';
+                break;
         }
         
         return [
