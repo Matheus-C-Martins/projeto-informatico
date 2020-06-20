@@ -74,34 +74,41 @@ export default {
         },
         {
           id:3,
+          title: "Cursos",
+          icon: "mdi-book-open-page-variant",
+          component: "cursos",
+          link: "/backoffice/cursos/"
+        },
+        {
+          id:4,
           title: "Academia de Verão",
           icon: "mdi-home-floor-a",
           component: "academia",
           link: "/backoffice/academia/"
         },
         {
-          id:4,
+          id:5,
           title: "Docentes",
           icon: "mdi-account-tie",
           component: "docentes",
           link: "/backoffice/docentes/"
         },
         {
-          id:5,
+          id:6,
           title: "Contactos",
           icon: "mdi-phone",
           component: "contactos",
           link: "/backoffice/contactos/"
         },
         {
-          id:6,
+          id:7,
           title: "Escolas",
           icon: "mdi-school",
           component: "escolas",
           link: "/backoffice/escolas/"
         },
         {
-          id:7,
+          id:8,
           title: "Estatísticas",
           icon: "mdi-chart-areaspline",
           component: "estatisticas",

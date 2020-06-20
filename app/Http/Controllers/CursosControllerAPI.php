@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Curso;
+use App\TipoCurso;
 use Illuminate\Http\Request;
 use App\Http\Resources\Curso as CursoResource;
+use App\Http\Resources\TipoCurso as TipoCursoResource;
 
 class CursosControllerAPI extends Controller
 {
@@ -16,7 +18,19 @@ class CursosControllerAPI extends Controller
         return response()->download(public_path().'/storage/logoCursos/'.$nome, 'Imagem curso');
     }
 
-    public function storage(Request $request) {
+    public function getCursosWeb() {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $cursos = Curso::paginate($per_page);
+        return CursoResource::collection($cursos);
+    }
+
+    public function getTipoCursos() {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $cursos = TipoCurso::paginate($per_page);
+        return TipoCursoResource::collection($cursos);
+    }
+
+    public function store(Request $request) {
         $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos'), [
             'abreviatura'=> 'required|string',
             'nome' => 'required|string',
@@ -55,17 +69,7 @@ class CursosControllerAPI extends Controller
             $data['fotografia'] = null;
         }
         
-        $curso = Curso::create([
-            'abreviatura' => $data['abreviatura'],
-            'nome' => $data['nome'],
-            'tipo' => $data['tipo'],
-            'semestres' => $data['semestres'],
-            'ECTS' => $data['ECTS'],
-            'vagas' => $data['vagas'],
-            'contato' => $data['contato'],
-            'objetivos' => $data['objetivos'],
-            'fotografia' => $data['fotografia'],
-        ]);        
+        $curso = Curso::create($data);        
         return response()->json("Foi criado um novo curso.", 200);
     }
 
@@ -127,7 +131,7 @@ class CursosControllerAPI extends Controller
     public function remove($id) {
         $curso = Curso::find($id);
 
-        $user->delete();
+        $curso->delete();
 
         $msg = `Curso removido com sucesso`;
         return response()->json($msg, 200);
