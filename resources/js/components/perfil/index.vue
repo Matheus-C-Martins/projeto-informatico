@@ -5,7 +5,7 @@
     </v-card>
     <v-divider style="margin-top: 0px"></v-divider>
 
-    <v-card tile dark color="#000000">
+    <v-card dark color="#000000">
       <v-form align="center">
         <v-container style="margin-top:30px">
           <v-row align="center">

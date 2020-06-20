@@ -55,7 +55,7 @@ class InitialStructure extends Migration {
             $table->unsignedBigInteger('contacto');
             $table->foreign('contacto')->references('id')->on('contactos');
             $table->text('descricao');
-            $table->enum('tipo_de_atividade', ['diaESTG', 'workshop', 'seminario']);
+            $table->enum('tipo_de_atividade', ['diaESTG', 'workshop', 'seminario', 'visita']);
         });
 
         Schema::create('contactos_escolas', function (Blueprint $table) { // Contacto que nós recebemos

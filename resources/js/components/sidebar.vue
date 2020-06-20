@@ -105,7 +105,7 @@ export default {
           title: "Estatísticas",
           icon: "mdi-chart-areaspline",
           component: "estatisticas",
-          link: "/backoffice/estatísticas/"
+          link: "/backoffice/estatisticas/"
         },
       ],
     };

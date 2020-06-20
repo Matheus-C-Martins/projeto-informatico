@@ -221,6 +221,7 @@ export default {
         { tipo: "diaESTG", text: "Dia ESTG" },
         { tipo: "workshop", text: "Workshop" },
         { tipo: "seminario", text: "Seminário" },
+        { tipo: "visita", text: "Visita à Escola" },
       ],
       ano: [
         { escolar: "12ºano", text: "12ºano" },

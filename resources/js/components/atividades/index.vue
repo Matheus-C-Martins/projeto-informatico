@@ -177,6 +177,7 @@ export default {
         { tipo: "diaESTG", text: "Dia ESTG" },
         { tipo: "workshop", text: "Workshop" },
         { tipo: "seminario", text: "Seminário" },
+        { tipo: "visita", text: "Visita à Escola" },
       ],
       dataInicio: '',
       dataFim:'',
@@ -294,7 +295,7 @@ export default {
       })
     },
   },
-  created(){
+  created() {
     this.$emit("linkTo", "/backoffice/atividades", 1);
   },
   watch: {
