@@ -155,7 +155,6 @@ export default {
         return;
       }
       this.atividade.numero_de_alunos = this.atividade.numero_alunos;
-      console.log(this.atividade)
       this.$emit("save", this.atividade);
     },
   },

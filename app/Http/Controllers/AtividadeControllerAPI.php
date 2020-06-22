@@ -306,4 +306,174 @@ class AtividadeControllerAPI extends Controller {
             return response()->json($data, 200);
         }
     }
+
+    public function getEstatisticasWorkshops($tipo='num', $tempo='ano', $valor='2020') {
+        if($tempo == 'ano') {
+            if($tipo == 'ratio') {
+                $workshops = DB::table('workshops_atividades')
+                              ->join('workshops', 'workshops_atividades.workshop', '=', 'workshops.id')
+                              ->select(DB::raw('workshops.nome as `nome`'), DB::raw('COUNT(workshops_atividades.workshop) as `value`'))
+                              ->where(DB::raw('YEAR(workshops_atividades.data)'), '=', $valor)
+                              ->groupBy('workshops.nome')
+                              ->get();
+            }
+
+            if($tipo == 'num') {
+                $workshops = DB::table('workshops_atividades')
+                              ->join('workshops', 'workshops_atividades.workshop', '=', 'workshops.id')
+                              ->select(DB::raw('workshops.nome as `nome`'), DB::raw('COUNT(workshops_atividades.workshop) as `value`'), DB::raw('MONTH(workshops_atividades.data) as `month`'), DB::raw('YEAR(workshops_atividades.data) as `year`'))
+                              ->where(DB::raw('YEAR(workshops_atividades.data)'), '=', $valor)
+                              ->groupBy('workshops.nome', 'year', 'month')
+                              ->get();
+            }
+            $data = array('workshops' =>$workshops);
+            return response()->json($data, 200);
+        }
+
+        /* POR MES */
+        if($tipo == 'ratio') {
+            $workshops = DB::table('workshops_atividades')
+                          ->join('workshops', 'workshops_atividades.workshop', '=', 'workshops.id')
+                          ->select(DB::raw('workshops.nome as `nome`'), DB::raw('COUNT(workshops_atividades.workshop) as `value`'))
+                          ->where('workshops_atividades.data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                          ->where('workshops_atividades.data', '<=', Carbon::now()->toDateTimeString())
+                          ->groupBy('workshops.nome')
+                          ->get();
+            $data = array('workshops' =>$workshops);
+            return response()->json($data, 200);
+        }
+
+        if($tipo == 'num') {
+            $workshops = DB::table('workshops_atividades')
+                          ->join('workshops', 'workshops_atividades.workshop', '=', 'workshops.id')
+                          ->select(DB::raw('workshops.nome as `nome`'), DB::raw('COUNT(workshops_atividades.workshop) as `value`'), DB::raw('MONTH(workshops_atividades.data) as `month`'))
+                          ->where('workshops_atividades.data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                          ->where('workshops_atividades.data', '<=', Carbon::now()->toDateTimeString())
+                          ->groupBy('workshops.nome', 'month')
+                          ->get();
+            $data = array('workshops' =>$workshops);
+            return response()->json($data, 200);
+        }
+    }
+
+    public function getEstatisticasParticipantes($tipo='num', $tempo='ano', $valor='2020') {
+        if($tempo == 'ano') {
+            if($tipo == 'ratio'){
+                $workshops = DB::table('atividades')
+                            ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'workshop')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->get();
+                $diaEstg = DB::table('atividades')
+                            ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'diaESTG')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->get();
+                $seminario = DB::table('atividades')
+                            ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'seminario')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->get();
+                $visita = DB::table('atividades')
+                            ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'visita')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->get();
+            }
+
+            if($tipo == 'num') {
+                $workshops = DB::table('atividades')
+                            ->select(DB::raw('MONTH(data) as `month`'), DB::raw('YEAR(data) as `year`'), DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'workshop')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->groupBy('year','month')
+                            ->get();
+                $diaEstg = DB::table('atividades')
+                            ->select(DB::raw('MONTH(data) as `month`'), DB::raw('YEAR(data) as `year`'), DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'diaESTG')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->groupBy('year','month')
+                            ->get();
+                $seminario = DB::table('atividades')
+                            ->select(DB::raw('MONTH(data) as `month`'), DB::raw('YEAR(data) as `year`'), DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'seminario')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->groupBy('year','month')
+                            ->get();
+                $visita = DB::table('atividades')
+                            ->select(DB::raw('MONTH(data) as `month`'), DB::raw('YEAR(data) as `year`'), DB::raw('SUM(numero_de_alunos) as `value`'))
+                            ->where('tipo_de_atividade', '=', 'visita')
+                            ->where(DB::raw('YEAR(data)'), '=', $valor)
+                            ->groupBy('year','month')
+                            ->get();
+            }
+            $data = array('workshop' =>$workshops,'diaEstg' =>$diaEstg, 'seminario' => $seminario, 'visita' => $visita);
+            return response()->json($data, 200);
+        }
+
+        /* POR MES */
+        if($tipo == 'ratio'){
+            $workshops = DB::table('atividades')
+                        ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'workshop')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->get();
+            $diaEstg = DB::table('atividades')
+                        ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'diaESTG')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->get();
+            $seminario = DB::table('atividades')
+                        ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'seminario')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->get();
+            $visita = DB::table('atividades')
+                        ->select(DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'visita')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->get();
+
+            $data = array('workshop' =>$workshops,'diaEstg' =>$diaEstg, 'seminario' => $seminario, 'visita' => $visita);
+            return response()->json($data, 200);
+        }
+
+        if($tipo == 'num') {
+            $workshops = DB::table('atividades')
+                        ->select(DB::raw('MONTH(data) as `month`'),DB::raw('YEAR(data) as `year`'),DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'workshop')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->groupBy('year','month')
+                        ->get();
+            $diaEstg = DB::table('atividades')
+                        ->select(DB::raw('MONTH(data) as `month`'),DB::raw('YEAR(data) as `year`'),DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'diaESTG')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->groupBy('year','month')
+                        ->get();
+            $seminario = DB::table('atividades')
+                        ->select(DB::raw('MONTH(data) as `month`'),DB::raw('YEAR(data) as `year`'),DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'seminario')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->groupBy('year','month')
+                        ->get();
+            $visita = DB::table('atividades')
+                        ->select(DB::raw('MONTH(data) as `month`'),DB::raw('YEAR(data) as `year`'),DB::raw('SUM(numero_de_alunos) as `value`'))
+                        ->where('tipo_de_atividade', '=', 'visita')
+                        ->where('data', '>=', Carbon::now()->subMonth($valor)->toDateTimeString())
+                        ->where('data', '<=', Carbon::now()->toDateTimeString())
+                        ->groupBy('year','month')
+                        ->get();
+
+            $data = array('workshop' =>$workshops,'diaEstg' =>$diaEstg, 'seminario' => $seminario, 'visita' => $visita);
+            return response()->json($data, 200);
+        }
+    }
 }

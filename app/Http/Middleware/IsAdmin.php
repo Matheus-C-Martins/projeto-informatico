@@ -14,7 +14,7 @@ class IsAdmin {
      */
     public function handle($request, Closure $next) {
         $user = auth()->user();
-        if($user->tipo == "a"){
+        if($user->tipo == "a") {
             return $next($request);
         }
         return response()->json("Não autorizado", 202);

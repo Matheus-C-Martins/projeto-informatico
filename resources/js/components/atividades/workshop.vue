@@ -124,10 +124,8 @@ export default {
     save(workshop) {
       Object.assign(this.workshops[this.editedIndex], this.editedItem);
       axios.put(`api/atividades/${this.atividade.id}/${workshop.id}/update`, workshop).then(response => {
-        console.log(workshop)
         if(response.status == 200){
           Vue.toasted.show(response.data);
-          console.log(response.data)
         } else {
           Vue.toasted.error(response.data)
         }

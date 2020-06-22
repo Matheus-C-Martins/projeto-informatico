@@ -3,6 +3,13 @@
     <v-card flat tile>
       <v-card-title> Dashboard
         <v-spacer></v-spacer>
+        <v-dialog v-model="dialogImport" max-width="700px">
+            <template class="container" v-slot:activator="{ on }">
+              <button v-on="on" @click="importKey+=1" class="btn btn-secondary block"> Importar Dados </button>
+            </template>
+            <import :key="importKey" @close="close"></import>
+        </v-dialog>
+        <span>&nbsp;</span>
         <v-dialog v-if="user.tipo == 'a'" v-model="dialog" max-width="700px">
           <template class="container" v-slot:activator="{ on }">
             <button v-on="on" @click="createUserKey+=1" class="btn btn-secondary block"> Criar Novo Utilizador </button>
@@ -31,18 +38,6 @@
           </div>
         </v-row>
       </v-card-text>
-      <v-card-actions style="padding-top:0px">
-        <v-card flat tile width="100%" class="text-center pa-0">
-        <v-card-text class="pa-0">
-          <v-dialog v-model="dialogImport" max-width="700px">
-            <template class="container" v-slot:activator="{ on }">
-              <button v-on="on" @click="importKey+=1" class="btn btn-secondary block"> Importar Dados </button>
-            </template>
-            <import :key="importKey" @close="close"></import>
-          </v-dialog>
-        </v-card-text>
-      </v-card>
-      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -96,6 +91,7 @@ export default {
         this.close();
       })
       .catch(response => {
+        console.log(response)
         Vue.toasted.error('Algo correu mal...');
       });
     },

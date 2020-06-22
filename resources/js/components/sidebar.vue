@@ -75,7 +75,7 @@ export default {
         {
           id:3,
           title: "Cursos",
-          icon: "mdi-book-open-page-variant",
+          icon: "mdi-inbox-multiple",
           component: "cursos",
           link: "/backoffice/cursos/"
         },

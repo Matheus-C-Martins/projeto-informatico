@@ -111,7 +111,6 @@ export default {
         this.componentKey += 1; 
       })
       .catch(response => {
-        console.log("->"+response)
         Vue.toasted.error('Algo correu mal... ');
       })
       .finally(() => this.showLinks = 1);

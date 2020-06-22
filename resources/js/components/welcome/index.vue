@@ -77,7 +77,6 @@ export default {
 
         axios.get("api/user").then(response => {
           if(response.status!=200) {
-            console.log("1- "+response.data)
             Vue.toasted.error("Algo Correu mal... "+response.data);
             return;
           }

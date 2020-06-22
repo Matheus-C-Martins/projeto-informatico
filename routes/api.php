@@ -46,7 +46,9 @@ Route::delete('escolas/{escola_id}', 'EscolaControllerAPI@remove')->name('remove
 Route::get('atividades', 'AtividadeControllerAPI@getAtividades')->middleware('auth:api');
 Route::get('atividades/{atividade_id}', 'AtividadeControllerAPI@getAtividadesWorkshops')->middleware('auth:api');
 Route::get('atividadesAno', 'AtividadeControllerAPI@getAtividadesAno')->name('getAtividadesDoAno')->middleware('auth:api');
-Route::get('atividades/estatisticas/{tipoEstatistica?}/{tempo?}/{valor?}', 'AtividadeControllerAPI@getEstatisticas');//->name('getEstatisticasAtividades')->middleware('auth:api');
+Route::get('atividades/estatisticas/{tipoEstatistica?}/{tempo?}/{valor?}', 'AtividadeControllerAPI@getEstatisticas')->name('getEstatisticasAtividades')->middleware('auth:api');
+Route::get('atividades/workshops/{tipoEstatistica?}/{tempo?}/{valor?}', 'AtividadeControllerAPI@getEstatisticasWorkshops')->name('getEstatisticasWorkshops')->middleware('auth:api');
+Route::get('atividades/participantes/{tipoEstatistica?}/{tempo?}/{valor?}', 'AtividadeControllerAPI@getEstatisticasParticipantes')->name('getEstatisticasParticipantes')->middleware('auth:api');
 Route::post('atividades', 'AtividadeControllerAPI@store')->name('storeAtividade')->middleware('auth:api');
 Route::post('atividades/{atividade_id}', 'AtividadeControllerAPI@associar')->name('associarWorkshop')->middleware('auth:api');
 Route::put('atividades/{atividade_id}/update', 'AtividadeControllerAPI@update')->name('updateAtividade')->middleware('auth:api');
