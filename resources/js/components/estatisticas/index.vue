@@ -61,7 +61,7 @@
                     dense
                     outlined
                     hide-details
-                    @change="getData(estatisticas.tipo, estatisticas.title)"
+                    @change="trocaValores(estatisticas.tipo, estatisticas.title)"
                     v-if="estatisticas.metrica.tempo == tempo.value"
                     :items="tempo.values"
                     v-model="estatisticas.metrica.valor">
@@ -248,7 +248,7 @@ export default {
     };
   },
   watch: {
-    id(){
+    id() {
       this.graph.id = this.id;
       if(this.graph.id == 0) {
         this.getData(this.estatisticas.tipo, this.estatisticas.metrica.valor);
@@ -260,6 +260,15 @@ export default {
     }
   },
   methods: {
+    trocaValores(tipo, titulo) {
+      if(this.graph.id == 0) {
+        this.getData(tipo, titulo);
+      } else if(this.graph.id == 1) {
+        this.getDataParticipantes(tipo, titulo);
+      } else {
+        this.getDataWorkshops(tipo, titulo);
+      }
+    },
     getData(tipo, titulo) {
       this.grafico = false;
       if(tipo == 'ratio') {
@@ -304,7 +313,7 @@ export default {
     },
     takeData(response, tipo, titulo) {
       this.estatisticas.tipo = tipo;
-      if(tipo == 'ratio'){
+      if(tipo == 'ratio') {
         this.ratioOptions.title.text = titulo;
         this.estatisticas.titulo = this.ratioOptions.title.text;
 
@@ -323,7 +332,7 @@ export default {
         this.grafico = true;
         return;
       }
-      this.options.xaxis.categories =this.monthsNames;
+      this.options.xaxis.categories = this.monthsNames;
 
       this.series[0].data = this.preencherUndefined(response.data.workshop);
       this.series[1].data = this.preencherUndefined(response.data.diaEstg);
