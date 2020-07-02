@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AcademiaVerao extends Model {
+class AcademiaDeVerao extends Model {
     public $timestamps = FALSE;
 
     public function participante() {

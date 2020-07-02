@@ -24,7 +24,6 @@
               v-model="contacto.descricao"
               dense
               hide-details
-              @keypress.enter.stop.prevent="marcar"
             ></v-textarea>
           </v-col>
         </v-row>

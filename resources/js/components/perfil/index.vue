@@ -1,18 +1,26 @@
 <template>
   <v-container fluid>
     <v-card flat tile>
-      <v-card-title> Perfil </v-card-title>
+      <v-card-title> Perfil
+        <v-spacer></v-spacer>
+        <v-dialog v-model="dialog" max-width="700px">
+          <template class="container" v-slot:activator="{ on }">
+            <button v-on="on" @click.stop.prevent="showUpdateProfile" class="btn btn-secondary"> Editar Perfil </button>
+          </template>
+          <update :key="updateProfileKey" :updatedUser="profile" @update-profile="updateProfile" @cancel-update="close"></update>
+        </v-dialog>
+      </v-card-title>
     </v-card>
     <v-divider style="margin-top: 0px"></v-divider>
 
-    <v-card dark color="#000000">
+    <v-card dark color="#FFFFFF">
       <v-form align="center">
         <v-container style="margin-top:30px">
           <v-row align="center">
-            <v-col>
+            <v-col><v-card tile max-width="140px" min-width="140px" style="border-radius: 50%" color="#6c757d" class="mx-auto pa-2">
               <v-avatar size="125">
-                <v-img v-if="user!=undefined" :src="getUserPhoto"></v-img>
-              </v-avatar>
+                <v-img contain aspect-ratio=1 v-if="user!=undefined" :src="getUserPhoto"></v-img>
+              </v-avatar></v-card>
             </v-col>
             <v-col>
               <v-card color="#6c757d" class="mx-auto pa-6">
@@ -32,16 +40,6 @@
               <v-card color="#6c757d" class="mx-auto pa-6">
                 <h6> Email: </h6> {{user.email}}
               </v-card>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col class="d-flex flex-row-reverse">
-              <v-dialog v-model="dialog" max-width="700px">
-                <template class="container" v-slot:activator="{ on }">
-                  <button v-on="on" @click.stop.prevent="showUpdateProfile" class="btn btn-primary"> Editar Perfil </button>
-                </template>
-                <update :key="updateProfileKey" :updatedUser="profile" @update-profile="updateProfile" @cancel-update="close"></update>
-              </v-dialog>
             </v-col>
           </v-row>
         </v-container>
@@ -73,10 +71,10 @@ export default {
     };
   },
   methods: {
-    showUpdateProfile: function() {
+    showUpdateProfile() {
       this.updateProfileKey += 1;
     },
-    updateProfile: function(updatedUser) {
+    updateProfile(updatedUser) {
       axios.put("api/users/update/" + this.user.id, updatedUser).then(response => {
         if(response.status!=200){
           Vue.toasted.error("Algo correu mal... "+response.data);

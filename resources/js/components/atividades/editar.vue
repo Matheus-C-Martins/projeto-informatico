@@ -52,7 +52,6 @@
               v-model="atividade.descricao"
               dense
               hide-details
-              @keypress.enter.stop.prevent="save"
             ></v-textarea>
           </v-col>
         </v-row>

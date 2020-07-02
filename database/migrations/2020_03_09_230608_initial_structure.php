@@ -54,7 +54,7 @@ class InitialStructure extends Migration {
             $table->time('duracao');
             $table->unsignedBigInteger('contacto');
             $table->foreign('contacto')->references('id')->on('contactos');
-            $table->text('descricao');
+            $table->text('descricao')->nullable();;
             $table->enum('tipo_de_atividade', ['diaESTG', 'workshop', 'seminario', 'visita']);
         });
 
@@ -97,16 +97,16 @@ class InitialStructure extends Migration {
         });
 
         /* TABELAS SOBRE A ACADEMIA DE VERAO */
-        Schema::create('academias_de_verao', function (Blueprint $table) {
+        Schema::create('academia_de_veraos', function (Blueprint $table) {
             $table->id();
             $table->date('data');
         });
 
-        Schema::create('atividades_a_verao', function (Blueprint $table) {
+        Schema::create('atividade_a_veraos', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 50);
             $table->enum('tipo', ['workshop', 'aula']);
-            $table->text('observacoes');
+            $table->text('observacoes')->nullable();;
             $table->unsignedBigInteger('academia_de_verao');
             $table->foreign('academia_de_verao')->references('id')->on('academias_de_verao');
         });
@@ -125,7 +125,7 @@ class InitialStructure extends Migration {
             $table->string('ano');
             $table->string('curso');
             $table->date('data_de_nascimento');
-            $table->string('contacto_do_Aluno');
+            $table->string('contacto_do_aluno');
             $table->string('contacto_do_ee');
             $table->string('encarregado_de_educacao');
             $table->string('regiao');
@@ -133,7 +133,7 @@ class InitialStructure extends Migration {
             $table->foreign('academia_de_verao')->references('id')->on('academias_de_verao');
         });
 
-        Schema::create('a_verao_docente', function (Blueprint $table) {
+        Schema::create('a_verao_docentes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('atividade');
             $table->foreign('atividade')->references('id')->on('atividades_a_verao');
@@ -144,7 +144,7 @@ class InitialStructure extends Migration {
             $table->dateTime('data', 0);
         });
 
-        Schema::create('a_verao_participante', function (Blueprint $table) {
+        Schema::create('a_verao_participantes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('atividade');
             $table->foreign('atividade')->references('id')->on('atividades_a_verao');

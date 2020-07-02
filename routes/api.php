@@ -58,6 +58,8 @@ Route::delete('atividades/{atividade_id}/{workshop_id}', 'AtividadeControllerAPI
 
 Route::get('workshops', 'AtividadeControllerAPI@getWorkshops')->middleware('auth:api');
 
+Route::get('salas', 'AcademiaAtividadeControllerAPI@getSalas')->middleware('auth:api');
+
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::post('logout','LoginControllerAPI@logout')->name('logout')->middleware('auth:api');
 
@@ -72,6 +74,31 @@ Route::get('tipoCursos', 'CursosControllerAPI@getTipoCursos')->middleware('auth:
 Route::post('cursos', 'CursosControllerAPI@store')->name('storeCurso')->middleware('auth:api');
 Route::put('cursos/{curso_id}/update', 'CursosControllerAPI@update')->name('updateCurso')->middleware('auth:api');
 Route::delete('cursos/{curso_id}', 'CursosControllerAPI@remove')->name('removeCurso')->middleware('auth:api');
+
+Route::get('academias', 'AcademiaControllerAPI@getAcademias')->name('getAcademiasVerao')->middleware('auth:api');
+Route::post('academias', 'AcademiaControllerAPI@store')->name('storeAcademiaVerao')->middleware('auth:api');
+Route::put('academias/{academia_id}/update', 'AcademiaControllerAPI@update')->name('updateAcademiaVerao')->middleware('auth:api');
+Route::delete('academias/{academia_id}', 'AcademiaControllerAPI@remove')->name('removeAcademiaVerao')->middleware('auth:api');
+
+Route::get('academias/atividades', 'AcademiaAtividadeControllerAPI@getAtividades')->name('getAtividadesAcademiaVerao')->middleware('auth:api');
+Route::get('academias/atividadesNum', 'AcademiaAtividadeControllerAPI@getAtividadesNum')->name('getAtividadesNumAcademiaVerao')->middleware('auth:api');
+Route::get('academias/atividades/{atividade_id}/participantes', 'AcademiaAtividadeControllerAPI@getAtividadesParticipantes')->name('getAtividadesParticipantesNumAcademiaVerao')->middleware('auth:api');
+Route::get('academias/atividades/{atividade_id}/docentes', 'AcademiaAtividadeControllerAPI@getAtividadesDocentes')->name('getAtividadesDocentesNumAcademiaVerao')->middleware('auth:api');
+Route::post('academias/atividades', 'AcademiaAtividadeControllerAPI@store')->name('storeAtividadeAcademiaVerao')->middleware('auth:api');
+Route::post('academias/atividades/{atividade_id}/participantes', 'AcademiaAtividadeControllerAPI@associarParticipante')->name('associarParticipante')->middleware('auth:api');
+Route::post('academias/atividades/{atividade_id}/docentes', 'AcademiaAtividadeControllerAPI@associarDocente')->name('associarDocente')->middleware('auth:api');
+Route::put('academias/atividades/{atividade_id}/update', 'AcademiaAtividadeControllerAPI@update')->name('updateAtividadeAcademiaVerao')->middleware('auth:api');
+Route::put('academias/atividades/{atividade_id}/participantes/{participante_id}/update', 'AcademiaAtividadeControllerAPI@updateParticipante')->name('updateParticipanteAssociado')->middleware('auth:api');
+Route::put('academias/atividades/{atividade_id}/docentes/{docente_id}/update', 'AcademiaAtividadeControllerAPI@updateDocente')->name('updateDocenteAssociado')->middleware('auth:api');
+Route::delete('academias/atividades/{atividade_id}', 'AcademiaAtividadeControllerAPI@remove')->name('removeAtividadeAcademiaVerao')->middleware('auth:api');
+Route::delete('academias/atividades/{atividade_id}/participantes/{participante_id}', 'AcademiaAtividadeControllerAPI@desassociarParticipante')->name('desassociarParticipante')->middleware('auth:api');
+Route::delete('academias/atividades/{atividade_id}/docentes/{docente_id}', 'AcademiaAtividadeControllerAPI@desassociarDocente')->name('desassociarDocente')->middleware('auth:api');
+
+Route::get('academias/participantes', 'AcademiaParticipanteControllerAPI@getParticipantes')->name('getParticipantesAcademiaVerao')->middleware('auth:api');
+Route::get('academias/participantesNum', 'AcademiaParticipanteControllerAPI@getParticipantesNum')->name('getParticipantesNumAcademiaVerao')->middleware('auth:api');
+Route::post('academias/participantes', 'AcademiaParticipanteControllerAPI@store')->name('storeParticipanteAcademiaVerao')->middleware('auth:api');
+Route::put('academias/participantes/{participante_id}/update', 'AcademiaParticipanteControllerAPI@update')->name('updateParticipanteAcademiaVerao')->middleware('auth:api');
+Route::delete('academias/participantes/{participante_id}', 'AcademiaParticipanteControllerAPI@remove')->name('removeParticipanteAcademiaVerao')->middleware('auth:api');
 
 /*
 |--------------------------------------------------------------------------
