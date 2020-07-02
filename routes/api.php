@@ -79,6 +79,7 @@ Route::delete('cursos/{curso_id}', 'CursosControllerAPI@remove')->name('removeCu
 |--------------------------------------------------------------------------
 */
 
-Route::get('cursos', 'CursosControllerAPI@getCursos');
-Route::get('cursos/{nome}', 'CursosControllerAPI@getFotoCurso');
+Route::get('cursosM', 'CursosControllerAPI@getCursosM');
+Route::get('cursosM/{nome}', 'CursosControllerAPI@getFotoCursoM');
+Route::get('atividadesM', 'AtividadeControllerAPI@getAtividadesM');
 

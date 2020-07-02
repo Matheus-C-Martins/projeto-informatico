@@ -164,6 +164,12 @@ class AtividadeControllerAPI extends Controller {
         $atividades = Atividade::where($arrayWhere)->paginate($per_page);
         return AtividadeResource::collection($atividades);
     }
+    
+    public function getAtividadesM() {
+        $atividades = Atividade::all();
+
+        return AtividadeResource::collection($atividades);
+    }
 
     public function getAtividadesWorkshops($id) {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
