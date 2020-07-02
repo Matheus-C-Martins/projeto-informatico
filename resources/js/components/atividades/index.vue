@@ -105,7 +105,7 @@
             </div>
             <div v-if="expanded[0].descricao !== descriptionDefaultValue">
               <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
-            </div>            
+            </div>
             <v-divider></v-divider>
             <h5 class="font-weight-black"> Contacto: </h5>
             <v-row>

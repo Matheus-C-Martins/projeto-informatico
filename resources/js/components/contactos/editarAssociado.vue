@@ -40,7 +40,6 @@
               v-model="escola.descricao"
               dense
               hide-details
-              @keypress.enter.stop.prevent="editar"
             ></v-textarea>
           </v-col>
         </v-row>
