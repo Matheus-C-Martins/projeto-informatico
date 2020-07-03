@@ -35,7 +35,7 @@ class CursosTableSeeder extends Seeder {
             'vagas' => 45,
             'contato' => 'coord.dwm.tesp.estg@ipleiria.pt',
             'objetivos' => 'O curso Técnico Superior Profissional em Desenvolvimento Web e Multimédia visa formar profissionais aptos para conceber e implementar aplicações e serviços Web com conteúdos multimédia, autonomamente ou em equipa, recorrendo às novas tecnologias e ferramentas.',
-            'fotografia' => 'TESP-DWM.png'
+            'fotografia' => 'TESP-DWM.jpg'
         ], 
         [
             'abreviatura' => 'TESP-PSI',
@@ -46,7 +46,7 @@ class CursosTableSeeder extends Seeder {
             'vagas' => 40,
             'contato' => 'coord.psi.tesp.estg@ipleiria.pt',
             'objetivos' => 'O curso Técnico Superior Profissional em Programação de Sistemas de Informação visa formar profissionais aptos a programar e integrar sistemas, aplicações e serviços de base heterogénea, recorrendo a tecnologias, ferramentas e metodologias de desenvolvimento de software modernas.',
-            'fotografia' => 'TESP-PSI.png'
+            'fotografia' => 'TESP-PSI.jpg'
         ],
         [
             'abreviatura' => 'TESP-RSI',
@@ -57,7 +57,7 @@ class CursosTableSeeder extends Seeder {
             'vagas' => 40,
             'contato' => 'coord.rsi.tesp.estg@ipleiria.pt',
             'objetivos' => 'O curso Técnico Superior Profissional em Redes e Sistemas Informáticos visa formar profissionais aptos para realizar tarefas de planeamento, instalação, configuração, gestão e manutenção de redes e sistemas informáticos, garantindo a otimização do seu funcionamento e procedendo à implementação de mecanismos de segurança adequados.',
-            'fotografia' => 'TESP-RSI.png'
+            'fotografia' => 'TESP-RSI.jpg'
         ],
         [
             'abreviatura' => 'TESP-TI',
@@ -68,7 +68,7 @@ class CursosTableSeeder extends Seeder {
             'vagas' => 18,
             'contato' => 'coord.ti.tesp.estg@ipleiria.pt',
             'objetivos' => 'O curso Técnico Superior Profissional em Tecnologias Informáticas visa formar profissionais que, de forma autónoma ou em equipa, tenham a capacidade para conceber, modelar, implementar e manter sistemas de informação de suporte às organizações, tendo como base as tecnologias informáticas emergentes e as existentes no mercado, de modo a permitir a otimização dos processos de negócio das organizações. O profissional com esta formação deverá ter um nível elevado de especialização em tecnologias digitais e aplicações, nomeadamente SAP, OutSystems, Navision, Java, RPA (Robotic Process Automation), entre outras, permitindo a criação de maior valor acrescentado nas organizações e na economia. O currículo académico do curso será muito prático, permitindo aos estudantes trabalhar em ambiente real, o que significa, executar atividades e integrar equipas de pequenos projetos. O seu tempo será dividido entre as atividades letivas e a vertente prática, em ambiente real.',
-            'fotografia' => 'TESP-TI.png'
+            'fotografia' => 'TESP-TI.jpg'
         ],
         [
             'abreviatura' => 'EI',
@@ -90,7 +90,7 @@ class CursosTableSeeder extends Seeder {
             'vagas' => 44,
             'contato' => 'coord.jdm.estg@ipleiria.pt',
             'objetivos' => 'Formar profissionais para as áreas dos videojogos e da produção multimédia. Os licenciados terão as competências necessárias para trabalhar nas diversas fases de construção de um jogo digital (conceção, programação, criação artística, quality assurance), assim como em outros tipos de produção multimédia (software interativo, aplicações web, aplicações móveis, etc.).',
-            'fotografia' => 'JDM.png'
+            'fotografia' => 'JDM.jpg'
         ],
         [
             'abreviatura' => 'MEI-CM',
@@ -101,7 +101,7 @@ class CursosTableSeeder extends Seeder {
             'vagas' => 25,
             'contato' => 'coord.mei-cm.estg@ipleiria.pt',
             'objetivos' => 'O Mestrado em Engenharia Informática – Computação Móvel (MEI-CM) tem como objetivo desenvolver uma formação especializada na área da computação móvel e tecnologias associadas, permitindo a prossecução de estudos a titulares de licenciaturas em Engenharia Informática ou cursos relacionados e a possibilidade de especialização para os profissionais do mercado de trabalho. O curso assenta no ensino baseado em projetos com vista a dotar os diplomados de capacidade de trabalho em equipa, planeamento e organização do trabalho, pesquisa e aquisição do conhecimento necessário, bem como o desenvolvimento da autonomia, iniciativa, análise crítica e avaliação de soluções.',
-            'fotografia' => 'MEI-CM.png'
+            'fotografia' => 'MEI-CM.jpg'
         ],
         [
             'abreviatura' => 'MCIF',
