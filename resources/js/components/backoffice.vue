@@ -34,7 +34,7 @@ export default {
       token: localStorage.getItem("user-token"),
       currentPath: "",
       showLinks:0,
-      /* backoffice FAST LINKS ITEMS */
+      /* BACKOFFICE FAST LINKS*/
       items_backoffice: [
         {
           id: 0,
@@ -79,7 +79,6 @@ export default {
           link: "/backoffice/escolas/"
         },
       ],
-      /* SIDE BAR ITEMS */
       item_sidebar: null,
       transparent: "rgba(255, 255, 255, 0)"
     };
@@ -88,18 +87,17 @@ export default {
     sidebar: Sidebar,
   },
   methods: {
-    /* LINK TO OTHER ROUTES */
+    /* LINK PARA OUTRAS ROTAS */
     linkTo: function(newRoute, routeId) {
       this.item_sidebar = routeId;
       this.$router.push(newRoute).catch(err => err);
       this.currentPath = this.$route.path;
     },
-    /* LOGOUT */
-    logout: function() {
+    logout() {
       axios.post("/api/logout").then(response => {
           localStorage.removeItem("user-token");
           axios.defaults.headers.common.Authorization = undefined; //pôr o header do token a null/undefined
-          this.$router.push("/");
+          this.$router.push("/login");
       })
       .catch(response => {
         Vue.toasted.error('Algo correu mal... ');

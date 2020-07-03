@@ -108,7 +108,7 @@ class InitialStructure extends Migration {
             $table->enum('tipo', ['workshop', 'aula']);
             $table->text('observacoes')->nullable();;
             $table->unsignedBigInteger('academia_de_verao');
-            $table->foreign('academia_de_verao')->references('id')->on('academias_de_verao');
+            $table->foreign('academia_de_verao')->references('id')->on('academia_de_veraos');
         });
 
         Schema::create('salas', function (Blueprint $table) {
@@ -130,13 +130,13 @@ class InitialStructure extends Migration {
             $table->string('encarregado_de_educacao');
             $table->string('regiao');
             $table->unsignedBigInteger('academia_de_verao');
-            $table->foreign('academia_de_verao')->references('id')->on('academias_de_verao');
+            $table->foreign('academia_de_verao')->references('id')->on('academia_de_veraos');
         });
 
         Schema::create('a_verao_docentes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('atividade');
-            $table->foreign('atividade')->references('id')->on('atividades_a_verao');
+            $table->foreign('atividade')->references('id')->on('atividade_a_veraos');
             $table->unsignedBigInteger('docente');
             $table->foreign('docente')->references('id')->on('docentes');
             $table->unsignedBigInteger('sala');
@@ -147,7 +147,7 @@ class InitialStructure extends Migration {
         Schema::create('a_verao_participantes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('atividade');
-            $table->foreign('atividade')->references('id')->on('atividades_a_verao');
+            $table->foreign('atividade')->references('id')->on('atividade_a_veraos');
             $table->unsignedBigInteger('participante');
             $table->foreign('participante')->references('id')->on('participantes');
             $table->dateTime('data', 0);
@@ -232,12 +232,12 @@ class InitialStructure extends Migration {
         Schema::dropIfExists('docentes_atividade');
         Schema::dropIfExists('contactos_escolas');
         /* TABELAS SOBRE A ACADEMIA DE VERAO */
-        Schema::dropIfExists('a_verao_participante');
-        Schema::dropIfExists('a_verao_docente');
+        Schema::dropIfExists('a_verao_participantes');
+        Schema::dropIfExists('a_verao_docentes');
         Schema::dropIfExists('participantes');
         Schema::dropIfExists('salas');
-        Schema::dropIfExists('atividades_a_verao');
-        Schema::dropIfExists('academias_de_verao');
+        Schema::dropIfExists('atividade_a_veraos');
+        Schema::dropIfExists('academia_de_veraos');
         /* ---------------------------------- */
         Schema::dropIfExists('atividades');
         Schema::dropIfExists('contactos');
@@ -250,7 +250,7 @@ class InitialStructure extends Migration {
         /* ---------------------------------- */
         Schema::dropIfExists('cursos');
         Schema::dropIfExists('tipo_cursos');
-        Schema::dropIfExists('inqueritos');
         Schema::dropIfExists('respostas_inqueritos');
+        Schema::dropIfExists('inqueritos');
     }
 }

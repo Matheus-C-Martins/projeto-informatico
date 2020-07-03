@@ -4,7 +4,11 @@ window.Vue = require('vue');
 
 import Vuetify from 'vuetify';
 import VueRouter from 'vue-router';
-import Welcome from './components/welcome/index';
+import Welcome from './components/index';
+import Sobre from './components/sobre';
+import CursosInfo from './components/cursosInfo';
+import AtividadesInfo from './components/atividadesInfo';
+import Login from './components/login/index';
 import Backoffice from './components/backoffice';
 import Home from './components/home';
 import Dashboard from './components/dashboard/index';
@@ -26,7 +30,11 @@ const opts = {};
 const vuetify =  new Vuetify(opts);
 
 /* Components */
-Vue.component('Welcome', Welcome);
+Vue.component('welcome', Welcome);
+Vue.component('sobre', Sobre);
+Vue.component('cursosInfo', CursosInfo);
+Vue.component('atividadesInfo', AtividadesInfo);
+Vue.component('login', Login);
 Vue.component('backoffice', Backoffice);
 Vue.component('dashboard', Dashboard);
 Vue.component('perfil', Perfil);
@@ -45,9 +53,13 @@ Vue.use(VueRouter);
 
 const routes = [
     {path:'/', component:Welcome},
+    {path:'/sobre', component:Sobre},
+    {path:'/cursos', component:CursosInfo},
+    {path:'/atividades', component:AtividadesInfo},
+    {path:'/login', component:Login},
     {path:'/backoffice', redirect: '/backoffice/home', component:Backoffice,
         beforeEnter: (to, from, next) => {
-            if(localStorage.getItem("user-token") != null){
+            if(localStorage.getItem("user-token") != null) {
                 next(next)
             }else{
                 next(false)

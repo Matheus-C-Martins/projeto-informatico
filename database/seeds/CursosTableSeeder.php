@@ -2,17 +2,15 @@
 
 use Illuminate\Database\Seeder;
 
-class CursosTableSeeder extends Seeder
-{
-    public function run()
-    {
+class CursosTableSeeder extends Seeder {
+    public function run() {
         $this->command->table(['Cursos table seeder notice'], [
             ['Photos will be stored on path '.storage_path('app\public\logoCursos')]
         ]);
 
         $this->limparFicheirosFotos();
 
-        DB::table('tipo_curso')->insert([
+        DB::table('tipo_cursos')->insert([
         [
             'id' => 1,
             'nome' => 'Curso Técnico Superior Profissional'
@@ -122,8 +120,8 @@ class CursosTableSeeder extends Seeder
     }
 
     private function limparFicheirosFotos() {
-        Storage::deleteDirectory('public\fotos');
-        Storage::makeDirectory('public\fotos');
+        Storage::deleteDirectory('public\logoCursos');
+        Storage::makeDirectory('public\logoCursos');
     }
 
     private function gravarFoto() {
