@@ -106,6 +106,7 @@ Route::delete('academias/participantes/{participante_id}', 'AcademiaParticipante
 |--------------------------------------------------------------------------
 */
 
-Route::get('cursos', 'CursosControllerAPI@getCursos');
-Route::get('cursos/{nome}', 'CursosControllerAPI@getFotoCurso');
+Route::get('cursosM', 'CursosControllerAPI@getCursosM');
+Route::get('cursosM/{nome}', 'CursosControllerAPI@getFotoCursoM');
+Route::get('atividadesM', 'AtividadeControllerAPI@getAtividadesM');
 

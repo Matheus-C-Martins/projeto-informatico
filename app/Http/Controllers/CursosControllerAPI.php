@@ -10,11 +10,13 @@ use App\Http\Resources\TipoCurso as TipoCursoResource;
 
 class CursosControllerAPI extends Controller
 {
-    public function getCursos() {
-        return Curso::all();
+    public function getCursosM() {
+        $cursos = Curso::all();
+
+        return CursoResource::collection($cursos);
     }
 
-    public function getFotoCurso(Request $request, $nome) {
+    public function getFotoCursoM(Request $request, $nome) {
         return response()->download(public_path().'/storage/logoCursos/'.$nome, 'Imagem curso');
     }
 
