@@ -7,6 +7,7 @@ use App\TipoCurso;
 use Illuminate\Http\Request;
 use App\Http\Resources\Curso as CursoResource;
 use App\Http\Resources\TipoCurso as TipoCursoResource;
+use Illuminate\Support\Str;
 
 class CursosControllerAPI extends Controller {
     public function getCursosM() {
@@ -31,7 +32,7 @@ class CursosControllerAPI extends Controller {
     }
 
     public function store(Request $request) {
-        $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos'), [
+        $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos', 'fotografia'), [
             'abreviatura'=> 'required|string',
             'nome' => 'required|string',
             'tipo' => 'required|integer',
@@ -39,7 +40,8 @@ class CursosControllerAPI extends Controller {
             'ECTS' => 'required|integer',
             'vagas' => 'required|integer',
             'contato' => 'required|email',
-            'objetivos' => 'required|string'
+            'objetivos' => 'required|string',
+            'fotografia' => 'required'
         ]);
 
         if ($valid->fails()) {
@@ -57,13 +59,9 @@ class CursosControllerAPI extends Controller {
             }else{
                 $extension = 'png';
             }
-            $count = DB::table('cursos')->count();
-            $id = $count + 1;
-            //generates the photo file name
             $fileName=$data['abreviatura'].".".$extension;
-            //saves the image to public/storage/fotos
             $path = public_path().'/storage/logoCursos/'.$fileName;
-            file_put_contents($path, $decoded); //we pass the path and the decoded image
+            file_put_contents($path, $decoded);
             $data['fotografia'] = $fileName;
         } else {
             $data['fotografia'] = null;
@@ -76,7 +74,7 @@ class CursosControllerAPI extends Controller {
     public function update(Request $request, $id) {
         $cursoModel = Curso::find($id);
 
-        $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos'), [
+        $valid = validator($request->only('abreviatura', 'nome', 'tipo', 'semestres', 'ECTS', 'vagas', 'contato', 'objetivos', 'fotografia'), [
             'abreviatura'=> 'required|string',
             'nome' => 'required|string',
             'tipo' => 'required|integer',
@@ -84,7 +82,8 @@ class CursosControllerAPI extends Controller {
             'ECTS' => 'required|integer',
             'vagas' => 'required|integer',
             'contato' => 'required|email',
-            'objetivos' => 'required|string'
+            'objetivos' => 'required|string',
+            'fotografia' => 'nullable'
         ]);
 
         if ($valid->fails()) {

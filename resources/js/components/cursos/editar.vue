@@ -84,6 +84,17 @@
           </v-col> 
         </v-row>
         <v-row dense>
+          <v-text-field label="Logótipo do Curso"
+          v-model="imageName"
+          @click="pickLogo"
+          readonly
+          append-icon="mdi-camera"
+          outlined
+          dense>
+        </v-text-field>
+        <input type="file" style="display: none" ref="image" accept="image/*" @change="logoChanged"/>
+        </v-row>
+        <v-row dense>
           <v-col>
             <v-textarea label="Objetivos"
               clearable
@@ -128,11 +139,11 @@ export default {
       objetivos: { required },
     }
   },
-  props: [
-    'curso',
-  ],
+  props: [ 'curso' ],
   data: function() {
     return {
+      imageName: "",
+      imageFile: "",
       tipoCursos: [],
       tipoCurso: {},
     };
@@ -216,6 +227,28 @@ export default {
       .catch(response => {
         this.tipoCursos = [];
       })
+    },
+    pickLogo() {
+      this.$refs.image.click();
+    },
+    logoChanged(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imageName = files[0].name;
+        if (this.imageName.lastIndexOf(".") <= 0) {
+          return;
+        }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.curso.fotografia = fr.result;
+          this.imageFile = files[0];
+        });
+      } else {
+        this.imageName = "";
+        this.imageFile = "";
+        this.curso.fotografia = "";
+      }
     },
     close() {
       this.$emit("close");
