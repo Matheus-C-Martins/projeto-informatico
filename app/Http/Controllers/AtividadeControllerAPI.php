@@ -167,7 +167,6 @@ class AtividadeControllerAPI extends Controller {
     
     public function getAtividadesM() {
         $atividades = Atividade::all();
-
         return AtividadeResource::collection($atividades);
     }
 

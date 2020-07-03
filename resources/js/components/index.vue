@@ -5,15 +5,21 @@
         <v-spacer></v-spacer>
         <v-divider inset vertical dark></v-divider>
         <span>&nbsp; &nbsp;</span>
-        <v-toolbar-title> Cursos </v-toolbar-title>
+        <v-btn @click="cursos()" text>
+          <v-toolbar-title> Cursos </v-toolbar-title>
+        </v-btn>
         <span>&nbsp; &nbsp;</span>
         <v-divider inset vertical dark></v-divider>
         <span>&nbsp; &nbsp;</span>
-        <v-toolbar-title> Atividades </v-toolbar-title>
+        <v-btn @click="atividades()" text>
+          <v-toolbar-title> Atividades </v-toolbar-title>
+        </v-btn>
         <span>&nbsp; &nbsp;</span>
         <v-divider inset vertical dark></v-divider>
         <span>&nbsp; &nbsp;</span>
-        <v-toolbar-title> Sobre </v-toolbar-title>
+        <v-btn @click="sobre()" text>
+          <v-toolbar-title> Sobre </v-toolbar-title>
+        </v-btn>
         <span>&nbsp; &nbsp;</span>
         <v-divider inset vertical dark></v-divider>
         <v-spacer></v-spacer>
@@ -26,17 +32,17 @@
       </v-row>
       <v-row dense justify="center" align="center">
         <v-col>
-          <v-card color="green" dark min-width="155" class="mx-auto text-center">
+          <v-card @click="cursos()" color="green" dark min-width="155" class="mx-auto text-center">
             <v-card-text class="display-1"> Cursos </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card color="green" dark min-width="155" class="mx-auto text-center">
+          <v-card @click="atividades()" color="green" dark min-width="155" class="mx-auto text-center">
             <v-card-text class="display-1"> Atividades </v-card-text>
           </v-card>
         </v-col>
         <v-col>
-          <v-card color="green" dark min-width="155" class="mx-auto text-center">
+          <v-card @click="sobre()" color="green" dark min-width="155" class="mx-auto text-center">
             <v-card-text class="display-1"> Sobre </v-card-text>
           </v-card>
         </v-col>
@@ -57,6 +63,15 @@ export default {
   methods: {
     login() {
       this.$router.push("/login");
+    },
+    cursos() {
+      this.$router.push("/cursos");
+    },
+    atividades() {
+      this.$router.push("/atividades");
+    },
+    sobre() {
+      this.$router.push("/sobre");
     }
   }
 };

@@ -2,8 +2,9 @@
   <v-app id="inspire">
     <v-row dense no-gutters>
       <v-col md="8" lg="6" class="bg-color">
+        <v-icon color="white" class="mr-2" @click="home()">{{ icons.mdiArrowLeft }}</v-icon>
         <v-container fluid class="alinhamento d-flex align-items-center py-5">
-          <v-row dense >
+          <v-row dense>
             <v-col md="9" lg="8" class="mx-auto">
               <v-row>
                 <v-col class="pa-0">
@@ -53,6 +54,8 @@
 </template>
 
 <script>
+import { mdiArrowLeft } from '@mdi/js';
+
 export default {
   data: function() {
     return {
@@ -62,11 +65,12 @@ export default {
         email: null,
         password: null,
       },
+      icons: { mdiArrowLeft }
     };
   },
   props: [],
   methods: {
-    login: function() {
+    login() {
       axios.post("/api/login", this.user).then(response => {
         if(response.status!=200){
           Vue.toasted.error(response.data);
@@ -92,6 +96,9 @@ export default {
         Vue.toasted.error("Algo Correu mal...");
       });
     },
+    home() {
+      this.$router.push("/");
+    }
   },
 };
 </script>

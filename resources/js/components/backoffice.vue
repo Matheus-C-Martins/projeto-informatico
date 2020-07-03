@@ -59,24 +59,45 @@ export default {
         },
         {
           id: 3,
+          title: "Cursos",
+          text: "Veja os cursos",
+          img: "/storage/cursos.png",
+          link: "/backoffice/cursos/"
+        },
+        {
+          id: 3,
+          title: "Academia de Verão",
+          text: "Veja o academia de verão",
+          img: "/storage/academia.png",
+          link: "/backoffice/academia/"
+        },
+        {
+          id: 5,
           title: "Contactos",
           text: "Veja os contactos",
           img: "/storage/contactos.png",
           link: "/backoffice/contactos/"
         },
         {
-          id: 4,
+          id: 6,
           title: "Docentes",
           text: "Veja os docentes",
           img: "/storage/docentes.png",
           link: "/backoffice/docentes/"
         },
         {
-          id: 5,
+          id: 7,
           title: "Escolas",
           text: "Veja as escolas",
           img: "/storage/escolas.png",
           link: "/backoffice/escolas/"
+        },
+        {
+          id: 8,
+          title: "Estatísticas",
+          text: "Veja as estatísticas",
+          img: "/storage/stats.png",
+          link: "/backoffice/estatisticas/"
         },
       ],
       item_sidebar: null,
