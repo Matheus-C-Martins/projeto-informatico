@@ -17,7 +17,11 @@ class CursosControllerAPI extends Controller
     }
 
     public function getFotoCursoM(Request $request, $nome) {
-        return response()->download(public_path().'/storage/logoCursos/'.$nome, 'Imagem curso');
+        if (file_exists(public_path().'/storage/logoCursos/'.$nome)) {
+            return response()->download(public_path().'/storage/logoCursos/'.$nome, 'Imagem curso');
+        } else {
+            return response()->json("Imagem não encontrada.", 404);
+        }
     }
 
     public function getCursosWeb() {

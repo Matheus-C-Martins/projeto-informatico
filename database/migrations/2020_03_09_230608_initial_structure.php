@@ -170,7 +170,7 @@ class InitialStructure extends Migration {
             $table->integer('vagas');
             $table->string('contato');
             $table->string('objetivos', 1000);
-            $table->string('fotografia')->nullable();
+            $table->string('fotografia')->default('sample.jpg');
             $table->foreign('tipo')->references('id')->on('tipo_cursos');
         });
 
