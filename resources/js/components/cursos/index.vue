@@ -11,11 +11,7 @@
         </v-dialog>
       </v-card-title>
     </v-card>
-
     <v-divider style="margin-top: 0px"></v-divider>
-      <v-card-subtitle class='display-6 font-weight-black pa-0'> Procurar </v-card-subtitle>
-    <v-divider></v-divider>
-    
     <v-data-table
       :headers="headers"
       :items="cursos"

@@ -34,7 +34,7 @@ export default {
       token: localStorage.getItem("user-token"),
       currentPath: "",
       showLinks:0,
-      /* backoffice FAST LINKS ITEMS */
+      /* BACKOFFICE FAST LINKS*/
       items_backoffice: [
         {
           id: 0,
@@ -59,27 +59,47 @@ export default {
         },
         {
           id: 3,
+          title: "Cursos",
+          text: "Veja os cursos",
+          img: "/storage/cursos.png",
+          link: "/backoffice/cursos/"
+        },
+        {
+          id: 3,
+          title: "Academia de Verão",
+          text: "Veja o academia de verão",
+          img: "/storage/academia.png",
+          link: "/backoffice/academia/"
+        },
+        {
+          id: 5,
           title: "Contactos",
           text: "Veja os contactos",
           img: "/storage/contactos.png",
           link: "/backoffice/contactos/"
         },
         {
-          id: 4,
+          id: 6,
           title: "Docentes",
           text: "Veja os docentes",
           img: "/storage/docentes.png",
           link: "/backoffice/docentes/"
         },
         {
-          id: 5,
+          id: 7,
           title: "Escolas",
           text: "Veja as escolas",
           img: "/storage/escolas.png",
           link: "/backoffice/escolas/"
         },
+        {
+          id: 8,
+          title: "Estatísticas",
+          text: "Veja as estatísticas",
+          img: "/storage/stats.png",
+          link: "/backoffice/estatisticas/"
+        },
       ],
-      /* SIDE BAR ITEMS */
       item_sidebar: null,
       transparent: "rgba(255, 255, 255, 0)"
     };
@@ -88,18 +108,17 @@ export default {
     sidebar: Sidebar,
   },
   methods: {
-    /* LINK TO OTHER ROUTES */
+    /* LINK PARA OUTRAS ROTAS */
     linkTo: function(newRoute, routeId) {
       this.item_sidebar = routeId;
       this.$router.push(newRoute).catch(err => err);
       this.currentPath = this.$route.path;
     },
-    /* LOGOUT */
-    logout: function() {
+    logout() {
       axios.post("/api/logout").then(response => {
           localStorage.removeItem("user-token");
           axios.defaults.headers.common.Authorization = undefined; //pôr o header do token a null/undefined
-          this.$router.push("/");
+          this.$router.push("/login");
       })
       .catch(response => {
         Vue.toasted.error('Algo correu mal... ');

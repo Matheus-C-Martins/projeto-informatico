@@ -8,11 +8,9 @@ use Illuminate\Http\Request;
 use App\Http\Resources\Curso as CursoResource;
 use App\Http\Resources\TipoCurso as TipoCursoResource;
 
-class CursosControllerAPI extends Controller
-{
+class CursosControllerAPI extends Controller {
     public function getCursosM() {
         $cursos = Curso::all();
-
         return CursoResource::collection($cursos);
     }
 

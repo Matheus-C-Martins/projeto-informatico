@@ -24,7 +24,7 @@
             <v-card tile min-width="155" class="mx-auto text-center caixa" color="#FFFFFF" dark>
               <v-card-text class="caixa-imagem">
                 <v-img style="border-radius: 25%" aspect-ratio=1 :class="box.class" :src="box.img.url"></v-img>
-              </v-card-text>   
+              </v-card-text>
               <v-card-text style="color:black" class="caixa-texto">
                 <p style="margin-bottom: 0px;"> {{box.middle.text}} </p>
                 <v-divider light></v-divider>

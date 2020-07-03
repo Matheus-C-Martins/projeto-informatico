@@ -128,7 +128,7 @@ export default {
     },
   },
   computed: {
-    getUserPhoto: function() {
+    getUserPhoto() {
       if(this.user.fotografia == null) {
         return '/storage/noUserPhoto.png';
       }
