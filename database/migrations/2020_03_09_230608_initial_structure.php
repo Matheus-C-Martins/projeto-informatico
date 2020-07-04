@@ -176,6 +176,7 @@ class InitialStructure extends Migration {
 
         Schema::create('codigo_inqueritos', function (Blueprint $table){
             $table->id();
+            $table->string('nome');
             $table->boolean('validade');
             $table->dateTime('data', 0);
         });
@@ -195,6 +196,12 @@ class InitialStructure extends Migration {
             $table->string('resposta10');
             $table->unsignedBigInteger('codigo_id');
             $table->foreign('codigo_id')->references('id')->on('codigo_inqueritos');
+        });
+
+        Schema::create('info_atividades', function (Blueprint $table){
+            $table->id();
+            $table->string('nome');
+            $table->string('descricao', 2000);
         });
 
         /* ---------------------------------- */
