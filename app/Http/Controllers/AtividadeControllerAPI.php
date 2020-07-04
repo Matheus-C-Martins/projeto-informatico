@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Atividade;
+use App\InfoAtividade;
 use App\WorkshopsAtividade;
 use App\Workshop;
 use Carbon\Carbon;
@@ -162,11 +163,6 @@ class AtividadeControllerAPI extends Controller {
         }
 
         $atividades = Atividade::where($arrayWhere)->paginate($per_page);
-        return AtividadeResource::collection($atividades);
-    }
-    
-    public function getAtividadesM() {
-        $atividades = Atividade::all();
         return AtividadeResource::collection($atividades);
     }
 
@@ -480,5 +476,9 @@ class AtividadeControllerAPI extends Controller {
             $data = array('workshop' =>$workshops,'diaEstg' =>$diaEstg, 'seminario' => $seminario, 'visita' => $visita);
             return response()->json($data, 200);
         }
+    }
+
+    public function getAtividadesM() {
+        return InfoAtividade::all();
     }
 }

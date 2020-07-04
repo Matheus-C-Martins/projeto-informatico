@@ -122,21 +122,25 @@ class CursosTableSeeder extends Seeder {
             [
                 'id' => 1,
                 'nome' => 'Dia ESTG',
+                'abreviatura' => 'Um dia na ESTG',
                 'descricao' => 'A ESTG disponibiliza a todos os estudantes dos ensinos básico e secundário (9º ao 12º ano) a atividade Um dia @ ESTG. Trata-se de uma atividade em que convidamos grupos de 1 a 5 estudantes a virem à ESTG para que passem um dia com estudantes desta Escola de Ensino Superior, tendo a oportunidade de conhecer o(s) curso(s) de Licenciatura, ou área científica, em que tenham particular interesse assistir às respetivas aulas, visitar salas, laboratórios, a Biblioteca e todo o Campus, desenvolvendo estas atividades com uma rotina diária idêntica à de um estudante da ESTG. Aos visitantes é assim dada a oportunidade de, ativamente e inseridos na Comunidade Académica, conhecer a realidade da Escola, os seus cursos e o seu funcionamento. A data é marcada em função da disponibilidade e interesse dos visitantes. Todas as visitas são ajustadas aos interesses e necessidades dos estudantes visitantes, abarcando diferentes áreas, tais como: Engenharia, Ciências Empresariais e Ciências Jurídicas Aplicadas.'
             ], 
             [
                 'id' => 2,
                 'nome' => 'Workshop',
+                'abreviatura' => 'Formação prática',
                 'descricao' => 'Trata-se de uma forma de treino, similar a um curso de curta duração, que procura aprofundar sobre um determinado tema, o qual foi prefixado pelos mediadores, que visam a produtividade e a prática.'
             ],
             [
                 'id' => 3,
                 'nome' => 'Seminário',
+                'abreviatura' => 'Formação teórica',
                 'descricao' => 'O seminário é uma reunião especializada, de natureza técnica ou acadêmica, que procura levar a cabo estudos aprofundados sobre uma determinada matéria. Um seminário tem como principal objetivo a transmissão do conhecimento, conhecimento esse que pode acontecer por meio da apresentação de informações atualizadas sobre um tema, da apresentação de dados atuais, da troca de ideias e opiniões.'
             ],
             [
                 'id' => 4,
                 'nome' => 'Visita à escola',
+                'abreviatura' => 'Dia aberto',
                 'descricao' => 'A ESTG abre as portas a todos aqueles que pretendem conhecer de perto a realidade da Escola, enquanto instituição de ensino superior, mostrando as ofertas de cursos, os trabalhos desenvolvidos bem como os projetos de fim de curso. Os visitantes são convidados a conhecer, experimentar e explorar a ESTG, através de divertidas experiências laboratoriais, jogos e exposições. A ESTG transforma-se num infindável campo de descoberta, conhecimento e saber.'
             ]]);
             $this->command->info("Info de atividades criada.");

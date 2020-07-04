@@ -11,8 +11,9 @@ use Illuminate\Support\Str;
 
 class CursosControllerAPI extends Controller {
     public function getCursosM() {
-        $cursos = Curso::all();
-        return CursoResource::collection($cursos);
+        $curso = Curso::all();
+        $cursos = CursoResource::collection($curso);
+        return response()->json($cursos, 200);
     }
 
     public function getFotoCursoM(Request $request, $nome) {

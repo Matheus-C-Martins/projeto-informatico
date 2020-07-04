@@ -201,6 +201,7 @@ class InitialStructure extends Migration {
         Schema::create('info_atividades', function (Blueprint $table){
             $table->id();
             $table->string('nome');
+            $table->string('abreviatura');
             $table->string('descricao', 2000);
         });
 
