@@ -41,26 +41,26 @@
                   <v-card-text>
                     <v-row dense justify="space-between">
                       <v-col cols="2">
-                        <p class="mt-4 subheading text-left text-left font-weight-light"> Abreviatura: {{ item.abreviatura }}</p>
+                        <p class="mt-4 subheading text-left font-weight-light"> Abreviatura: {{ item.abreviatura }}</p>
                       </v-col>
                       <v-col cols="3">
-                        <p class="mt-4 subheading text-left text-left font-weight-light"> Tipo: {{ item.tipo }}</p>
+                        <p class="mt-4 subheading text-left font-weight-light"> Tipo: {{ item.tipo }}</p>
                       </v-col>
                       <v-col>
-                        <p class="mt-4 subheading text-left text-left font-weight-light"> Semestres: {{ item.semestres }}</p>
+                        <p class="mt-4 subheading text-left font-weight-light"> Semestres: {{ item.semestres }}</p>
                       </v-col>
                       <v-col>
-                        <p class="mt-4 subheading text-left text-left font-weight-light"> ECTS: {{ item.ECTS }}</p>
+                        <p class="mt-4 subheading text-left font-weight-light"> ECTS: {{ item.ECTS }}</p>
                       </v-col>
                       <v-col>
-                        <p class="mt-4 subheading text-left text-left font-weight-light"> Vagas: {{ item.vagas }}</p>
+                        <p class="mt-4 subheading text-left font-weight-light"> Vagas: {{ item.vagas }}</p>
                       </v-col>
                     </v-row>
-                    <v-row>
-                      <p class="mt-4 subheading text-left text-left font-weight-light">{{ item.objetivos }}</p>
+                    <v-row dense justify="space-between">
+                      <p class="mt-4 subheading text-left  font-weight-light">{{ item.objetivos }}</p>
                     </v-row>
-                    <v-row>
-                      <p class="mt-4 subheading text-left text-left font-weight-light"> Contacto: {{ item.contato }}</p>
+                    <v-row dense justify="space-between">
+                      <p class="mt-4 subheading text-left font-weight-light"> Contacto: {{ item.contato }}</p>
                     </v-row>
                   </v-card-text>
                 </div>

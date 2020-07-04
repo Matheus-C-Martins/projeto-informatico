@@ -25,19 +25,11 @@
                   </template>
                   <participantes :key="participantesKey" @close="close"></participantes>
                 </v-dialog>
-
                 <v-dialog v-else-if="box.middle.atividadesNum && atividadesNum!==undefined" v-model="dialogAtividades" max-width="1300px">
                   <template class="container" v-slot:activator="{ on }">
                     <v-btn v-on="on" @click="atividadesKey+=1" block text>{{box.action.text}}</v-btn>
                   </template>
                   <atividades :key="atividadesKey" @close="close"></atividades>
-                </v-dialog>
-
-                <v-dialog v-else v-model="dialogEstatisticas" max-width="1300px">
-                  <template class="container" v-slot:activator="{ on }">
-                    <v-btn v-on="on" @click="estatisticasKey+=1" block text>{{box.action.text}}</v-btn>
-                  </template>
-                  <estatisticas :key="estatisticasKey" @close="close"></estatisticas>
                 </v-dialog>
               </v-card-actions>
             </v-card>
@@ -51,24 +43,20 @@
 <script>
 import Participantes from "./participantes";
 import Atividades from "./atividades";
-import Estatisticas from "./estatisticas";
 
 export default {
   props: ['user'],
   components: {
     participantes: Participantes,
     atividades: Atividades,
-    estatisticas: Estatisticas
   },
   data() {
     return {
       loading: 1,
       dialogParticipantes: false,
       dialogAtividades: false,
-      dialogEstatisticas: false,
       participantesKey: 0,
       atividadesKey: 0,
-      estatisticasKey: 0,
       boxes: [],
       atividadesNum: 0,
       participantesNum: 0,
@@ -80,10 +68,7 @@ export default {
     },
     dialogAtividades(val){
       val || this.close();
-    },
-    dialogEstatisticas(val){
-      val || this.close();
-    },
+    }
   },
   methods: {
     getParticipantes() {
@@ -122,7 +107,6 @@ export default {
     close() {
       this.dialogParticipantes = false;
       this.dialogAtividades = false;
-      this.dialogEstatisticas = false;
     this.initialize();
     },
     initialize() {
@@ -156,20 +140,6 @@ export default {
         action: {
           text: "Atividades",
           linkTo: "Atividades",
-        }
-      }, {
-        id: 2,
-        class: 'head center',
-        middle: {
-          text: `Estatísticas:`,
-        },
-        img: {
-          on: 1,
-          url: "/storage/Logo_DEI.png"
-        },
-        action: {
-          text: "Estatísticas",
-          linkTo: "Estatisticas",
         }
       },
     ];
