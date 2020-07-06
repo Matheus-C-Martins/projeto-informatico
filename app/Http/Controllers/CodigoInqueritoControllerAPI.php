@@ -7,16 +7,16 @@ use Illuminate\Http\Request;
 
 class CodigoInqueritoControllerAPI extends Controller
 {
-    public function getValidadeM(Request $request, $id) {
+    public function getCodigoM(Request $request, $id) {
         $codigo = CodigoInquerito::findOrFail($id);
 
-        return $codigo["validade"];
+        return response()->json($codigo, 200);
     }
 
     public function store(Request $request) {
-        $valid = validator($request->only('validade', 'data'), [
+        $valid = validator($request->only('nome', 'validade'), [
+            'nome' => 'required',
             'validade'=> 'required|boolean',
-            'data' => 'required|date_format:Y-m-d H:i:s',
         ]);
 
         if ($valid->fails()) {
@@ -25,6 +25,7 @@ class CodigoInqueritoControllerAPI extends Controller
         }
 
         $data = $request->only('validade', 'data');
+        $data["data"] = date('Y-m-d H:i:s');
 
         $codigo = CodigoInquerito::create($data);
         $msg = "Código criado com sucesso";
@@ -32,12 +33,15 @@ class CodigoInqueritoControllerAPI extends Controller
         return response()->json($data, 200);
     }
 
-    public function isValid(Request $request, $id) {
+    public function update(Request $request, $id) {
         $codigo = CodigoInquerito::findOrFail($id);
-        $codigo["validade"] = $request["validade"]
+
+        $codigo["nome"] = $request["nome"];
+        $codigo["validade"] = $request["validade"];
+
         $codigo->save();
 
-        $msg = "Validade atualizada com sucesso";
+        $msg = "Codigo atualizado com sucesso";
         return response()->json($msg, 200);
     }
 }

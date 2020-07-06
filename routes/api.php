@@ -102,6 +102,9 @@ Route::delete('academias/participantes/{participante_id}', 'AcademiaParticipante
 
 Route::post('codigo', 'CodigoInqueritoControllerAPI@store')->middleware('auth:api');
 Route::put('codigo/{id}/update', 'CodigoInqueritoControllerAPI@update')->middleware('auth:api');
+
+Route::get('inqueritos', 'InqueritoControllerAPI@getInqueritos')->middleware('auth:api');
+Route::delete('inqueritos/{id}', 'InqueritoControllerAPI@remove')->middleware('auth:api');
 /*
 |--------------------------------------------------------------------------
 | API Mobile Routes
@@ -113,4 +116,6 @@ Route::get('cursosLogoM/{nome}', 'CursosControllerAPI@getFotoCursoM');
 
 Route::get('atividadesM', 'AtividadeControllerAPI@getAtividadesM');
 
-Route::get('codigoM/{id}', 'CodigoInqueritoControllerAPI@getValidadeM');
+Route::get('codigoM/{id}', 'CodigoInqueritoControllerAPI@getCodigoM');
+
+Route::post('inqueritosM', 'InqueritoControllerAPI@storeM');
