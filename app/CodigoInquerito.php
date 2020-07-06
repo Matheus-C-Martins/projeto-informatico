@@ -11,6 +11,6 @@ class CodigoInquerito extends Model {
     }
 
     protected $fillable = [
-        'validade', 'data',
+        'nome', 'validade', 'data',
     ];
 }
