@@ -106,7 +106,7 @@ export default {
     getCursos() {
       this.loading = true;
       axios.get('api/cursosM').then(response => {
-        this.cursosInfo = response.data.data;
+        this.cursosInfo = response.data;
         this.cursosInfo.forEach(curso => {
           curso.fotografia = `/storage/logoCursos/${curso.fotografia}`;
         });
