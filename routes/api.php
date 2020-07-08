@@ -112,11 +112,13 @@ Route::post('academias/participantes', 'AcademiaParticipanteControllerAPI@store'
 Route::put('academias/participantes/{participante_id}/update', 'AcademiaParticipanteControllerAPI@update')->name('updateParticipanteAcademiaVerao')->middleware('auth:api');
 Route::delete('academias/participantes/{participante_id}', 'AcademiaParticipanteControllerAPI@remove')->name('removeParticipanteAcademiaVerao')->middleware('auth:api');
 
-Route::post('codigo', 'CodigoInqueritoControllerAPI@store')->middleware('auth:api');
-Route::put('codigo/{id}/update', 'CodigoInqueritoControllerAPI@update')->middleware('auth:api');
+Route::get('codigos', 'CodigoInqueritoControllerAPI@getCodigos')->middleware('auth:api');
+Route::post('codigos', 'CodigoInqueritoControllerAPI@store')->middleware('auth:api');
+Route::put('codigos/{codigo_id}/update', 'CodigoInqueritoControllerAPI@update')->middleware('auth:api');
 
 Route::get('inqueritos', 'InqueritoControllerAPI@getInqueritos')->middleware('auth:api');
-Route::delete('inqueritos/{id}', 'InqueritoControllerAPI@remove')->middleware('auth:api');
+Route::get('codigos/{codigo_id}/inqueritos', 'InqueritoControllerAPI@getCodigoInquerito')->middleware('auth:api');
+Route::delete('inqueritos/{inquerito_id}', 'InqueritoControllerAPI@remove')->middleware('auth:api');
 /*
 |--------------------------------------------------------------------------
 | API Mobile Routes

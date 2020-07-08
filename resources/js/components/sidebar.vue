@@ -114,6 +114,13 @@ export default {
           component: "estatisticas",
           link: "/backoffice/estatisticas/"
         },
+        {
+          id:9,
+          title: "Inquéritos",
+          icon: "mdi-clipboard-text",
+          component: "inqueritos",
+          link: "/backoffice/inqueritos/"
+        },
       ],
     };
   },

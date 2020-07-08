@@ -5,8 +5,13 @@ namespace App\Http\Controllers;
 use App\Inquerito;
 use Illuminate\Http\Request;
 
-class InqueritoControllerAPI extends Controller
-{
+class InqueritoControllerAPI extends Controller {
+    public function getCodigoInquerito($id) {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $inqueritos = Inquerito::where('codigo_id', $id)->paginate($per_page);
+        return InqueritoResource::collection($inqueritos);
+    }
+
     public function getInqueritos() {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
         $inqueritos = Inquerito::paginate($per_page);

@@ -20,6 +20,7 @@ import Atividades from './components/atividades/index';
 import Estatisticas from './components/estatisticas/index';
 import Cursos from './components/cursos/index';
 import Academia from './components/academia/index';
+import Inqueritos from './components/inqueritos/index';
 import UploadImage from 'vue-upload-image';
 import VueApexCharts from 'vue-apexcharts';
 import Toasted from 'vue-toasted';
@@ -45,6 +46,7 @@ Vue.component('atividades', Atividades);
 Vue.component('estatisticas', Estatisticas);
 Vue.component('cursos', Cursos);
 Vue.component('academia', Academia);
+Vue.component('inqueritos', Inqueritos);
 Vue.component('upload-image', UploadImage);
 Vue.component('apexchart', VueApexCharts);
 
@@ -124,6 +126,12 @@ const routes = [
                 path: 'academia',
                 components: {
                     backoffice: Academia
+                }
+            },
+            {
+                path: 'inqueritos',
+                components: {
+                    backoffice: Inqueritos
                 }
             },
         ]
