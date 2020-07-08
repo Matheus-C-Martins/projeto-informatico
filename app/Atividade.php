@@ -20,7 +20,7 @@ class Atividade extends Model {
     }
 
     public function docentes_atividade() {
-        return $this->hasMany('App\DocentesAtividade', 'atividade');
+        return $this->hasMany('App\DocenteAtividade', 'atividade');
     }
 
     protected $fillable = [

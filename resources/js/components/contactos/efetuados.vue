@@ -115,7 +115,7 @@ export default {
           Vue.toasted.error(response.data);
           return;
         }
-        Vue.toasted.show(response.data);
+        Vue.toasted.show(response.data[0]);
         this.closeMarcar();
       })
       .catch(response => {

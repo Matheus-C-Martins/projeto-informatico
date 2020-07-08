@@ -8,11 +8,11 @@ class AtividadeAVerao extends Model {
     public $timestamps = FALSE;
 
     public function a_verao_participante() {
-        return $this->hasMany('App\A_VeraoParticipante', 'atividade');
+        return $this->hasMany('App\AVeraoParticipante', 'atividade');
     }
 
     public function a_verao_docente() {
-        return $this->hasMany('App\A_VeraoDocente', 'atividade');
+        return $this->hasMany('App\AVeraoDocente', 'atividade');
     }
 
     public function academia_de_verao() {

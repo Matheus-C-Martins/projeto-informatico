@@ -87,7 +87,7 @@ class InitialStructure extends Migration {
             $table->text('descricao')->nullable();
         });
 
-        Schema::create('docentes_atividade', function (Blueprint $table) {
+        Schema::create('docente_atividades', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('atividade');
             $table->foreign('atividade')->references('id')->on('atividades');
@@ -213,7 +213,7 @@ class InitialStructure extends Migration {
     public function down() {
         Schema::dropIfExists('contactos_efetuados');
         Schema::dropIfExists('workshops_atividades');
-        Schema::dropIfExists('docentes_atividade');
+        Schema::dropIfExists('docente_atividades');
         Schema::dropIfExists('contactos_escolas');
         /* TABELAS SOBRE A ACADEMIA DE VERAO */
         Schema::dropIfExists('a_verao_participantes');

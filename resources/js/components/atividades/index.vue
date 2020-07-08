@@ -36,14 +36,12 @@
             ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
-            <v-select label="Ano"
+            <v-text-field label="Ano"
               v-model="ano"
-              :items="anos"
-              item-value="escolar"
               hide-details
               outlined
               dense
-            ></v-select>
+            ></v-text-field>
           </v-col>
           <v-col cols="12" sm="2">
             <v-select label="Tipo de Atividade"
@@ -122,6 +120,9 @@
           </div>
         </td>
       </template>
+      <template v-slot:item.docentes="{ item }">
+        <v-icon small class="mr-2" @click="docentes(item)"> {{ icons.mdiAccountTie }} </v-icon>
+      </template>
       <template v-slot:item.editar="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
       </template>
@@ -138,6 +139,9 @@
     <v-dialog v-model="dialogWorkshop" max-width="900px">
       <workshop @close="close" :key="workshopKey" :atividade="atividade"></workshop>
     </v-dialog>
+    <v-dialog v-model="dialogDocente" max-width="900px">
+      <docente @close="close" :key="docenteKey" :atividade="atividade"></docente>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -145,7 +149,8 @@
 import EditarAtividade from "./editar";
 import CriarAtividade from "./criar";
 import Workshop from "./workshop";
-import { mdiPencil, mdiDelete } from '@mdi/js';
+import Docente from "./docente";
+import { mdiPencil, mdiDelete, mdiAccountTie } from '@mdi/js';
 
 export default {
   props: ["user"],
@@ -153,6 +158,7 @@ export default {
     "editar-atividade": EditarAtividade,
     "criar-atividade": CriarAtividade,
     "workshop": Workshop,
+    "docente": Docente,
   },
   data() {
     return {
@@ -160,18 +166,15 @@ export default {
       dialogEditar: false,
       dialogCriar: false,
       dialogWorkshop: false,
+      dialogDocente: false,
       editarKey: 0,
       criarKey: 0,
       workshopKey: 0,
+      docenteKey: 0,
       escolas: [],
       escola: {},
       turma: '',
       ano: '',
-      anos: [
-        { escolar: "12ºano", text: "12ºano" },
-        { escolar: "11ºano", text: "11ºano" },
-        { escolar: "10ºano", text: "10ºano" },
-      ],
       tipo_atividade: '',
       tipos: [
         { tipo: "diaESTG", text: "Dia ESTG" },
@@ -199,6 +202,7 @@ export default {
         { text: 'Duração', value: 'duracao', align: 'center', sortable: false, filterable: true},
         { text: 'Tipo de Atividade', value: 'tipo_atividade', align: 'center', sortable: false, filterable: true},
         { text: 'Detalhes', value: 'data-table-expand', align: 'center', sortable: false },
+        { text: 'Docentes', value: 'docentes', align: 'center', sortable: false },
         { text: 'Editar', value: 'editar', align: 'center', sortable: false },
         { text: 'Remover', value: 'remover', align: 'center', sortable: false },
         { text: '', value: 'workshop', align: 'center', sortable: false },
@@ -207,7 +211,7 @@ export default {
       editedIndex: -1,
       editedItem: {},
       atividade: {},
-      icons: { mdiPencil, mdiDelete },
+      icons: { mdiPencil, mdiDelete, mdiAccountTie },
       trinta:['04', '06', '09', '11'],
     };
   },
@@ -242,6 +246,12 @@ export default {
       this.workshopKey += 1;
       this.dialogWorkshop = true;
     },
+    docentes(item) {
+      this.editedIndex = this.atividades.indexOf(item);
+      this.atividade = Object.assign({}, item);
+      this.docenteKey += 1;
+      this.dialogDocente = true;
+    },
     deleteItem (item) {
       confirm(`Tem a certeza que pertende eliminar a atividade do dia: ${item.data}?`) &&
       axios.delete(`/api/atividades/${item.id}`, {}).then(response => {
@@ -258,6 +268,7 @@ export default {
       this.dialogEditar = false;
       this.dialogCriar = false;
       this.dialogWorkshop = false;
+      this.dialogDocente   = false;
       this.initialize();
     },
     save(atividade) {
@@ -299,19 +310,22 @@ export default {
     this.$emit("linkTo", "/backoffice/atividades", 1);
   },
   watch: {
-    dialogEditar (val) {
+    dialogEditar(val) {
       val || this.close()
     },
-    dialogCriar (val) {
+    dialogCriar(val) {
       val || this.close()
     },
-    dialogWorkshop (val) {
+    dialogWorkshop(val) {
       val || this.close()
     },
-    user: function(newVal, oldVal) {
+    dialogDocente(val) {
+      val || this.close()
+    },
+    user(newVal, oldVal) {
       newVal;
     },
-    expanded (newVal, oldVal) {
+    expanded(newVal, oldVal) {
       if (newVal.length == 1){
         newVal;
       }

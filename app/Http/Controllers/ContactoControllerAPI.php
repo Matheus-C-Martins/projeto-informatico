@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Contacto;
-use App\ContactosEscolas;
-use App\ContactosEfetuados;
+use App\ContactosEscola;
+use App\ContactosEfetuado;
 use App\Atividade;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -67,7 +67,7 @@ class ContactoControllerAPI extends Controller {
             $data['descricao'] = $request->descricao;
         }
 
-        $contactoEscola = ContactosEscolas::create($data);
+        $contactoEscola = ContactosEscola::create($data);
         $msg = "Escola associada com sucesso";
         $data = array($msg, $contactoEscola);
         return response()->json($data, 200);
@@ -94,7 +94,7 @@ class ContactoControllerAPI extends Controller {
         $data['contacto'] = $contacto;
         $data['data'] = Carbon::now()->toDateTimeString();
 
-        $contactosEfetuado = ContactosEfetuados::create($data);
+        $contactosEfetuado = ContactosEfetuado::create($data);
         $msg = "Contacto marcado como efetuado com sucesso";
         $data = array($msg, $contactosEfetuado);
         return response()->json($data, 200);
@@ -133,7 +133,7 @@ class ContactoControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $contactoEscola = ContactosEscolas::findOrFail($id);
+        $contactoEscola = ContactosEscola::findOrFail($id);
         $contactoEscola["contacto"] = $request["contacto"];
         $contactoEscola["tipo"] = $request["tipo"];
         $contactoEscola["escola"] = $request["escola"];
@@ -155,7 +155,7 @@ class ContactoControllerAPI extends Controller {
             return response()->json($jsonError);
         }
 
-        $contactosEfetuado = ContactosEfetuados::findOrFail($id);
+        $contactosEfetuado = ContactosEfetuado::findOrFail($id);
         $date = Carbon::now()->toDateTimeString();
 
         $contactosEfetuado["contacto"] = $contacto;
@@ -172,7 +172,7 @@ class ContactoControllerAPI extends Controller {
     public function remove($id) {
         $contacto = Contacto::findOrFail($id);
 
-        $contactosEscola =  ContactosEscolas::where('contacto', $contacto->id)->get()->toArray();
+        $contactosEscola =  ContactosEscola::where('contacto', $contacto->id)->get()->toArray();
         if(sizeof($contactosEscola) > 0) {
             $msg = "Não foi possível remover o contacto, pois tem escolas associadas";
             return response()->json($msg, 202);
@@ -190,9 +190,9 @@ class ContactoControllerAPI extends Controller {
     }
 
     public function removeAssociado($id) {
-        $contactoEscola = ContactosEscolas::findOrFail($id);
-        $contactosEfetuados = ContactosEfetuados::where('contacto', $contactoEscola->id)->get()->toArray();
-        if(sizeof($contactosEfetuados) > 0) {
+        $contactoEscola = ContactosEscola::findOrFail($id);
+        $contactosEfetuado = ContactosEfetuado::where('contacto', $contactoEscola->id)->get()->toArray();
+        if(sizeof($contactosEfetuado) > 0) {
             $msg = "Não foi possível desassoiciar, pois já foram efetuados contactos";
             return response()->json($msg, 202);
         }
@@ -202,8 +202,8 @@ class ContactoControllerAPI extends Controller {
     }
 
     public function removeEfetuado($aux, $id) {
-        $contactoEscola = ContactosEscolas::findOrFail($aux);        
-        $contactoEfetuado = ContactosEfetuados::findOrFail($id);
+        $contactoEscola = ContactosEscola::findOrFail($aux);        
+        $contactoEfetuado = ContactosEfetuado::findOrFail($id);
         $contactoEfetuado->delete();
         $msg = 'Contacto desmarcado com sucesso';
         return response()->json($msg, 200);
@@ -232,13 +232,13 @@ class ContactoControllerAPI extends Controller {
     
     public function getContactosEscolas($id) {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $contactos = ContactosEscolas::where('contacto', $id)->paginate($per_page);
+        $contactos = ContactosEscola::where('contacto', $id)->paginate($per_page);
         return ContactosEscolasResource::collection($contactos);
     }
 
     public function getContactosEfetuados($id) {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $contactos = ContactosEfetuados::where('contacto', $id)->paginate($per_page);
+        $contactos = ContactosEfetuado::where('contacto', $id)->paginate($per_page);
         return ContactosEfetuadosResource::collection($contactos);
     }
 }

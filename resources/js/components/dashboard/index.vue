@@ -3,13 +3,6 @@
     <v-card flat tile>
       <v-card-title> Dashboard
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialogImport" max-width="700px">
-            <template class="container" v-slot:activator="{ on }">
-              <button v-on="on" @click="importKey+=1" class="btn btn-secondary block"> Importar Dados </button>
-            </template>
-            <import :key="importKey" @close="close"></import>
-        </v-dialog>
-        <span>&nbsp;</span>
         <v-dialog v-if="user.tipo == 'a'" v-model="dialog" max-width="700px">
           <template class="container" v-slot:activator="{ on }">
             <button v-on="on" @click="createUserKey+=1" class="btn btn-secondary block"> Criar Novo Utilizador </button>
@@ -38,6 +31,46 @@
           </div>
         </v-row>
       </v-card-text>
+      <v-card-actions style="padding-top:0px">
+        <v-card flat tile width="100%" class="text-center pa-0">
+          <v-card-text class="pa-0">
+            <v-dialog v-model="dialogAdiconarSala" max-width="700px">
+              <template class="container" v-slot:activator="{ on }">
+                <button v-on="on" @click="addSalaKey+=1" class="btn btn-secondary block"> Adicionar Sala </button>
+              </template>
+              <add-sala :key="addSalaKey" @close="close" @create="createSala"></add-sala>
+            </v-dialog>
+            <span>&nbsp;</span>
+            <v-dialog v-model="dialogRemoverSala" max-width="700px">
+              <template class="container" v-slot:activator="{ on }">
+                <button v-on="on" @click="removeSalaKey+=1" class="btn btn-secondary block"> Remover Sala </button>
+              </template>
+              <remove-sala :key="removeSalaKey" @close="close" @remove="removeSala"></remove-sala>
+            </v-dialog>
+            <span>&nbsp;</span>
+            <v-dialog v-model="dialogImport" max-width="700px">
+              <template class="container" v-slot:activator="{ on }">
+                <button v-on="on" @click="importKey+=1" class="btn btn-secondary block"> Importar Dados </button>
+              </template>
+              <import :key="importKey" @close="close"></import>
+            </v-dialog>
+            <span>&nbsp;</span>
+            <v-dialog v-model="dialogAdiconarWorkshop" max-width="700px">
+              <template class="container" v-slot:activator="{ on }">
+                <button v-on="on" @click="addWorkshopKey+=1" class="btn btn-secondary block"> Adicionar Workshop </button>
+              </template>
+              <add-workshop :key="addWorkshopKey" @close="close" @create="createWorkshop"></add-workshop>
+            </v-dialog>
+            <span>&nbsp;</span>
+            <v-dialog v-model="dialogRemoverWorkshop" max-width="700px">
+              <template class="container" v-slot:activator="{ on }">
+                <button v-on="on" @click="removeWorkshopKey+=1" class="btn btn-secondary block"> Remover Workshop </button>
+              </template>
+              <remove-workshop :key="removeWorkshopKey" @close="close" @remove="removeWorkshop"></remove-workshop>
+            </v-dialog>
+          </v-card-text>
+        </v-card>
+      </v-card-actions>
     </v-card>
   </v-container>
 </template>
@@ -45,20 +78,36 @@
 <script>
 import CreateUser from "./create_user";
 import Import from "./import_dados";
+import AddWorkshop from "./add_workshop";
+import RemoveWorkshop from "./remove_workshop";
+import AddSala from "./add_sala";
+import RemoveSala from "./remove_sala";
 
 export default {
   props: ['user'],
   components: {
     createUser: CreateUser,
-    import: Import
+    import: Import,
+    "add-workshop": AddWorkshop,
+    "remove-workshop": RemoveWorkshop,
+    "add-sala": AddSala,
+    "remove-sala": RemoveSala
   },
   data() {
     return {
       loading: 1,
       dialog:false,
       dialogImport:false,
+      dialogAdiconarSala:false,
+      dialogRemoverSala:false,
+      dialogAdiconarWorkshop:false,
+      dialogRemoverWorkshop:false,
       createUserKey: 0,
       importKey: 0,
+      addSalaKey: 0,
+      removeSalaKey: 0,
+      addWorkshopKey: 0,
+      removeWorkshopKey: 0,
       newUser: {},
       boxes: [],
       atividadesRestantes:0,
@@ -66,7 +115,22 @@ export default {
     }
   },
   watch:{
-    dialog: function(val){
+    dialog(val) {
+      val || this.close();
+    },
+    dialogImport(val) {
+      val || this.close();
+    },
+    dialogAdiconarSala(val) {
+      val || this.close();
+    },
+    dialogRemoverSala(val) {
+      val || this.close();
+    },
+    dialogAdiconarWorkshop(val) {
+      val || this.close();
+    },
+    dialogRemoverWorkshop(val) {
       val || this.close();
     },
   },
@@ -79,6 +143,10 @@ export default {
     close() {
       this.dialog = false;
       this.dialogImport = false;
+      this.dialogAdiconarSala = false;
+      this.dialogRemoverSala = false;
+      this.dialogAdiconarWorkshop = false;
+      this.dialogRemoverWorkshop = false;
       this.newUser = {};
     },
     createUser(user) {
@@ -91,9 +159,54 @@ export default {
         this.close();
       })
       .catch(response => {
-        console.log(response)
         Vue.toasted.error('Algo correu mal...');
       });
+    },
+    createWorkshop(workshop) {
+      axios.post("api/workshops", workshop).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error('Algo correu mal... ' + response.data);
+          return;
+        }
+        Vue.toasted.show("Workshop adicinonado com sucesso");
+        this.close();
+      })
+      .catch(response => {
+        Vue.toasted.error('Algo correu mal...');
+      });
+    },
+    createSala(sala) {
+      axios.post("api/salas", sala).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error('Algo correu mal... ' + response.data);
+          return;
+        }
+        Vue.toasted.show("Sala adicinonada com sucesso");
+        this.close();
+      })
+      .catch(response => {
+        Vue.toasted.error('Algo correu mal...');
+      });
+    },
+    removeSala(sala) {
+      axios.delete(`/api/salas/${sala.id}`).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data.data);
+          return;
+        }
+        Vue.toasted.show("Sala removida com sucesso");
+        this.close();
+      })
+    },
+    removeWorkshop(workshop) {
+      axios.delete(`/api/workshops/${workshop.id}`, {}).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data.data);
+          return;
+        }
+        Vue.toasted.show("Workshop removido com sucesso");
+        this.close();
+      })
     },
     getUserPhoto() {
       if(this.user.fotografia == null) {

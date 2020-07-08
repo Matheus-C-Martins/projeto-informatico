@@ -33,14 +33,12 @@
               ></v-select>
             </v-col>
             <v-col cols="12" sm="2">
-              <v-select label="Ano"
+              <v-text-field label="Ano"
                 v-model="ano"
-                :items="anos"
-                item-value="escolar"
                 hide-details
                 outlined
                 dense
-              ></v-select>
+              ></v-text-field>
             </v-col> 
             <v-col cols="12" sm="2">
               <v-select label="Curso"
@@ -154,11 +152,6 @@ export default {
         { tipo: "Profissional", text: "Profissional" },
       ],
       ano: '',
-      anos: [
-        { escolar: "10ºano", text: "10ºano" },
-        { escolar: "11ºano", text: "11ºano" },
-        { escolar: "12ºano", text: "12ºano" },
-      ],
       loading: true,
       totalParticipantes: 0,
       options: {},

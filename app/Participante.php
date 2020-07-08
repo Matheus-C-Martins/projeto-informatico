@@ -8,7 +8,7 @@ class Participante extends Model {
     public $timestamps = FALSE;
 
     public function a_verao_participante() {
-        return $this->hasMany('App\A_VeraoParticipante', 'participante');
+        return $this->hasMany('App\AVeraoParticipante', 'participante');
     }
 
     public function escola() {

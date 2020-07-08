@@ -17,6 +17,8 @@
               @keypress.enter.stop.prevent="editar"
             ></v-select>
           </v-col>
+        </v-row>
+        <v-row dense>
           <v-col>
             <v-textarea label="Descrição"
               clearable

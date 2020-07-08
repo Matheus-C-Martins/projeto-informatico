@@ -12,7 +12,7 @@ class Contacto extends Model {
     }
 
     public function contactos_escolas() {
-        return $this->belongsTo('App\ContactosEscolas', 'escola');
+        return $this->belongsTo('App\ContactosEscola', 'escola');
     }
 
     protected $fillable = [

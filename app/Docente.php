@@ -8,11 +8,11 @@ class Docente extends Model {
     public $timestamps = FALSE;
 
     public function docentes_atividade() {
-        return $this->hasMany('App\DocentesAtividade', 'docente');
+        return $this->hasMany('App\DocenteAtividade', 'docente');
     }
 
     public function a_verao_docente() {
-        return $this->hasMany('App\A_VeraoDocente', 'docente');
+        return $this->hasMany('App\AVeraoDocente', 'docente');
     }
 
     protected $fillable = [

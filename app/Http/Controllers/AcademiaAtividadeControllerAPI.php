@@ -86,6 +86,25 @@ class AcademiaAtividadeControllerAPI extends Controller {
         return response()->json($data, 200);
     }
 
+    public function storeSala(Request $request) {
+        $valid = validator($request->only('nome', 'edificio'), [
+            'edificio' => ['required', 'regex:/^[A]{1}$|^[B]{1}$|^[C]{1}$|^[D]{1}$|^[E]{1}$|^[Biblioteca]{10}$/'],
+            'nome'=> 'required|string',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $data = $request->only('edificio', 'nome');
+
+        $sala = Sala::create($data);
+        $msg = "Sala adicionado com sucesso";
+        $data = array($msg, $sala);
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, $id) {
         $valid = validator($request->only('nome', 'academia_de_verao', 'observacoes', 'tipo'), [
             'nome'=> 'required|string',
@@ -172,6 +191,13 @@ class AcademiaAtividadeControllerAPI extends Controller {
         $participante = AVeraoParticipante::findOrFail($id);
         $participante->delete();
         $msg = 'Participante desassociado com sucesso';
+        return response()->json($msg, 200);
+    }
+
+    public function removeSala($id){
+        $sala = Sala::findOrFail($id);
+        $sala->delete();
+        $msg = 'Sala removida com sucesso';
         return response()->json($msg, 200);
     }
 

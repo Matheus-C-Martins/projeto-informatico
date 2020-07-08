@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Escola;
-use App\ContactosEscolas;
+use App\ContactosEscola;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; 
@@ -74,7 +74,7 @@ class EscolaControllerAPI extends Controller {
 
     public function getEscolasContactos($id) {
         $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
-        $contactos = ContactosEscolas::where('escola', $id)->paginate($per_page);
+        $contactos = ContactosEscola::where('escola', $id)->paginate($per_page);
         return EscolasContactosResource::collection($contactos);
     }
 }

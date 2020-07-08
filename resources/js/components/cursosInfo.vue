@@ -31,7 +31,7 @@
       <template v-for="(item, i) in cursosInfo">
         <v-row style="padding-top: 15px" :key="i" align="center" justify="center">
           <v-hover v-slot:default="{ hover }">
-            <v-card :elevation="hover ? 100 : 2" :class="{ 'on-hover': hover }">
+            <v-card min-width="1500" max-width="1500" :elevation="hover ? 100 : 2" :class="{ 'on-hover': hover }">
               <div class="d-flex flex-no-wrap justify-space-between">
                 <v-avatar tile size="150" class="ma-3">
                   <v-img style="border-radius: 25%" aspect-ratio=1 :src="item.fotografia"></v-img>

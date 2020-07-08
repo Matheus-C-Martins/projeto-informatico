@@ -46,17 +46,15 @@
         </v-row>
         <v-row dense>
           <v-col>
-            <v-select label="Ano Escolar"
+            <v-text-field label="Ano Escolar"
               outlined
-              :items="ano"
-              item-value="escolar"
               v-model="atividade.ano"
               :error-messages="anoErrors"
               @input="$v.atividade.ano.$touch()"
               @blur="$v.atividade.ano.$touch()"
               dense
               @keypress.enter.stop.prevent="create"
-            ></v-select>
+            ></v-text-field>
           </v-col>
           <v-col>
             <v-text-field label="Turma"
@@ -221,11 +219,6 @@ export default {
         { tipo: "workshop", text: "Workshop" },
         { tipo: "seminario", text: "Seminário" },
         { tipo: "visita", text: "Visita à Escola" },
-      ],
-      ano: [
-        { escolar: "12ºano", text: "12ºano" },
-        { escolar: "11ºano", text: "11ºano" },
-        { escolar: "10ºano", text: "10ºano" },
       ],
       menuData: false,
       menuTime: false,

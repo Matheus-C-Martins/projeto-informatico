@@ -6,6 +6,7 @@ use App\Atividade;
 use App\InfoAtividade;
 use App\WorkshopsAtividade;
 use App\Workshop;
+use App\DocenteAtividade as Docente;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\Atividade as AtividadeResource;
 use App\Http\Resources\AtividadesWorkshop as AtividadesWorkshopResource;
 use App\Http\Resources\Workshop as WorkshopResource;
+use App\Http\Resources\AtividadeDocentes as DocentesSResource;
 
 class AtividadeControllerAPI extends Controller {
     public function store(Request $request) {
@@ -76,6 +78,50 @@ class AtividadeControllerAPI extends Controller {
         return response()->json($data, 200);
     }
 
+    public function associarDocente(Request $request, $id) {
+        $atividade = Atividade::findOrFail($id);
+        $valid = validator($request->only('docente', 'descricao_participacao'), [
+            'docente'=> 'required|integer',
+            'descricao_participacao' => 'nullable|string',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $data = $request->only('docente');
+        $data['atividade'] = $id;
+        if(!$request->only('descricao_participacao')) {
+            $data['descricao_participacao'] = null;
+        } else {
+            $data['descricao_participacao'] = $request->descricao_participacao;
+        }
+
+        $docente = Docente::create($data);
+        $msg = "Docente associado com sucesso";
+        $data = array($msg, $docente);
+        return response()->json($data, 200);
+    }
+
+    public function storeWorkshop(Request $request) {
+        $valid = validator($request->only('nome'), [
+            'nome'=> 'required|string',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $data = $request->only('nome');
+
+        $workshop = Workshop::create($data);
+        $msg = "Workshop adicionado com sucesso";
+        $data = array($msg, $workshop);
+        return response()->json($data, 200);
+    }
+
     public function update(Request $request, $id) {
         $valid = validator($request->only('contacto', 'escola', 'numero_de_alunos', 'descricao'), [
             'contacto'=> 'required|integer',
@@ -117,10 +163,41 @@ class AtividadeControllerAPI extends Controller {
         $workshop["atividade"] = $aux;
         $workshop["workshop"] = $request["workshop"];
         $workshop["data"] = $request["data"];
-        $workshop["descricao"] = $request["descricao"];
+        if(!$request->only('descricao')) {
+            $workshop['descricao'] = null;
+        } else {
+            $workshop['descricao'] = $request->descricao;
+        }
         $workshop->save();
         
         $msg = "Workshop atualizado com sucesso";
+        return response()->json($msg, 200);
+    }
+
+    public function updateDocente(Request $request, $aux, $id) {
+        $atividade = Atividade::findOrFail($aux);
+        $valid = validator($request->only('docente', 'descricao_participacao'), [
+            'docente'=> 'required|integer',
+            'descricao_participacao' => 'nullable|string',
+        ]);
+
+        if ($valid->fails()) {
+            $jsonError=response()->json($valid->errors()->all(), 400);
+            return response()->json($jsonError);
+        }
+
+        $docente = Docente::findOrFail($id);
+        $docente["atividade"] = $aux;
+        $docente["docente"] = $request["docente"];
+
+        if(!$request->only('descricao_participacao')) {
+            $docente['descricao_participacao'] = null;
+        } else {
+            $docente['descricao_participacao'] = $request->descricao_participacao;
+        }
+        $docente->save();
+        
+        $msg = "Docente atualizado com sucesso";
         return response()->json($msg, 200);
     }
 
@@ -136,6 +213,21 @@ class AtividadeControllerAPI extends Controller {
         $workshop = WorkshopsAtividade::findOrFail($id);
         $workshop->delete();
         $msg = 'Workshop desassociado com sucesso';
+        return response()->json($msg, 200);
+    }
+
+    public function desassociarDocente($aux, $id) {
+        $atividade = Atividade::findOrFail($aux);
+        $docente = Docente::findOrFail($id);
+        $docente->delete();
+        $msg = 'Docente desassociado com sucesso';
+        return response()->json($msg, 200);
+    }
+
+    public function removeWorkshop($id){
+        $workshop = Workshop::findOrFail($id);
+        $workshop->delete();
+        $msg = 'Workshop removido com sucesso';
         return response()->json($msg, 200);
     }
 
@@ -175,6 +267,12 @@ class AtividadeControllerAPI extends Controller {
     public function getWorkshops() {
         $workshops = Workshop::all();
         return WorkshopResource::collection($workshops);
+    }
+
+    public function getAtividadeDocentes($id) {
+        $per_page = empty(request('per_page')) ? 10 : (int)request('per_page');
+        $docentes = Docente::where('atividade', $id)->paginate($per_page);
+        return DocentesSResource::collection($docentes);
     }
 
     public function getAtividadesAno() {

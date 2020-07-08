@@ -43,17 +43,15 @@
         </v-row>
         <v-row dense>
           <v-col>
-            <v-select label="Ano"
+            <v-text-field label="Ano"
               outlined
-              :items="anos"
-              item-value="escolar"
               v-model="participante.ano"
               :error-messages="anoErrors"
               @input="$v.participante.ano.$touch()"
               @blur="$v.participante.ano.$touch()"
               dense
               @keypress.enter.stop.prevent="save"
-            ></v-select>
+            ></v-text-field>
           </v-col>
           <v-col>
             <v-select label="Curso"
@@ -191,11 +189,6 @@ export default {
         { tipo: "CSE", text: "CSE" },
         { tipo: "LH", text: "LH" },
         { tipo: "Profissional", text: "Profissional" },
-      ],
-      anos: [
-        { escolar: "10ºano", text: "10ºano" },
-        { escolar: "11ºano", text: "11ºano" },
-        { escolar: "12ºano", text: "12ºano" },
       ],
       ee: [
         { nome: "Mãe", text: "Mãe" },

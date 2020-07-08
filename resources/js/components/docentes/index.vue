@@ -64,6 +64,9 @@
       :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
       class="elevation-1"
       no-data-text="Ainda não existem docentes">
+      <template v-slot:item.atividades="{ item }">
+        <v-icon small class="mr-2" @click="atividades(item)">{{ icons.mdiBookOpenPageVariant }}</v-icon>
+      </template>
       <template v-slot:item.editar="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
       </template>
@@ -74,27 +77,34 @@
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-docente @save="save" @close="close" :key="editarKey" :docente="docente"></editar-docente>
     </v-dialog>
+    <v-dialog v-model="dialogAtividade" max-width="700px">
+      <atividade @close="close" :key="atividadeKey" :docente="docente"></atividade>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import EditarDocente from "./editar";
 import CriarDocente from "./criar";
-import { mdiPencil, mdiDelete } from '@mdi/js';
+import Atividade from "./atividade";
+import { mdiPencil, mdiDelete, mdiBookOpenPageVariant } from '@mdi/js';
 
 export default {
   props: ["user"],
   components: {
     "editar-docente": EditarDocente,
     "criar-docente": CriarDocente,
+    "atividade": Atividade,
   },
   data() {
     return {
       index: true,
       dialogEditar: false,
       dialogCriar: false,
+      dialogAtividade: false,
       editarKey: 0,
       criarKey: 0,
+      atividadeKey: 0,
       nome: '',
       telefone: '',
       email: '',
@@ -103,10 +113,11 @@ export default {
       totalDocentes: 0,
       options: {},
       headers: [
-        { text: 'Nome', value: 'nome', align: 'center', sortable: false, filterable: true},
-        { text: 'Telefone Interno',  value: 'telefone_interno', align: 'center', sortable: false, filterable:true},
-        { text: 'Telemóvel',  value: 'telemovel', align: 'center', sortable: false, filterable:true},
-        { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true},
+        { text: 'Nome', value: 'nome', align: 'center', sortable: false, filterable: true },
+        { text: 'Telefone Interno',  value: 'telefone_interno', align: 'center', sortable: false, filterable:true },
+        { text: 'Telemóvel',  value: 'telemovel', align: 'center', sortable: false, filterable:true },
+        { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true },
+        { text: 'Atividades', value: 'atividades', align: 'center', sortable: false },
         { text: 'Editar', value: 'editar', align: 'center', sortable: false },
         { text: 'Remover', value: 'remover', align: 'center', sortable: false },
       ],
@@ -114,7 +125,7 @@ export default {
       editedIndex: -1,
       editedItem: {},
       docente: {},
-      icons: { mdiPencil, mdiDelete },
+      icons: { mdiPencil, mdiDelete, mdiBookOpenPageVariant },
     };
   },
   methods: {
@@ -141,6 +152,12 @@ export default {
       this.editarKey+=1
       this.dialogEditar = true
     },
+    atividades(item) {
+      this.editedIndex = this.docentes.indexOf(item)
+      this.docente = Object.assign({}, item)
+      this.atividadeKey+=1
+      this.dialogAtividade = true
+    },
     deleteItem (item) {
       confirm(`Tem a certeza que pertende eliminar o docente "${item.nome}"?`) &&
       axios.delete(`/api/docentes/${item.id}`, {}).then(response => {
@@ -156,6 +173,7 @@ export default {
     close () {
       this.dialogEditar = false;
       this.dialogCriar = false;
+      this.dialogAtividade = false;
       this.initialize();
     },
     save(docente) {
@@ -189,13 +207,16 @@ export default {
     this.$emit("linkTo", "/backoffice/docentes", 1);
   },
   watch: {
-    dialogEditar (val) {
+    dialogEditar(val) {
       val || this.close()
     },
-    dialogCriar (val) {
+    dialogCriar(val) {
       val || this.close()
     },
-    user: function(newVal, oldVal) {
+    dialogAtividade(val) {
+      val || this.close()
+    },
+    user(newVal, oldVal) {
       newVal;
     },
     nome() {
