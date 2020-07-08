@@ -39,7 +39,8 @@ export default {
         {
           id: 0,
           title: "Dashboard",
-          text: "Veja como estão a decorrer as atividades",
+          text: "Veja as atividades que ainda faltam realizar este, importe dados, \
+                 adicione/remova salas ou adicione/remova workshops",
           img: "/storage/dash.png",
           link: "/backoffice/dashboard/"
         },
@@ -53,42 +54,42 @@ export default {
         {
           id: 2,
           title: "Atividades",
-          text: "Veja as atividades",
+          text: "Veja as informações das atividades e faça a sua gestão",
           img: "/storage/atividades.png",
           link: "/backoffice/atividades/"
         },
         {
           id: 3,
           title: "Cursos",
-          text: "Veja os cursos",
+          text: "Veja os cursos disponibilizados pelo DEI e faça a sua gestão",
           img: "/storage/cursos.png",
           link: "/backoffice/cursos/"
         },
         {
           id: 3,
           title: "Academia de Verão",
-          text: "Veja o academia de verão",
+          text: "Veja os participantes e as atividades das academias de verão. Marque a academia de verão para este ano",
           img: "/storage/academia.png",
           link: "/backoffice/academia/"
         },
         {
           id: 5,
           title: "Contactos",
-          text: "Veja os contactos",
+          text: "Veja os contactos que nos foram efetuados e os que efetuamos",
           img: "/storage/contactos.png",
           link: "/backoffice/contactos/"
         },
         {
           id: 6,
           title: "Docentes",
-          text: "Veja os docentes",
+          text: "Veja os docentes da ESTG que vão estar presentes nas atividades e na academia de verão",
           img: "/storage/docentes.png",
           link: "/backoffice/docentes/"
         },
         {
           id: 7,
           title: "Escolas",
-          text: "Veja as escolas",
+          text: "Veja as escolas que nos contactaram",
           img: "/storage/escolas.png",
           link: "/backoffice/escolas/"
         },
@@ -98,6 +99,13 @@ export default {
           text: "Veja as estatísticas",
           img: "/storage/stats.png",
           link: "/backoffice/estatisticas/"
+        },
+        {
+          id: 9,
+          title: "Inquéritos",
+          text: "Faça a gestão dos inquéritos e veja as suas respostas",
+          img: "/storage/inqueritos.png",
+          link: "/backoffice/inqueritos/"
         },
       ],
       item_sidebar: null,

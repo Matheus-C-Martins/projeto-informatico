@@ -73,7 +73,7 @@ export default {
         { text: 'Hora',  value: 'hora', align: 'center', sortable: false },
         { text: 'Validade',  value: 'validade_string', align: 'center', sortable: false },
         { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Inquéritos Realizados', value: 'inqueritos', align: 'center', sortable: false },
+        { text: 'Respostas ao Inquérito', value: 'inqueritos', align: 'center', sortable: false },
       ],
       codigos: [],
       editedIndex: -1,
