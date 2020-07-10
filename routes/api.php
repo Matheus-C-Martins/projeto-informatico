@@ -13,11 +13,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('users', 'UserControllerAPI@getUsers')->middleware('auth:api')->middleware('isAdmin');
 Route::get('users/photo/{email}', 'UserControllerAPI@getPhotoByEmail')->middleware('auth:api');
 Route::get('users/{email}', 'UserControllerAPI@checkEmailExists');
-Route::delete('users/{id}', 'UserControllerAPI@remove')->name('removeUser')->middleware('auth:api')->middleware('isAdmin');
 Route::post('users', 'UserControllerAPI@store')->name('storeUser')->middleware('auth:api')->middleware('isAdmin');
 Route::put('users/update/{id_user}', 'UserControllerAPI@updateProfile')->name('updateProfile')->middleware('auth:api');
+Route::delete('users/{id}', 'UserControllerAPI@remove')->name('removeUser')->middleware('auth:api')->middleware('isAdmin');
 
 Route::get('contactos', 'ContactoControllerAPI@getContactos')->middleware('auth:api');
 Route::get('contactos/{contacto_id}', 'ContactoControllerAPI@getContactosEscolas')->middleware('auth:api');
@@ -131,3 +132,12 @@ Route::get('atividadesM', 'AtividadeControllerAPI@getAtividadesM');
 Route::get('codigoM/{id}', 'CodigoInqueritoControllerAPI@getCodigoM');
 
 Route::post('inqueritosM', 'InqueritoControllerAPI@storeM');
+
+/*
+|--------------------------------------------------------------------------
+| API Emails Automaticos
+|--------------------------------------------------------------------------
+*/
+
+Route::post('atividades/contacto/email', 'AtividadeControllerAPI@sendEmailContacto')->middleware('auth:api');
+Route::post('atividades/docente/email', 'AtividadeControllerAPI@sendEmailDocente')->middleware('auth:api');

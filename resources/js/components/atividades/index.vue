@@ -221,13 +221,20 @@ export default {
       this.getAtividades();
       this.atividade={};
     },
-    create(atividade) {
+    create(atividade, contacto) {
       axios.post("api/atividades", atividade).then(response => {
         if(response.status!=200){
           Vue.toasted.error(response.data);
           return;
         }
         Vue.toasted.show(response.data[0]);
+        if(contacto.email !== undefined && contacto.email !== null && contacto.email !== "-----") {
+          axios.post('api/atividades/contacto/email', contacto).then(response => {
+            Vue.toasted.show(response.data);
+          })
+        } else {
+          Vue.toasted.error("Não foi possível enviar email. O contacto não possui email associado");
+        }
         this.close();
       })
       .catch(response => {
@@ -324,12 +331,6 @@ export default {
     },
     user(newVal, oldVal) {
       newVal;
-    },
-    expanded(newVal, oldVal) {
-      if (newVal.length == 1){
-        newVal;
-      }
-      [];
     },
     escola() {
       this.getAtividades();

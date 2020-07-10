@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserControllerAPI extends Controller {
+    public function getUsers(){
+        $users = User::all();
+        return UserResource::collection($users);
+    }
+
     public function checkEmailExists(Request $request) {
         $user = User::where("email", $request->email)->first();
         if($user){
@@ -136,13 +141,6 @@ class UserControllerAPI extends Controller {
         }
 
         $user = User::find($id);
-        $authUserId = request('authUser');
-
-        if($id == $authUserId){
-            $msg = "Não pode romover a si mesmo";
-            return response()->json($msg, 205);
-        }
-
         $user->delete();
 
         $typeStr = $user->type=='a'?'Administrator':'Gestor';

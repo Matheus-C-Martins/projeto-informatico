@@ -77,7 +77,7 @@ export default {
       axios.get(`api/atividades`).then(response => {
         this.atividades = response.data.data;
         this.atividades.forEach(a => {
-          a.aux = a.tipo_atividade+", data: "+a.data+", hora: "+a.hora;
+          a.aux = "Tipo da atividade: " + a.tipo_atividade+", data: "+a.data+", hora: "+a.hora;
         });
       })
       .catch(response => {

@@ -19,9 +19,21 @@
         item-key="id"
         :options.sync="options"
         :server-items-length="totalContactos"
+        :single-expand="singleExpand"
+        :expanded.sync="expanded"
+        show-expand
         :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
         class="elevation-1"
         no-data-text="Ainda não existem contactos associados a esta escola">
+        <template :elevation="0" v-slot:expanded-item="{ headers }">
+          <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+            <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
+              <div v-if="expanded[0].descricao !== descriptionDefaultValue">
+                <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
+              </div>
+            </div>
+          </td>
+        </template>
         <template v-slot:item.efetuados="{ item }">
           <button class="btn btn-secondary mr-2" @click="efetuados(item)"> Contactos Efetuados </button>
         </template>
@@ -71,12 +83,15 @@ export default {
       associarKey: 0,
       editarKey: 0,
       options: {},
+      expanded: [],
+      singleExpand: true,
+      descriptionDefaultValue:'',
       headers: [
         { text: 'Nome', value: 'nome', align: 'center', sortable: false, filterable: true},
         { text: 'Telefone', value: 'telefone', align: 'center', sortable: false, filterable: true},
         { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true},
         { text: 'Tipo de Contacto',  value: 'tipo', align: 'center', sortable: false, filterable:true},
-        { text: 'Descrição', value: 'descricao', align: 'center', sortable: false, filterable: true},
+        { text: 'Descrição', value: 'data-table-expand', align: 'center', sortable: false },
         { text: 'Editar', value: 'editar', align: 'center', sortable: false, filterable: true},
         { text: 'Desassociar', value: 'desassociar', align: 'center', sortable: false },
         { text: '', value: 'efetuados', align: 'right', sortable: false}
@@ -164,13 +179,13 @@ export default {
     },
   },
   watch: {
-    dialogEfetuados (val) {
+    dialogEfetuados(val) {
       val || this.closeEfetuados()
     },
-    dialogAssociar (val) {
+    dialogAssociar(val) {
       val || this.closeEfetuados()
     },
-    dialogEditar (val) {
+    dialogEditar(val) {
       val || this.closeEfetuados()
     },
   },

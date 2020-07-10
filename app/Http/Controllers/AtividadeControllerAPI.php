@@ -11,10 +11,13 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Resources\Atividade as AtividadeResource;
 use App\Http\Resources\AtividadesWorkshop as AtividadesWorkshopResource;
 use App\Http\Resources\Workshop as WorkshopResource;
 use App\Http\Resources\AtividadeDocentes as DocentesSResource;
+use App\Mail\AtividadeCriada;
+use App\Mail\AtividadeAssociada;
 
 class AtividadeControllerAPI extends Controller {
     public function store(Request $request) {
@@ -578,5 +581,19 @@ class AtividadeControllerAPI extends Controller {
 
     public function getAtividadesM() {
         return InfoAtividade::all();
+    }
+
+    public function sendEmailContacto(Request $request) {
+        $email = $request["email"];
+        Mail::to($email)->send(new AtividadeCriada());
+        $msg = "Email de confirmação enviado para $email";
+        return response()->json($msg, 200);
+    }
+
+    public function sendEmailDocente(Request $request) {
+        $email = $request["email"];
+        Mail::to($email)->send(new AtividadeAssociada());
+        $msg = "Email de confirmação enviado para $email";
+        return response()->json($msg, 200);
     }
 }

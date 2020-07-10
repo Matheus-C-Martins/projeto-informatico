@@ -5,9 +5,16 @@
         <v-spacer></v-spacer>
         <v-dialog v-if="user.tipo == 'a'" v-model="dialog" max-width="700px">
           <template class="container" v-slot:activator="{ on }">
-            <button v-on="on" @click="createUserKey+=1" class="btn btn-secondary block"> Criar Novo Utilizador </button>
+            <button v-on="on" @click="createUserKey+=1" class="btn btn-secondary block"> Criar Utilizador </button>
           </template>
-          <createUser :newUser="newUser" :key="createUserKey" @create="createUser" @close="close"></createUser>
+          <create-user :newUser="newUser" :key="createUserKey" @create="createUser" @close="close"></create-user>
+        </v-dialog>
+        <span>&nbsp;</span>
+        <v-dialog v-if="user.tipo == 'a'" v-model="dialogRemoveUser" max-width="700px">
+          <template class="container" v-slot:activator="{ on }">
+            <button v-on="on" @click="removeUserKey+=1" class="btn btn-secondary block"> Eliminar Utilizador </button>
+          </template>
+          <remove-user :newUser="newUser" :key="removeUserKey" @remove="removeUser" @close="close"></remove-user>
         </v-dialog>
       </v-card-title>
       <v-divider style="margin-top: 0px"></v-divider>
@@ -77,6 +84,7 @@
 
 <script>
 import CreateUser from "./create_user";
+import RemoveUser from "./remove_user";
 import Import from "./import_dados";
 import AddWorkshop from "./add_workshop";
 import RemoveWorkshop from "./remove_workshop";
@@ -86,8 +94,9 @@ import RemoveSala from "./remove_sala";
 export default {
   props: ['user'],
   components: {
-    createUser: CreateUser,
-    import: Import,
+    "create-user": CreateUser,
+    "remove-user": RemoveUser,
+    "import": Import,
     "add-workshop": AddWorkshop,
     "remove-workshop": RemoveWorkshop,
     "add-sala": AddSala,
@@ -102,12 +111,14 @@ export default {
       dialogRemoverSala:false,
       dialogAdiconarWorkshop:false,
       dialogRemoverWorkshop:false,
+      dialogRemoveUser:false,
       createUserKey: 0,
       importKey: 0,
       addSalaKey: 0,
       removeSalaKey: 0,
       addWorkshopKey: 0,
       removeWorkshopKey: 0,
+      removeUserKey: 0,
       newUser: {},
       boxes: [],
       atividadesRestantes:0,
@@ -133,6 +144,9 @@ export default {
     dialogRemoverWorkshop(val) {
       val || this.close();
     },
+    dialogRemoveUser(val) {
+      val || this.close();
+    },
   },
   methods: {
     linkTo(routePoint,routeId){
@@ -147,6 +161,7 @@ export default {
       this.dialogRemoverSala = false;
       this.dialogAdiconarWorkshop = false;
       this.dialogRemoverWorkshop = false;
+      this.dialogRemoveUser = false;
       this.newUser = {};
     },
     createUser(user) {
@@ -187,6 +202,16 @@ export default {
       .catch(response => {
         Vue.toasted.error('Algo correu mal...');
       });
+    },
+    removeUser(user) {
+      axios.delete(`/api/users/${user.id}`).then(response => {
+        if(response.status!=200){
+          Vue.toasted.error(response.data.data);
+          return;
+        }
+        Vue.toasted.show("Utilizador elimindado com sucesso");
+        this.close();
+      })
     },
     removeSala(sala) {
       axios.delete(`/api/salas/${sala.id}`).then(response => {

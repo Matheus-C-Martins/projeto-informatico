@@ -77,7 +77,7 @@
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-docente @save="save" @close="close" :key="editarKey" :docente="docente"></editar-docente>
     </v-dialog>
-    <v-dialog v-model="dialogAtividade" max-width="700px">
+    <v-dialog v-model="dialogAtividade" max-width="1000px">
       <atividade @close="close" :key="atividadeKey" :docente="docente"></atividade>
     </v-dialog>
   </v-container>

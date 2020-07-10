@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title>
       <v-spacer></v-spacer>
-      <v-dialog v-model="dialogCriar" max-width="700px">
+      <v-dialog v-model="dialogCriar" max-width="1000px">
         <template class="container" v-slot:activator="{ on }">
           <button v-on="on" @click="criarKey+=1" class="btn btn-secondary block"> Criar Participante </button>
         </template>
@@ -109,7 +109,7 @@
           <v-icon small class="mr-2" @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
         </template>
       </v-data-table>
-      <v-dialog v-model="dialogEditar" max-width="700px">
+      <v-dialog v-model="dialogEditar" max-width="1000px">
         <editar-participante @save="save" @close="closeParticipantes" :key="editarKey" :participante="participante"></editar-participante>
       </v-dialog>
     </v-card-text>

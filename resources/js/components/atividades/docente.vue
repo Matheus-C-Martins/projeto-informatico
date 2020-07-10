@@ -113,6 +113,9 @@ export default {
           return;
         }
         Vue.toasted.show(response.data[0]);
+        axios.post('api/atividades/docente/email', this.docente).then(response => {
+          Vue.toasted.show(response.data);
+        })
         this.closeDocente();
       })
       .catch(response => {

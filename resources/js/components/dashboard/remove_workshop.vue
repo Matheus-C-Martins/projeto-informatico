@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-card-title> Adicionar workshop </v-card-title>
+    <v-card-title> Remover workshop </v-card-title>
     <v-card-text style="padding-bottom: 0px;">
       <v-form lazy-validation>
         <v-row dense>

@@ -19,20 +19,6 @@
             ></v-select>
           </v-col>
           <v-col>
-            <v-select label="Contacto"
-              outlined
-              :items="contactos"
-              item-value="id"
-              item-text="nome"
-              v-model="atividade.contacto"
-              :error-messages="contactoErrors"
-              @input="$v.atividade.contacto.$touch()"
-              @blur="$v.atividade.contacto.$touch()"
-              dense
-              @keypress.enter.stop.prevent="create"
-            ></v-select>
-          </v-col>
-          <v-col>
             <v-text-field label="Número de Alunos"
               outlined
               v-model="atividade.numero_alunos"
@@ -42,6 +28,22 @@
               dense
               @keypress.enter.stop.prevent="create"
             ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row dense>
+          <v-col>
+            <v-select label="Contacto"
+              outlined
+              :items="contactos"
+              item-value="id"
+              item-text="aux"
+              v-model="atividade.contacto"
+              :error-messages="contactoErrors"
+              @input="$v.atividade.contacto.$touch()"
+              @blur="$v.atividade.contacto.$touch()"
+              dense
+              @keypress.enter.stop.prevent="create"
+            ></v-select>
           </v-col>
         </v-row>
         <v-row dense>
@@ -300,6 +302,19 @@ export default {
     getContactos() {
       axios.get(`api/contactos`).then(response => {
         this.contactos = response.data.data;
+        this.contactos.forEach(contacto => {
+          if (contacto.telefone !== undefined && contacto.telefone !== null && contacto.telefone !== "-----") {
+            if (contacto.email !== undefined && contacto.email !== null && contacto.email !== "-----") {
+              contacto.aux = "Nome: " + contacto.nome + ", telefone: " + contacto.telefone + ", email: " + contacto.email;
+            } else {
+              contacto.aux = "Nome: " + contacto.nome + ", telefone: " + contacto.telefone;
+            }
+          } else if(contacto.email !== undefined && contacto.email !== null && contacto.email !== "-----") {
+            contacto.aux = "Nome: " + contacto.nome + ", email: " + contacto.email;
+          } else {
+            contacto.aux = "Nome: " + contacto.nome;
+          }
+        });
       })
       .catch(response => {
         this.contactos = [];
@@ -316,7 +331,12 @@ export default {
       this.atividade.numero_de_alunos = this.atividade.numero_alunos;
       this.atividade.duracao = this.atividade.duracao + ":00";
       this.atividade.data = this.atividade.data + " " + this.atividade.time + ":00";
-      this.$emit("create", this.atividade);
+      this.contactos.forEach(contacto => {
+        if(contacto.id == this.atividade.contacto) {
+          this.contacto = contacto;
+        }
+      });
+      this.$emit("create", this.atividade, this.contacto);
     }
   }
 };
