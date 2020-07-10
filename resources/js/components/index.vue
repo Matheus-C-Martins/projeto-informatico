@@ -47,6 +47,19 @@
           </v-card>
         </v-col>
       </v-row>
+        <v-footer absolute padless color="#FFFFFF">
+          <v-row dense>
+            <v-card tile flat width="100%">
+              <v-card-text>
+                <v-row>
+                  <v-spacer></v-spacer>
+                  ©2020, feito por Matheus Martins e Ivan Silva
+                  <span>&nbsp; &nbsp;</span>
+                </v-row>
+              </v-card-text>
+            </v-card>
+          </v-row>
+        </v-footer>
     </v-content>
   </v-app>
 </template>

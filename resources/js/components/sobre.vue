@@ -33,22 +33,22 @@
           <v-card min-width="1500" max-width="1500" :elevation="hover ? 100 : 2" :class="{ 'on-hover': hover }">
             <div class="d-flex flex-no-wrap justify-space-between">
               <v-avatar tile size="150" class="ma-3">
-              <v-img style="border-radius: 25%" aspect-ratio=1 src="/storage/Logo_DEI.png"></v-img>
-            </v-avatar>
-                <div>
-                  <v-card-title style="color:green;" class="mt-4 subheading text-left font-weight-bold"> DEI@Tour </v-card-title>
-                  <v-card-text>
-                    <v-row dense justify="space-between">
-                      <p class="mt-4 subheading text-left font-weight-light"> {{ texto }} </p>
-                      <p class="mt-4 subheading text-left font-weight-light"> {{ texto2 }} </p>
-                      <p class="mt-4 subheading text-left font-weight-light"> {{ texto3 }} </p>
-                    </v-row>
-                  </v-card-text>
-                </div>
+                <v-img style="border-radius: 25%" aspect-ratio=1 src="/storage/Logo_DEI.png"></v-img>
+              </v-avatar>
+              <div>
+                <v-card-title style="color:green;" class="mt-4 subheading text-left font-weight-bold"> DEI@Tour </v-card-title>
+                <v-card-text>
+                  <v-row dense justify="space-between">
+                    <p class="mt-4 subheading text-left font-weight-light"> {{ texto }} </p>
+                    <p class="mt-4 subheading text-left font-weight-light"> {{ texto2 }} </p>
+                    <p class="mt-4 subheading text-left font-weight-light"> {{ texto3 }} </p>
+                  </v-row>
+                </v-card-text>
               </div>
-            </v-card>
-          </v-hover>
-        </v-row>
+            </div>
+          </v-card>
+        </v-hover>
+      </v-row>
     </v-content>
     <v-content v-else fluid class="mx-4">
       <v-container style="widht:100%; height:100%; text-align:center" fluid>A carregar...</v-container>
