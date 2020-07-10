@@ -4,6 +4,13 @@
       <v-card-title> Academia de Verão
         <v-spacer></v-spacer>
         <button @click="create()" class="btn btn-secondary block"> Criar Academia de Verão </button>
+        <span>&nbsp;</span>
+        <v-dialog v-model="dialogExport" max-width="700px">
+          <template class="container" v-slot:activator="{ on }">
+            <button v-on="on" @click="exportKey+=1" class="btn btn-secondary block"> Exportar Dados </button>
+          </template>
+          <export :key="exportKey" @close="close"></export>
+        </v-dialog>
       </v-card-title>
 
       <v-divider style="margin-top: 0px"></v-divider>
@@ -43,20 +50,24 @@
 <script>
 import Participantes from "./participantes";
 import Atividades from "./atividades";
+import Export from "./export_dados";
 
 export default {
   props: ['user'],
   components: {
-    participantes: Participantes,
-    atividades: Atividades,
+    "participantes": Participantes,
+    "atividades": Atividades,
+    "export": Export,
   },
   data() {
     return {
       loading: 1,
       dialogParticipantes: false,
       dialogAtividades: false,
+      dialogExport:false,
       participantesKey: 0,
       atividadesKey: 0,
+      exportKey: 0,
       boxes: [],
       atividadesNum: 0,
       participantesNum: 0,
@@ -67,6 +78,9 @@ export default {
       val || this.close();
     },
     dialogAtividades(val){
+      val || this.close();
+    },
+    dialogExport(val){
       val || this.close();
     }
   },
@@ -107,6 +121,7 @@ export default {
     close() {
       this.dialogParticipantes = false;
       this.dialogAtividades = false;
+      this.dialogExport = false;
     this.initialize();
     },
     initialize() {

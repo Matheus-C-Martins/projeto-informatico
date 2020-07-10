@@ -8,6 +8,8 @@
         </template>
         <associar-atividade @associar="associar" @close="closeAtividade" :key="associarKey"></associar-atividade>
       </v-dialog>
+      <span>&nbsp;</span>
+      <button @click="exportar()" class="btn btn-secondary block"> Exportar Atividades </button>
     </v-card-title>
 
     <v-card-text style="padding-bottom: 0px;">
@@ -164,6 +166,20 @@ export default {
         this.atividade = {};
       })
       .finally(() => this.loading = false);
+    },
+    exportar() {
+      axios({url: `api/exportDocenteAtividades/${this.docente.id}`, method: 'GET', responseType: 'blob'}).then((response) => {
+        var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+        var fileLink = document.createElement('a');
+        fileLink.href = fileURL;
+        fileLink.setAttribute('download', 'docente_atividades.csv');
+        document.body.appendChild(fileLink);
+        fileLink.click();
+        Vue.toasted.show('Atividades exportadas com sucesso');
+      })
+      .catch(response => {
+        Vue.toasted.error('Algo correu mal...');
+      });
     },
   },
   watch: {

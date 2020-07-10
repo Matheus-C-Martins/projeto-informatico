@@ -39,8 +39,8 @@
         </v-row>
       </v-card-text>
       <v-card-actions style="padding-top:0px">
-        <v-card flat tile width="100%" class="text-center pa-0">
-          <v-card-text class="pa-0">
+        <v-row dense justify="space-around" class="text-center pa-0">
+          <v-col>
             <v-dialog v-model="dialogAdiconarSala" max-width="700px">
               <template class="container" v-slot:activator="{ on }">
                 <button v-on="on" @click="addSalaKey+=1" class="btn btn-secondary block"> Adicionar Sala </button>
@@ -54,7 +54,8 @@
               </template>
               <remove-sala :key="removeSalaKey" @close="close" @remove="removeSala"></remove-sala>
             </v-dialog>
-            <span>&nbsp;</span>
+          </v-col>
+          <v-col>
             <v-dialog v-model="dialogImport" max-width="700px">
               <template class="container" v-slot:activator="{ on }">
                 <button v-on="on" @click="importKey+=1" class="btn btn-secondary block"> Importar Dados </button>
@@ -62,6 +63,14 @@
               <import :key="importKey" @close="close"></import>
             </v-dialog>
             <span>&nbsp;</span>
+            <v-dialog v-model="dialogExport" max-width="700px">
+              <template class="container" v-slot:activator="{ on }">
+                <button v-on="on" @click="exportKey+=1" class="btn btn-secondary block"> Exportar Dados </button>
+              </template>
+              <export :key="exportKey" @close="close"></export>
+            </v-dialog>
+          </v-col>
+          <v-col>
             <v-dialog v-model="dialogAdiconarWorkshop" max-width="700px">
               <template class="container" v-slot:activator="{ on }">
                 <button v-on="on" @click="addWorkshopKey+=1" class="btn btn-secondary block"> Adicionar Workshop </button>
@@ -75,8 +84,8 @@
               </template>
               <remove-workshop :key="removeWorkshopKey" @close="close" @remove="removeWorkshop"></remove-workshop>
             </v-dialog>
-          </v-card-text>
-        </v-card>
+          </v-col>
+        </v-row>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -86,6 +95,7 @@
 import CreateUser from "./create_user";
 import RemoveUser from "./remove_user";
 import Import from "./import_dados";
+import Export from "./export_dados";
 import AddWorkshop from "./add_workshop";
 import RemoveWorkshop from "./remove_workshop";
 import AddSala from "./add_sala";
@@ -97,6 +107,7 @@ export default {
     "create-user": CreateUser,
     "remove-user": RemoveUser,
     "import": Import,
+    "export": Export,
     "add-workshop": AddWorkshop,
     "remove-workshop": RemoveWorkshop,
     "add-sala": AddSala,
@@ -107,6 +118,7 @@ export default {
       loading: 1,
       dialog:false,
       dialogImport:false,
+      dialogExport:false,
       dialogAdiconarSala:false,
       dialogRemoverSala:false,
       dialogAdiconarWorkshop:false,
@@ -114,6 +126,7 @@ export default {
       dialogRemoveUser:false,
       createUserKey: 0,
       importKey: 0,
+      exportKey: 0,
       addSalaKey: 0,
       removeSalaKey: 0,
       addWorkshopKey: 0,
@@ -130,6 +143,9 @@ export default {
       val || this.close();
     },
     dialogImport(val) {
+      val || this.close();
+    },
+    dialogExport(val) {
       val || this.close();
     },
     dialogAdiconarSala(val) {
@@ -157,6 +173,7 @@ export default {
     close() {
       this.dialog = false;
       this.dialogImport = false;
+      this.dialogExport = false;
       this.dialogAdiconarSala = false;
       this.dialogRemoverSala = false;
       this.dialogAdiconarWorkshop = false;

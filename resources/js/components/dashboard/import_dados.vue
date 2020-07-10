@@ -37,7 +37,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <button class="btn btn-primary" @click.stop.prevent="close"> Cancelar </button>
+      <button class="btn btn-primary" @click.stop.prevent="close"> Fechar </button>
     </v-card-actions>
   </v-card>
 </template>
@@ -79,7 +79,6 @@ export default {
               return;
             }
             Vue.toasted.show(response.data);
-            this.close();
           })
           .catch(response => {
             Vue.toasted.error('Algo correu mal...');
@@ -93,7 +92,6 @@ export default {
               return;
             }
             Vue.toasted.show(response.data);
-            this.close();
           })
           .catch(response => {
             Vue.toasted.error('Algo correu mal...');
@@ -107,8 +105,6 @@ export default {
               return;
             }
             Vue.toasted.show(response.data);
-            this.modelo = 0;
-            this.close();
           })
           .catch(response => {
             Vue.toasted.error('Algo correu mal...');
@@ -122,7 +118,6 @@ export default {
               return;
             }
             Vue.toasted.show(response.data);
-            this.close();
           })
           .catch(response => {
             Vue.toasted.error('Algo correu mal...');
@@ -136,7 +131,6 @@ export default {
               return;
             }
             Vue.toasted.show(response.data);
-            this.close();
           })
           .catch(response => {
             Vue.toasted.error('Algo correu mal...');

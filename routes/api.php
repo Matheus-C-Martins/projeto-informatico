@@ -76,12 +76,6 @@ Route::delete('salas/{sala_id}', 'AcademiaAtividadeControllerAPI@removeSala')->m
 Route::post('login', 'LoginControllerAPI@login')->name('login');
 Route::post('logout','LoginControllerAPI@logout')->name('logout')->middleware('auth:api');
 
-Route::post('importSalas', 'ImportControllerAPI@importSalas')->middleware('auth:api');
-Route::post('importEscolas', 'ImportControllerAPI@importEscolas')->middleware('auth:api');
-Route::post('importDocentes', 'ImportControllerAPI@importDocentes')->middleware('auth:api');
-Route::post('importContactos', 'ImportControllerAPI@importContactos')->middleware('auth:api');
-Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops')->middleware('auth:api');
-
 Route::get('cursosWeb', 'CursosControllerAPI@getCursosWeb')->middleware('auth:api');
 Route::get('tipoCursos', 'CursosControllerAPI@getTipoCursos')->middleware('auth:api');
 Route::post('cursos', 'CursosControllerAPI@store')->name('storeCurso')->middleware('auth:api');
@@ -141,3 +135,31 @@ Route::post('inqueritosM', 'InqueritoControllerAPI@storeM');
 
 Route::post('atividades/contacto/email', 'AtividadeControllerAPI@sendEmailContacto')->middleware('auth:api');
 Route::post('atividades/docente/email', 'AtividadeControllerAPI@sendEmailDocente')->middleware('auth:api');
+
+/*
+|--------------------------------------------------------------------------
+| API Importacao de Ficheiros
+|--------------------------------------------------------------------------
+*/
+
+Route::post('importSalas', 'ImportControllerAPI@importSalas')->middleware('auth:api');
+Route::post('importEscolas', 'ImportControllerAPI@importEscolas')->middleware('auth:api');
+Route::post('importDocentes', 'ImportControllerAPI@importDocentes')->middleware('auth:api');
+Route::post('importContactos', 'ImportControllerAPI@importContactos')->middleware('auth:api');
+Route::post('importWorkshops', 'ImportControllerAPI@importWorkshops')->middleware('auth:api');
+
+/*
+|--------------------------------------------------------------------------
+| API Exportacao de Ficheiros
+|--------------------------------------------------------------------------
+*/
+
+Route::get('exportAtividadesAcademia/{id_academia}', 'ExportControllerAPI@exportAtividadesAcademia')->middleware('auth:api');
+Route::get('exportParticipantesAcademia/{id_academia}', 'ExportControllerAPI@exportParticipantesAcademia')->middleware('auth:api');
+Route::get('exportDocenteAtividades/{id_docente}', 'ExportControllerAPI@exportDocenteAtividades')->middleware('auth:api');
+Route::get('exportAtividades', 'ExportControllerAPI@exportAtividades')->middleware('auth:api');
+Route::get('exportContactos', 'ExportControllerAPI@exportContactos')->middleware('auth:api');
+Route::get('exportDocentes', 'ExportControllerAPI@exportDocentes')->middleware('auth:api');
+Route::get('exportEscolas', 'ExportControllerAPI@exportEscolas')->middleware('auth:api');
+Route::get('exportSalas', 'ExportControllerAPI@exportSalas')->middleware('auth:api');
+Route::get('exportWorkshops', 'ExportControllerAPI@exportWorkshops')->middleware('auth:api');
