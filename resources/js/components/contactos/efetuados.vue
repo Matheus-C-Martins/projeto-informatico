@@ -19,9 +19,21 @@
           item-key="id"
           :options.sync="options"
           :server-items-length="totalEfetuados"
+          :single-expand="singleExpand"
+          :expanded.sync="expanded"
+          show-expand
           :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
           class="elevation-1"
           no-data-text="Ainda não existem contactos efetuados associados a esta escola">
+          <template :elevation="0" v-slot:expanded-item="{ headers }">
+            <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+              <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
+                <div v-if="expanded[0].descricao !== descriptionDefaultValue">
+                  <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
+                </div>
+              </div>
+            </td>
+          </template>
           <template v-slot:item.editar="{ item }">
             <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
           </template>
@@ -57,10 +69,13 @@ export default {
       loading: true,
       totalEfetuados: 0,
       options: {},
+      expanded: [],
+      singleExpand: true,
+      descriptionDefaultValue:'',
       headers: [
         { text: 'Data', value: 'data', align: 'center', sortable: false, filterable: true},
         { text: 'Tipo',  value: 'tipo', align: 'center', sortable: false, filterable:true},
-        { text: 'Descrição', value: 'descricao', align: 'center', sortable: false, filterable: true},
+        { text: 'Descrição', value: 'data-table-expand', align: 'center', sortable: false },
         { text: 'Editar',  value: 'editar', align: 'center', sortable: false},
         { text: 'Desmarcar', value: 'desmarcar', align: 'center', sortable: false },
       ],
