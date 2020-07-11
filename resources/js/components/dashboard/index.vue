@@ -223,7 +223,7 @@ export default {
     removeUser(user) {
       axios.delete(`/api/users/${user.id}`).then(response => {
         if(response.status!=200){
-          Vue.toasted.error(response.data.data);
+          Vue.toasted.error(response.data);
           return;
         }
         Vue.toasted.show("Utilizador elimindado com sucesso");
