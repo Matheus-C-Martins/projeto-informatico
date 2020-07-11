@@ -106,14 +106,14 @@ export default {
       this.dialogAssociar = false;
       this.initialize();
     },
-    associar(docente) {
+    associar(docente, docenteEmail) {
       axios.post(`api/atividades/${this.atividade.id}/docentes`, docente).then(response => {
         if(response.status!=200){
           Vue.toasted.error(response.data);
           return;
         }
         Vue.toasted.show(response.data[0]);
-        axios.post('api/atividades/docente/email', this.docente).then(response => {
+        axios.post('api/atividades/docente/email', docenteEmail).then(response => {
           Vue.toasted.show(response.data);
         })
         this.closeDocente();

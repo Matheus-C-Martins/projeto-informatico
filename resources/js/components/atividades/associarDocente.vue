@@ -56,6 +56,7 @@ export default {
     return {
       docentes: [],
       docente: {},
+	  email: {},
     };
   },
   computed: {
@@ -86,7 +87,12 @@ export default {
       if(this.$v.$error) {
         return;
       }
-      this.$emit("associar", this.docente);
+	  this.docentes.forEach(docente => {			
+	    if(this.docente.docente == docente.id) {
+		  this.email.email = docente.email;
+		}
+	  })
+      this.$emit("associar", this.docente, this.email);
     }
   }
 };
