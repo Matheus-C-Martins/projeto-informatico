@@ -25,6 +25,17 @@
         <v-spacer></v-spacer>
         <v-icon class="mr-2" @click="login()">{{ icons.mdiLogin }}</v-icon>
       </v-app-bar>
+      <v-footer app inset absolute color="#FFFFFF">
+        <v-row dense>
+          <v-card tile flat width="100%">
+            <v-card-text>
+              <v-row align="end" justify="end">
+                ©2020, feito por Matheus Martins e Ivan Silva
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-row>
+      </v-footer>
     </nav>
     <v-content fluid class="mx-4">
       <v-row dense justify="center" align="center">
@@ -47,30 +58,33 @@
           </v-card>
         </v-col>
       </v-row>
-        <v-footer absolute padless color="#FFFFFF">
-          <v-row dense>
-            <v-card tile flat width="100%">
-              <v-card-text>
-                <v-row>
-                  <v-spacer></v-spacer>
-                  ©2020, feito por Matheus Martins e Ivan Silva
-                  <span>&nbsp; &nbsp;</span>
-                </v-row>
-              </v-card-text>
-            </v-card>
-          </v-row>
-        </v-footer>
+      <v-row dense align="end" justify="end" style="height: 280px; padding-right:30px">
+        <v-dialog v-model="dialog" max-width="700px">
+          <template class="container" v-slot:activator="{ on }">
+            <v-btn v-on="on" @click.stop.prevent="showHelp" fab dark large color="green">
+              <v-icon dark> {{ icons.mdiHelp }} </v-icon>
+            </v-btn>
+          </template>
+          <help :key="helpKey" @close="close"></help>
+        </v-dialog>
+      </v-row>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import { mdiLogin } from '@mdi/js';
+import { mdiLogin, mdiHelp } from '@mdi/js';
+import Help from "./help";
 
 export default {
+  components: {
+    "help": Help,
+  },
   data() {
     return {
-      icons: { mdiLogin }
+      dialog: false,
+      helpKey: 0,
+      icons: { mdiLogin, mdiHelp }
     };
   },
   methods: {
@@ -85,7 +99,18 @@ export default {
     },
     sobre() {
       this.$router.push("/sobre");
+    },
+    showHelp() {
+      this.helpKey += 1;
+    },
+    close() {
+      this.dialog = false;
     }
+  },
+  watch: {
+    dialog(val) {
+      val || this.close()
+    },
   }
 };
 </script>

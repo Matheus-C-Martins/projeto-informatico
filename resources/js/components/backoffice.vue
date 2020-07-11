@@ -10,24 +10,22 @@
           @logout="logout"
           :key="componentKey"
         ></sidebar>
-      </nav>
-      <v-content fluid class="mx-4 mt-3">
-        <transition name="fade">
-        <router-view :items_backoffice="items_backoffice" :user="user" name="backoffice" @linkTo="linkTo" @getUser="getAuthUser" :key="componentKey"></router-view>
-        </transition>
-        <v-footer absolute padless color="#FFFFFF">
+        <v-footer absolute color="#FFFFFF">
           <v-row dense>
             <v-card tile flat width="100%">
               <v-card-text>
-                <v-row>
-                  <v-spacer></v-spacer>
+                <v-row align="end" justify="end">
                   ©2020, feito por Matheus Martins e Ivan Silva
-                  <span>&nbsp; &nbsp;</span>
                 </v-row>
               </v-card-text>
             </v-card>
           </v-row>
         </v-footer>
+      </nav>
+      <v-content fluid class="mx-4 mt-3">
+        <transition name="fade">
+        <router-view :items_backoffice="items_backoffice" :user="user" name="backoffice" @linkTo="linkTo" @getUser="getAuthUser" :key="componentKey"></router-view>
+        </transition>
       </v-content>
     </v-app>
     <v-app v-else id="inspire">

@@ -87,10 +87,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="participante.data_de_nascimento" no-title>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menuData = false"> Cancelar </v-btn>
-                <v-btn text color="primary" @click="$refs.menuData.save(participante.data_de_nascimento)"> Ok </v-btn>
+              <v-date-picker v-model="participante.data_de_nascimento" no-title @click:date="$refs.menuData.save(participante.data_de_nascimento)">
               </v-date-picker>
             </v-menu>
           </v-col>
@@ -172,8 +169,8 @@ export default {
       escola: { required },
       ano: { required },
       data_de_nascimento: { required },
-      contacto_do_ee: { maxLength: maxLength(9), minLength: minLength(9), telefoneRegex},
-      contacto_do_aluno: { maxLength: maxLength(9), minLength: minLength(9), telefoneRegex},
+      contacto_do_ee: {required, maxLength: maxLength(9), minLength: minLength(9), telefoneRegex},
+      contacto_do_aluno: {required, maxLength: maxLength(9), minLength: minLength(9), telefoneRegex},
       encarregado_de_educacao: { required }
     }
   },
@@ -258,6 +255,7 @@ export default {
     contacto_do_eeErrors () {
       const errors = []
       if (!this.$v.participante.contacto_do_ee.$dirty) return errors;
+      !this.$v.participante.contacto_do_ee.required && errors.push("É obrigatório indicar o contacto do encarregado de educação");
       !this.$v.participante.contacto_do_ee.telefoneRegex && errors.push('O contacto do encarregado de educação só pode conter números');
       !this.$v.participante.contacto_do_ee.maxLength && errors.push('O contacto do encarregado de educação só pode ter 9 digitos');
       !this.$v.participante.contacto_do_ee.minLength && errors.push('O contacto do encarregado de educação só pode ter 9 digitos');
@@ -266,6 +264,7 @@ export default {
     contacto_do_alunoErrors () {
       const errors = []
       if (!this.$v.participante.contacto_do_aluno.$dirty) return errors;
+      !this.$v.participante.contacto_do_aluno.required && errors.push("É obrigatório indicar o contacto do aluno");
       !this.$v.participante.contacto_do_aluno.telefoneRegex && errors.push('O contacto do aluno só pode conter números');
       !this.$v.participante.contacto_do_aluno.maxLength && errors.push('O contacto do aluno só pode ter 9 digitos');
       !this.$v.participante.contacto_do_aluno.minLength && errors.push('O contacto do aluno só pode ter 9 digitos');

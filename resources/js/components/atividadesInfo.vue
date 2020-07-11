@@ -26,6 +26,17 @@
         <v-spacer></v-spacer>
         <v-icon class="mr-2" @click="login()">{{ icons.mdiLogin }}</v-icon>
       </v-app-bar>
+      <v-footer app inset absolute color="#FFFFFF">
+        <v-row dense>
+          <v-card tile flat width="100%">
+            <v-card-text>
+              <v-row align="end" justify="end">
+                ©2020, feito por Matheus Martins e Ivan Silva
+              </v-row>
+            </v-card-text>
+          </v-card>
+        </v-row>
+      </v-footer>
     </nav>
     <v-content v-if="loading === false" fluid class="mx-4">
       <template v-for="(item, i) in atividadesInfo">

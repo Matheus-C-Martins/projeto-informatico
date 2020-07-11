@@ -39,10 +39,7 @@
                   v-on="on"
                 ></v-text-field>
               </template>
-              <v-date-picker v-model="docente.data" no-title>
-                <v-spacer></v-spacer>
-                <v-btn text color="primary" @click="menuData = false"> Cancelar </v-btn>
-                <v-btn text color="primary" @click="$refs.menuData.save(docente.data)"> Ok </v-btn>
+              <v-date-picker v-model="docente.data" no-title @click:date="$refs.menuData.save(docente.data)">
               </v-date-picker>
             </v-menu>
           </v-col>
