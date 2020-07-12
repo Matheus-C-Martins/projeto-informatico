@@ -101,6 +101,9 @@
             <div v-if="expanded[0].numero_alunos !== defaultValue">
               <p class="font-weight-black"> Número de Alunos: <span class="font-weight-regular">{{expanded[0].numero_alunos}}</span></p>
             </div>
+            <div v-if="expanded[0].duracao !== defaultValue">
+              <p class="font-weight-black"> Duração da atividade: <span class="font-weight-regular">{{expanded[0].duracao}}</span></p>
+            </div>
             <div v-if="expanded[0].descricao !== descriptionDefaultValue">
               <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
             </div>
@@ -199,7 +202,6 @@ export default {
         { text: 'Ano', value: 'ano', align: 'center', sortable: false, filterable: true},
         { text: 'Data', value: 'data', align: 'center', sortable: false, filterable: true},
         { text: 'Hora', value: 'hora', align: 'center', sortable: false, filterable: true},
-        { text: 'Duração', value: 'duracao', align: 'center', sortable: false, filterable: true},
         { text: 'Tipo de Atividade', value: 'tipo_atividade', align: 'center', sortable: false, filterable: true},
         { text: 'Detalhes', value: 'data-table-expand', align: 'center', sortable: false },
         { text: 'Docentes', value: 'docentes', align: 'center', sortable: false },
