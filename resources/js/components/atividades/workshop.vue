@@ -27,18 +27,17 @@
         class="elevation-1"
         no-data-text="Ainda não existem workshops associados a esta atividade">
         <template :elevation="0" v-slot:expanded-item="{ headers }">
-          <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+          <td :colspan="headers.length">
             <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
               <div v-if="expanded[0].descricao !== descriptionDefaultValue">
-                <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
+                <p class="font-weight-regular"> {{expanded[0].descricao}} </p>
               </div>
             </div>
           </td>
         </template>
-        <template v-slot:item.editar="{ item }">
+        <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
-        </template>
-        <template v-slot:item.desassociar="{ item }">
+          <span>| &nbsp;</span>
           <v-icon small class="mr-2" @click="desassociar(item)"> {{ icons.mdiDelete }} </v-icon>
         </template>
       </v-data-table>
@@ -82,8 +81,7 @@ export default {
         { text: 'Data', value: 'data', align: 'center', sortable: false },
         { text: 'Hora', value: 'hora', align: 'center', sortable: false },
         { text: 'Descrição', value: 'data-table-expand', align: 'center', sortable: false },
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Desassociar', value: 'desassociar', align: 'center', sortable: false },
+        { text: 'Editar | Desassociar', value: 'action', align: 'center', sortable: false },
       ],
       workshops: [],
       editedIndex: -1,

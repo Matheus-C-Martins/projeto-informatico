@@ -48,10 +48,9 @@
       :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
       class="elevation-1"
       no-data-text="Ainda não existem escolas">
-      <template v-slot:item.editar="{ item }">
+      <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
-      </template>
-      <template v-slot:item.remover="{ item }">
+        <span>| &nbsp;</span>
         <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
       </template>
       <template v-slot:item.contactos="{ item }">
@@ -96,10 +95,9 @@ export default {
       options: {},
       headers: [
         { text: 'Nome', value: 'nome', align: 'center', sortable: false, filterable: true},
-        { text: 'Localização',  value: 'localizacao', align: 'center', sortable: false, filterable:true},
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Remover', value: 'remover', align: 'center', sortable: false },
+        { text: 'Localização',  value: 'localizacao', align: 'center', sortable: false, filterable: true},
         { text: 'Contactos', value: 'contactos', align: 'center', sortable: false },
+        { text: 'Editar | Remover', value: 'action', align: 'center', sortable: false },
       ],
       escolas: [],
       editedIndex: -1,

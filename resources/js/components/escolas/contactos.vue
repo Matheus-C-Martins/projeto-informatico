@@ -26,21 +26,20 @@
         class="elevation-1"
         no-data-text="Ainda não existem contactos associados a esta escola">
         <template :elevation="0" v-slot:expanded-item="{ headers }">
-          <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+          <td :colspan="headers.length">
             <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
               <div v-if="expanded[0].descricao !== descriptionDefaultValue">
-                <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
+                <p class="font-weight-regular">{{expanded[0].descricao}} </p>
               </div>
             </div>
           </td>
         </template>
         <template v-slot:item.efetuados="{ item }">
-          <button class="btn btn-secondary mr-2" @click="efetuados(item)"> Contactos Efetuados </button>
+          <v-icon small class="mr-2" @click="efetuados(item)">{{ icons.mdiPhone }}</v-icon>
         </template>
-        <template v-slot:item.editar="{ item }">
+        <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
-        </template>
-        <template v-slot:item.desassociar="{ item }">
+          <span>| &nbsp;</span>
           <v-icon small class="mr-2" @click="desassociar(item)"> {{ icons.mdiDelete }} </v-icon>
         </template>
       </v-data-table>
@@ -62,7 +61,7 @@
 import ContactosEfetuados from "../contactos/efetuados";
 import AssociarEscola from "./associarContactos";
 import EditarAssociado from "./editarAssociado";
-import { mdiPencil, mdiDelete } from '@mdi/js';
+import { mdiPencil, mdiDelete, mdiPhone } from '@mdi/js';
 
 export default {
   props: ["escola"],
@@ -92,13 +91,12 @@ export default {
         { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true},
         { text: 'Tipo de Contacto',  value: 'tipo', align: 'center', sortable: false, filterable:true},
         { text: 'Descrição', value: 'data-table-expand', align: 'center', sortable: false },
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false, filterable: true},
-        { text: 'Desassociar', value: 'desassociar', align: 'center', sortable: false },
-        { text: '', value: 'efetuados', align: 'right', sortable: false}
+        { text: 'Contactos Efetuados', value: 'efetuados', align: 'center', sortable: false },
+        { text: 'Editar | Desassociar', value: 'action', align: 'center', sortable: false },
       ],
       contactos: [],
       contacto: {},
-      icons: { mdiPencil, mdiDelete },
+      icons: { mdiPencil, mdiDelete, mdiPhone },
     };
   },
   methods: {

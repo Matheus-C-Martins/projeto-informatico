@@ -26,18 +26,17 @@
           class="elevation-1"
           no-data-text="Ainda não existem contactos efetuados associados a esta escola">
           <template :elevation="0" v-slot:expanded-item="{ headers }">
-            <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+            <td :colspan="headers.length">
               <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
                 <div v-if="expanded[0].descricao !== descriptionDefaultValue">
-                  <p class="font-weight-black"> Descrição: <span class="font-weight-regular">{{expanded[0].descricao}}</span></p>
+                  <p class="font-weight-regular">{{expanded[0].descricao}} </p>
                 </div>
               </div>
             </td>
           </template>
-          <template v-slot:item.editar="{ item }">
+          <template v-slot:item.action="{ item }">
             <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
-          </template>
-          <template v-slot:item.desmarcar="{ item }">
+            <span>| &nbsp;</span>
             <v-icon small class="mr-2" @click="desmarcar(item)"> {{ icons.mdiDelete }} </v-icon>
           </template>
         </v-data-table>
@@ -76,8 +75,7 @@ export default {
         { text: 'Data', value: 'data', align: 'center', sortable: false, filterable: true},
         { text: 'Tipo',  value: 'tipo', align: 'center', sortable: false, filterable:true},
         { text: 'Descrição', value: 'data-table-expand', align: 'center', sortable: false },
-        { text: 'Editar',  value: 'editar', align: 'center', sortable: false},
-        { text: 'Desmarcar', value: 'desmarcar', align: 'center', sortable: false },
+        { text: 'Editar | Desmarcar',  value: 'action', align: 'center', sortable: false},
       ],
       efetuados: [],
       efetuado: {},

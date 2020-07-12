@@ -28,10 +28,10 @@
       class="elevation-1"
       no-data-text="Ainda não existem cursos">
       <template :elevation="0" v-slot:expanded-item="{ headers }">
-        <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+        <td :colspan="headers.length">
           <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
             <div v-if="expanded[0].objetivos !== defaultValue">
-              <p class="font-weight-black"> Objetivos: <span class="font-weight-regular">{{expanded[0].objetivos}}</span></p>
+              <p class="font-weight-regular">{{expanded[0].objetivos}} </p>
             </div>        
           </div>
         </td>
@@ -74,14 +74,14 @@ export default {
       singleExpand: true,
       defaultValue:'',
       headers: [
-        { text: 'Abreviatura', value: 'abreviatura', align: 'center', sortable: false, filterable: true},
-        { text: 'Nome',  value: 'nome', align: 'center', sortable: false, filterable:true},
-        { text: 'Semestres', value: 'semestres', align: 'center', sortable: false, filterable: true},
-        { text: 'ECTS', value: 'ECTS', align: 'center', sortable: false, filterable: true},
-        { text: 'Tipo', value: 'tipo', align: 'center', sortable: false, filterable: true},
-        { text: 'Vagas', value: 'vagas', align: 'center', sortable: false, filterable: true},
-        { text: 'Contato', value: 'contato', align: 'center', sortable: false, filterable: true},
-        { text: 'Detalhes', value: 'data-table-expand', align: 'center', sortable: false },
+        { text: 'Abreviatura', value: 'abreviatura', align: 'center', sortable: false },
+        { text: 'Nome',  value: 'nome', align: 'center', sortable: false },
+        { text: 'Semestres', value: 'semestres', align: 'center', sortable: false },
+        { text: 'ECTS', value: 'ECTS', align: 'center', sortable: false },
+        { text: 'Tipo', value: 'tipo', align: 'center', sortable: false },
+        { text: 'Vagas', value: 'vagas', align: 'center', sortable: false },
+        { text: 'Contato', value: 'contato', align: 'center', sortable: false },
+        { text: 'Objetivos', value: 'data-table-expand', align: 'center', sortable: false },
         { text: 'Editar', value: 'editar', align: 'center', sortable: false },
         { text: 'Remover', value: 'remover', align: 'center', sortable: false },
       ],

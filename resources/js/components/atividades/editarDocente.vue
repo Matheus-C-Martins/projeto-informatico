@@ -5,28 +5,14 @@
       <v-form lazy-validation>
         <v-row dense>
           <v-col>
-            <v-select label="Docente"
-              outlined
-              :items="docentes"
-              item-value="id"
-              item-text="nome"
-              v-model="docente.docente"
-              :error-messages="docenteErrors"
-              @input="$v.docente.docente.$touch()"
-              @blur="$v.docente.docente.$touch()"
-              dense
-              @keypress.enter.stop.prevent="save"
-            ></v-select>
-          </v-col>
-        </v-row>
-        <v-row dense>
-          <v-col>
             <v-textarea label="Descrição"
               clearable
               outlined
               v-model="docente.descricao_participacao"
+              :error-messages="docenteErrors"
+              @input="$v.docente.descricao_participacao.$touch()"
+              @blur="$v.docente.descricao_participacao.$touch()"
               dense
-              hide-details
             ></v-textarea>
           </v-col>
         </v-row>
@@ -50,7 +36,7 @@ export default {
   mixins: [validationMixin],
   validations: {
     docente: {
-      docente: { required },
+      descricao_participacao: { required },
     }
   },
   data() {
@@ -61,8 +47,8 @@ export default {
   computed: {
     docenteErrors() {
       const errors = [];
-      if (!this.$v.docente.docente.$dirty) return errors;
-      !this.$v.docente.docente.required && errors.push("É obrigatório escolher um docente");
+      if (!this.$v.docente.descricao_participacao.$dirty) return errors;
+      !this.$v.docente.descricao_participacao.required && errors.push("Não pode deixar este campo vazio");
       return errors;
     }
   },

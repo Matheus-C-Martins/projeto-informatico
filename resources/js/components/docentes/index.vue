@@ -67,10 +67,9 @@
       <template v-slot:item.atividades="{ item }">
         <v-icon small class="mr-2" @click="atividades(item)">{{ icons.mdiBookOpenPageVariant }}</v-icon>
       </template>
-      <template v-slot:item.editar="{ item }">
+      <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
-      </template>
-      <template v-slot:item.remover="{ item }">
+        <span>| &nbsp;</span>
         <v-icon small @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
       </template>
     </v-data-table>
@@ -118,8 +117,7 @@ export default {
         { text: 'Telemóvel',  value: 'telemovel', align: 'center', sortable: false, filterable:true },
         { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true },
         { text: 'Atividades', value: 'atividades', align: 'center', sortable: false },
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Remover', value: 'remover', align: 'center', sortable: false },
+        { text: 'Editar | Remover', value: 'action', align: 'center', sortable: false },
       ],
       docentes: [],
       editedIndex: -1,

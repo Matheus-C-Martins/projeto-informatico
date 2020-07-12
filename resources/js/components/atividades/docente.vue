@@ -20,13 +20,24 @@
         item-key="id"
         :options.sync="options"
         :server-items-length="totalDocentes"
+        :single-expand="singleExpand"
+        :expanded.sync="expanded"
+        show-expand
         :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
         class="elevation-1"
         no-data-text="Ainda não existem docentes associados a esta atividade">
-        <template v-slot:item.editar="{ item }">
-          <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
+        <template :elevation="0" v-slot:expanded-item="{ headers }">
+          <td :colspan="headers.length">
+            <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
+              <div v-if="expanded[0].descricao_participacao !== descriptionDefaultValue">
+                <p class="font-weight-regular">{{expanded[0].descricao_participacao}} </p>
+              </div>
+            </div>
+          </td>
         </template>
-        <template v-slot:item.desassociar="{ item }">
+        <template v-slot:item.action="{ item }">
+          <v-icon small class="mr-2" @click="editar(item)">{{ icons.mdiPencil }}</v-icon>
+          <span>| &nbsp;</span>
           <v-icon small class="mr-2" @click="desassociar(item)"> {{ icons.mdiDelete }} </v-icon>
         </template>
       </v-data-table>
@@ -62,11 +73,13 @@ export default {
       loading: true,
       totalDocentes: 0,
       options: {},
+      expanded: [],
+      singleExpand: true,
+      descriptionDefaultValue:'',
       headers: [
         { text: 'Docente', value: 'docente_nome', align: 'center', sortable: false},
-        { text: 'Descrição', value: 'descricao_participacao', align: 'center', sortable: false },
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Desassociar', value: 'desassociar', align: 'center', sortable: false },
+        { text: 'Descrição', value: 'data-table-expand', align: 'center', sortable: false },
+        { text: 'Editar | Desassociar', value: 'action', align: 'center', sortable: false },
       ],
       docentes: [],
       editedIndex: -1,

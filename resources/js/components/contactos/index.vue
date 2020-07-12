@@ -66,10 +66,9 @@
       :footer-props="{ itemsPerPageOptions: [5, 10, 20, 50] }"
       class="elevation-1"
       no-data-text="Ainda não existem contactos">
-      <template v-slot:item.editar="{ item }">
+      <template v-slot:item.action="{ item }">
         <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
-      </template>
-      <template v-slot:item.remover="{ item }">
+        <span>| &nbsp;</span>
         <v-icon small class="mr-2" @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
       </template>
       <template v-slot:item.escolas="{ item }">
@@ -79,7 +78,7 @@
     <v-dialog v-model="dialogEditar" max-width="700px">
       <editar-contacto @save="save" @close="close" :key="editarKey" :contacto="contacto"></editar-contacto>
     </v-dialog>
-    <v-dialog v-model="dialogEscolas" max-width="1000px">
+    <v-dialog v-model="dialogEscolas" max-width="800px">
       <contacto-escolas @close="close" :key="escolasKey" :contacto="contacto"></contacto-escolas>
     </v-dialog>
   </v-container>
@@ -124,9 +123,8 @@ export default {
         { text: 'Telefone',  value: 'telefone', align: 'center', sortable: false, filterable:true},
         { text: 'Email', value: 'email', align: 'center', sortable: false, filterable: true},
         { text: 'Sexo', value: 'sexo', align: 'center', sortable: false, filterable: true},
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Remover', value: 'remover', align: 'center', sortable: false },
         { text: 'Escolas', value: 'escolas', align: 'center', sortable: false },
+        { text: 'Editar | Remover', value: 'action', align: 'center', sortable: false },
       ],
       contactos: [],
       editedIndex: -1,

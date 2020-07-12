@@ -9,7 +9,7 @@
               outlined
               :items="docentes"
               item-value="id"
-              item-text="nome"
+              item-text="aux"
               v-model="docente.docente"
               :error-messages="docenteErrors"
               @input="$v.docente.docente.$touch()"
@@ -77,6 +77,9 @@ export default {
     getDocentes() {
       axios.get(`api/docentes`).then(response => {
         this.docentes = response.data.data;
+        this.docentes.forEach(docente => {
+          docente.aux = "Nome: " + docente.nome + ", email: " + docente.email;
+        });
       })
       .catch(response => {
         this.docentes = [];
@@ -87,11 +90,11 @@ export default {
       if(this.$v.$error) {
         return;
       }
-	  this.docentes.forEach(docente => {			
-	    if(this.docente.docente == docente.id) {
-		  this.email.email = docente.email;
-		}
-	  })
+      this.docentes.forEach(docente => {			
+        if(this.docente.docente == docente.id) {
+          this.email.email = docente.email;
+        }
+	    })
       this.$emit("associar", this.docente, this.email);
     }
   }

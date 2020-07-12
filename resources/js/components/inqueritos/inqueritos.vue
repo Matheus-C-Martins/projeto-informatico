@@ -18,10 +18,10 @@
         class="elevation-1"
         no-data-text="Ainda não existem respostas a este inquérito">
         <template :elevation="0" v-slot:expanded-item="{ headers }">
-          <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+          <td :colspan="headers.length">
             <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
               <div v-if="expanded[0].sugestao !== descriptionDefaultValue">
-                <p class="font-weight-black"> Sugestões: <span class="font-weight-regular">{{expanded[0].sugestao}}</span></p>
+                <p class="font-weight-regular">{{expanded[0].sugestao}} </p>
               </div>
             </div>
           </td>

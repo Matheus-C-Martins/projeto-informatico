@@ -81,7 +81,7 @@
         class="elevation-1"
         no-data-text="Ainda não existem participantes">
         <template :elevation="0" v-slot:expanded-item="{ headers }">
-          <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+          <td :colspan="headers.length">
             <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
               <div v-if="expanded[0].data_de_nascimento !== defaultValue">
                 <p class="font-weight-black"> Data de Nascimento: <span class="font-weight-regular">{{expanded[0].data_de_nascimento}}</span></p>
@@ -102,10 +102,9 @@
             </div>   
           </td>
         </template>
-        <template v-slot:item.editar="{ item }">
+        <template v-slot:item.action="{ item }">
           <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
-        </template>
-        <template v-slot:item.remover="{ item }">
+          <span>| &nbsp;</span>
           <v-icon small class="mr-2" @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
         </template>
       </v-data-table>
@@ -166,8 +165,7 @@ export default {
         { text: 'Região',  value: 'regiao', align: 'center', sortable: false, filterable:true },
         { text: 'Ano da Academia de Verão', value: 'academia_de_verao', align: 'center', sortable: false, filterable: true},
         { text: 'Detalhes', value: 'data-table-expand', align: 'center', sortable: false },
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Remover', value: 'remover', align: 'center', sortable: false },
+        { text: 'Editar | Remover', value: 'action', align: 'center', sortable: false },
       ],
       participantes: [],
       editedIndex: -1,

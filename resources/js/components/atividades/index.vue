@@ -96,7 +96,7 @@
       class="elevation-1"
       no-data-text="Ainda não existem atividades">
       <template :elevation="0" v-slot:expanded-item="{ headers }">
-        <td style="box-shadow:inset 0px 0px 0px 7px rgb(0, 0, 0)" :colspan="headers.length">
+        <td :colspan="headers.length">
           <div v-if="expanded.length" style="margin-top:15px; margin-bottom:15px">
             <div v-if="expanded[0].numero_alunos !== defaultValue">
               <p class="font-weight-black"> Número de Alunos: <span class="font-weight-regular">{{expanded[0].numero_alunos}}</span></p>
@@ -123,14 +123,14 @@
       <template v-slot:item.docentes="{ item }">
         <v-icon small class="mr-2" @click="docentes(item)"> {{ icons.mdiAccountTie }} </v-icon>
       </template>
-      <template v-slot:item.editar="{ item }">
-        <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
-      </template>
-      <template v-slot:item.remover="{ item }">
-        <v-icon small class="mr-2" @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
-      </template>
       <template v-slot:item.workshop="{ item }">
-        <button class="btn btn-secondary mr-2" @click="workshops(item)" v-if="item.tipo_atividade === 'Workshop'"> Workshops Associados </button>
+        <v-icon small class="mr-2" @click="workshops(item)" v-if="item.tipo_atividade === 'Workshop'"> {{ icons.mdiBookOpenVariant }} </v-icon>
+        <v-icon small class="mr-2" v-else> {{ icons.mdiCloseOctagon  }} </v-icon>
+      </template>
+      <template v-slot:item.action="{ item }">
+        <v-icon small class="mr-2" @click="edit(item)">{{ icons.mdiPencil }}</v-icon>
+        <span>| &nbsp;</span>
+        <v-icon small class="mr-2" @click="deleteItem(item)"> {{ icons.mdiDelete }} </v-icon>
       </template>
     </v-data-table>
     <v-dialog v-model="dialogEditar" max-width="700px">
@@ -139,7 +139,7 @@
     <v-dialog v-model="dialogWorkshop" max-width="900px">
       <workshop @close="close" :key="workshopKey" :atividade="atividade"></workshop>
     </v-dialog>
-    <v-dialog v-model="dialogDocente" max-width="900px">
+    <v-dialog v-model="dialogDocente" max-width="800px">
       <docente @close="close" :key="docenteKey" :atividade="atividade"></docente>
     </v-dialog>
   </v-container>
@@ -150,7 +150,7 @@ import EditarAtividade from "./editar";
 import CriarAtividade from "./criar";
 import Workshop from "./workshop";
 import Docente from "./docente";
-import { mdiPencil, mdiDelete, mdiAccountTie } from '@mdi/js';
+import { mdiPencil, mdiDelete, mdiAccountTie, mdiBookOpenVariant, mdiCloseOctagon } from '@mdi/js';
 
 export default {
   props: ["user"],
@@ -203,15 +203,14 @@ export default {
         { text: 'Tipo de Atividade', value: 'tipo_atividade', align: 'center', sortable: false, filterable: true},
         { text: 'Detalhes', value: 'data-table-expand', align: 'center', sortable: false },
         { text: 'Docentes', value: 'docentes', align: 'center', sortable: false },
-        { text: 'Editar', value: 'editar', align: 'center', sortable: false },
-        { text: 'Remover', value: 'remover', align: 'center', sortable: false },
-        { text: '', value: 'workshop', align: 'center', sortable: false },
+        { text: 'Workshops', value: 'workshop', align: 'center', sortable: false },
+        { text: 'Editar | Remover', value: 'action', align: 'center', sortable: false },
       ],
       atividades: [],
       editedIndex: -1,
       editedItem: {},
       atividade: {},
-      icons: { mdiPencil, mdiDelete, mdiAccountTie },
+      icons: { mdiPencil, mdiDelete, mdiAccountTie, mdiBookOpenVariant, mdiCloseOctagon },
       trinta:['04', '06', '09', '11'],
     };
   },
