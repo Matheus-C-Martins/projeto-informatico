@@ -10,10 +10,10 @@
           @logout="logout"
           :key="componentKey"
         ></sidebar>
-        <v-footer absolute color="#FFFFFF">
+        <v-footer absolute inset color="#FFFFFF">
           <v-row dense>
             <v-card tile flat width="100%">
-              <v-card-text>
+              <v-card-text style="padding-top: 0px; padding-bottom: 0px;">
                 <v-row align="end" justify="end">
                   ©2020, feito por Matheus Martins e Ivan Silva
                 </v-row>

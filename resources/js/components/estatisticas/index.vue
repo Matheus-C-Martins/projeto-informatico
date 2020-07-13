@@ -104,7 +104,7 @@ export default {
           'tempo': 'ano',
           'valor': '2020',
         },
-        'titulo': 'Quantidade de Atividades',
+        'titulo': 'Atividades',
       },
       metricas: {
         tempo:[
@@ -127,13 +127,13 @@ export default {
           tab: "#tab-0",
           label:"Quantidade",
           value:"num",
-          title:"Número de Atividades",
+          title:"Atividades",
         },
         {
           tab: "#tab-1",
-          label:"Proporção",
+          label:"Percentagem",
           value:"ratio",
-          title:"Proporção de Atividades",
+          title:"Atividades",
         },
       ],
       id: 0,
@@ -271,11 +271,7 @@ export default {
     },
     getData(tipo, titulo) {
       this.grafico = false;
-      if(tipo == 'ratio') {
-        titulo = "Proporção de Atividades";
-      } else {
-        titulo = "Número de Atividades";
-      }
+      titulo = "Atividades";
       axios.get(`api/atividades/estatisticas/${tipo}/${this.estatisticas.metrica.tempo}/${Number(this.estatisticas.metrica.valor)}/`).then(response => {
         this.takeData(response, tipo, titulo);
       })
@@ -285,11 +281,7 @@ export default {
     },
     getDataParticipantes(tipo, titulo) {
       this.grafico = false;
-      if(tipo == 'ratio') {
-        titulo = "Proporção de Participantes";
-      } else {
-        titulo = "Número de Participantes";
-      }
+      titulo = "Participantes";
       axios.get(`api/atividades/participantes/${tipo}/${this.estatisticas.metrica.tempo}/${Number(this.estatisticas.metrica.valor)}/`).then(response => {
         this.takeData(response, tipo, titulo);
       })
@@ -299,11 +291,7 @@ export default {
     },
     getDataWorkshops(tipo, titulo) {
       this.grafico = false;
-      if(tipo == 'ratio') {
-        titulo = "Proporção de Worlshops";
-      } else {
-        titulo = "Número de Workshops";
-      }
+      titulo = "Worlshops";
       axios.get(`api/atividades/workshops/${tipo}/${this.estatisticas.metrica.tempo}/${Number(this.estatisticas.metrica.valor)}/`).then(response => {
         this.takeDataWorkshop(response, tipo, titulo);
       })
@@ -317,18 +305,19 @@ export default {
         this.ratioOptions.title.text = titulo;
         this.estatisticas.titulo = this.ratioOptions.title.text;
 
-        var total = Number(response.data.workshop[0].value) + Number(response.data.diaEstg[0].value) + Number(response.data.seminario[0].value);
+        var total = Number(response.data.workshop[0].value) + Number(response.data.diaEstg[0].value) + Number(response.data.seminario[0].value) + Number(response.data.visita[0].value);
         var workshop = Number(response.data.workshop[0].value)*100/total;
         var diaEstg = Number(response.data.diaEstg[0].value)*100/total;
         var seminario = Number(response.data.seminario[0].value)*100/total;
+        var visita = Number(response.data.visita[0].value)*100/total;
    
-        if(isNaN(workshop) || isNaN(diaEstg) || isNaN(seminario)){
+        if(isNaN(workshop) || isNaN(diaEstg) || isNaN(seminario) || isNaN(visita)) {
           Vue.toasted.error("Sem dados para apresentar");
           this.grafico = true;
           return;
         }
 
-        this.seriesRatio=[workshop, diaEstg, seminario];
+        this.seriesRatio=[workshop, diaEstg, seminario, visita];
         this.grafico = true;
         return;
       }
@@ -412,7 +401,14 @@ export default {
         this.estatisticas.metrica.valor = new Date().getFullYear();
         this.estatisticas.metrica.tempo = 'ano';
       }
-      this.getData(this.estatisticas.tipo, this.estatisticas.titulo);
+      
+      if(this.estatisticas.titulo === "Atividades") {
+        this.getData(this.estatisticas.tipo, this.estatisticas.titulo);
+      } else if(this.estatisticas.titulo === "Participantes") {
+        this.getDataParticipantes(this.estatisticas.tipo, this.estatisticas.titulo);
+      } else {
+        this.getDataWorkshops(this.estatisticas.tipo, this.estatisticas.titulo);
+      }      
     },
   },
   created() {
@@ -420,7 +416,7 @@ export default {
     this.estatisticas.metrica.valor = anoAtual;
     var inicio = 2000;
     while (inicio <= anoAtual) {
-        anos.push(inicio++);
+      anos.push(inicio++);
     }
     this.metricas.tempo[1].values = anos.reverse();
 

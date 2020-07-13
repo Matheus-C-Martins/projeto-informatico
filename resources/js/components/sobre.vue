@@ -29,7 +29,7 @@
       <v-footer app inset absolute color="#FFFFFF">
         <v-row dense>
           <v-card tile flat width="100%">
-            <v-card-text>
+            <v-card-text style="padding-top: 0px; padding-bottom: 0px;">
               <v-row align="end" justify="end">
                 ©2020, feito por Matheus Martins e Ivan Silva
               </v-row>
