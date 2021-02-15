@@ -26,7 +26,7 @@
     "dependencies": {
         "@mdi/js": "^5.0.45",
         "@types/date-fns": "^2.6.0",
-        "apexcharts": "^3.18.1",
+        "apexcharts": "^3.24.0",
         "chart.js": "^2.9.3",
         "date-fns": "^2.11.1",
         "vue-apexcharts": "^1.5.3",
